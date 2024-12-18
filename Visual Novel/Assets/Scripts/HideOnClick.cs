@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class HideOnClick : MonoBehaviour
 {
-    [SerializeField] private EventManager eventManager;
+    [SerializeField] private MapManager mapManager;
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             gameObject.SetActive(false);
-            eventManager.UpdateInfo();
+            mapManager.UpdateInfo();
         }
     }
 }

@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 308455146}
   - component: {fileID: 308455145}
   m_Layer: 0
-  m_Name: CharacterManager
+  m_Name: Character Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -290,20 +290,20 @@ MonoBehaviour:
   - name: Orange
     relationship: 0
     schedule:
-    - {x: 4, y: 2, z: 1}
+    - {x: 4, y: 0, z: 1}
     - {x: 0, y: 0, z: 1}
     icon: {fileID: 396746444}
   - name: Green
     relationship: 0
     schedule:
-    - {x: 4, y: 4, z: 4}
-    - {x: 0, y: 0, z: 1}
+    - {x: 4, y: 4, z: 0}
+    - {x: 0, y: 0, z: 0}
     icon: {fileID: 1827430888}
   - name: Purple
     relationship: 0
     schedule:
     - {x: 0, y: 1, z: 2}
-    - {x: 3, y: 4, z: 1}
+    - {x: 0, y: 0, z: 1}
     icon: {fileID: 1607502517}
 --- !u!4 &308455146
 Transform:
@@ -313,8 +313,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308455144}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 380.17218, y: 219.26929, z: -2.625789}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -661,6 +661,56 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &532558953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 532558955}
+  - component: {fileID: 532558954}
+  m_Layer: 0
+  m_Name: Player Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &532558954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532558953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8f439672b1f164b99dd35649ee3dd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Ivy
+  prereqs: []
+  up: 0
+  left: 0
+  down: 0
+  right: 0
+--- !u!4 &532558955
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532558953}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1065,6 +1115,137 @@ RectTransform:
   m_AnchoredPosition: {x: 151.95331, y: 156.1127}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1223302917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1223302919}
+  - component: {fileID: 1223302918}
+  m_Layer: 0
+  m_Name: Event Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1223302918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223302917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19665dfc4c8e4434b9489e252ca99e1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events:
+  - name: Failed Event
+    chars: []
+    loc: 5
+    timing: []
+    prereqsNeeded: []
+    prereqsGained: []
+    played: 0
+  - name: Orange Intro
+    chars:
+    - Orange
+    loc: 0
+    timing: []
+    prereqsNeeded: []
+    prereqsGained: []
+    played: 0
+  - name: Drama!
+    chars:
+    - Orange
+    - Green
+    - Purple
+    loc: 0
+    timing: []
+    prereqsNeeded: []
+    prereqsGained: []
+    played: 0
+  - name: Betrayal? (Orange)
+    chars:
+    - Orange
+    loc: 3
+    timing: []
+    prereqsNeeded: []
+    prereqsGained: []
+    played: 0
+  - name: Betrayal? (Green)
+    chars:
+    - Green
+    loc: 3
+    timing: []
+    prereqsNeeded: []
+    prereqsGained: []
+    played: 0
+  - name: Betrayal? (Purple)
+    chars:
+    - Purple
+    loc: 3
+    timing: []
+    prereqsNeeded: []
+    prereqsGained: []
+    played: 0
+  - name: Purple Questline 1
+    chars:
+    - Purple
+    loc: 0
+    timing: []
+    prereqsNeeded: []
+    prereqsGained:
+    - purple-quest-1
+    played: 0
+  - name: Purple Questline 2
+    chars:
+    - Purple
+    loc: 2
+    timing: []
+    prereqsNeeded:
+    - purple-quest-1
+    prereqsGained:
+    - purple-quest-2
+    played: 0
+  - name: Purple Questline 3
+    chars:
+    - Purple
+    loc: 0
+    timing: []
+    prereqsNeeded:
+    - purple-quest-2
+    prereqsGained:
+    - purple-quest-done
+    played: 0
+  - name: Green Day-to-Day
+    chars:
+    - Green
+    loc: 0
+    timing: []
+    prereqsNeeded: []
+    prereqsGained: []
+    played: 0
+--- !u!4 &1223302919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223302917}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1246379376
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,7 +1606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f8ba976d691c24f989ce9bdecdbb06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventManager: {fileID: 1734410937}
+  mapManager: {fileID: 1734410937}
 --- !u!1 &1410403254
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,7 +1827,7 @@ GameObject:
   - component: {fileID: 1734410938}
   - component: {fileID: 1734410937}
   m_Layer: 0
-  m_Name: EventManager
+  m_Name: Map Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1679,7 +1860,6 @@ MonoBehaviour:
     charsHere: []
   eventSummary: {fileID: 1328221689}
   timeTxt: {fileID: 260403386}
-  charManager: {fileID: 308455145}
 --- !u!4 &1734410938
 Transform:
   m_ObjectHideFlags: 0
@@ -1689,7 +1869,7 @@ Transform:
   m_GameObject: {fileID: 1734410936}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 380.17218, y: 219.26929, z: -2.625789}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2074,6 +2254,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 532558955}
+  - {fileID: 1223302919}
   - {fileID: 1734410938}
   - {fileID: 308455146}
   - {fileID: 619394802}

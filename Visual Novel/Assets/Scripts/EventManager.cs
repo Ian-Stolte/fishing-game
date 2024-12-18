@@ -1,84 +1,122 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class EventManager : MonoBehaviour
 {
-    public Location[] locations;
-
-    [SerializeField] private GameObject eventSummary;
-    [SerializeField] private GameObject timeTxt;
-    private int currentDay;
-    private int currentLoop = 1;
-
-    [SerializeField] private CharacterManager charManager;
+    public Event[] events;
+    private CharacterManager charManager;
+    private PlayerManager player;
 
 
-
-
-    void Start()
+    private void Start()
     {
-        UpdateInfo();
+        charManager = GameObject.Find("Character Manager").GetComponent<CharacterManager>();
+        player = GameObject.Find("Player Manager").GetComponent<PlayerManager>();
     }
 
-    public void SelectLocation(int n)
+    public Event SelectEvent(int loc, List<string> charsHere, int day, int loop)
     {
-        eventSummary.SetActive(true);
-        eventSummary.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "You head to the " + locations[n].name + "...";
-        string chars = "You encounter: ";
-        bool anyChars = false;
-        foreach(string name in locations[n].charsHere)
+        List<Event> candidates = new List<Event>();
+        foreach (Event e in events)
         {
-            chars += name + ", ";
-            anyChars = true;
-        }
-        if (anyChars)
-            eventSummary.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = chars.Substring(0, chars.Length-2);
-        else
-            eventSummary.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "You have a great time!";
-        
-    }
-
-
-    public void UpdateInfo()
-    {
-        foreach (Location l in locations)
-        {
-            l.charsHere.Clear();
-        }
-
-        currentDay++;
-        if (currentDay > 3)
-        {
-            currentDay = 1;
-            currentLoop++;
-        }
-        timeTxt.GetComponent<TextMeshProUGUI>().text = "Day " + currentDay + ", Loop " + currentLoop;
-        foreach (Character c in charManager.characters)
-        {
-            Vector3 loop = c.schedule[currentLoop-1];
-            int loc = 0;
-            if (currentDay == 1)
-                loc = (int)loop.x;
-            else if (currentDay == 2)
-                loc = (int)loop.y;
-            else if (currentDay == 3)
-                loc = (int)loop.z;
-
-            if (loc != 0)
+            if (ValidEvent(e, loc, charsHere, day, loop))
             {
-                locations[loc-1].charsHere.Add(c.name);
-                //c.icon.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
-                //Debug.Log(c.name + " -> " + locations[loc-1].name);
-                //Debug.Log(locations[loc-1].iconPos);
-                c.icon.GetComponent<RectTransform>().anchoredPosition = locations[loc-1].iconPos.anchoredPosition - new Vector2(0, 50*(locations[loc-1].charsHere.Count-1));
-                c.icon.SetActive(true);
-            }
-            else
-            {
-                c.icon.SetActive(false);
+                candidates.Add(e);
+                Debug.Log("Adding " + e.name);
             }
         }
+        if (candidates.Count == 0)
+        {
+            Debug.Log("NO VALID EVENTS!!");
+            return events[0];
+        }
+        return candidates[UnityEngine.Random.Range(0, candidates.Count)];
     }
+
+    private bool ValidEvent(Event e, int loc, List<string> charsHere, int day, int loop)
+    {
+        Debug.Log("Checking " + e.name + "...");
+        //filter by already played
+        if (e.played)
+        {
+            Debug.Log("ALREADY PLAYED!");
+            return false;
+        }
+        //filter by loc
+        if ((e.loc != loc && e.loc != 0))
+        {
+            Debug.Log("WRONG LOC (needs " + e.loc + ")");
+            return false;
+        }
+        //filter by timing
+        if (e.timing.Length > 0)
+        {
+            if (GetVec3(e.timing, day, loop) == 0)
+            {
+                Debug.Log("WRONG TIMING");
+                return false;
+            }
+        }
+        //filter by prereqs
+        foreach (string req in e.prereqsNeeded)
+        {
+            if (!player.prereqs.Contains(req))
+            {
+                Debug.Log("MISSING PREREQ (" + req + ")");
+                return false;
+            }
+        }
+        //filter by chars at loc
+        foreach (string c in charsHere)
+        {
+            if (Array.IndexOf(e.chars, c) == -1)
+            {
+                Debug.Log("DOESN'T INCLUDE CHARACTER PRESENT (" + c + ")");
+                return false;
+            }
+        }
+        //filter by chars in event
+        foreach (string character in e.chars)
+        {
+            foreach (Character c in charManager.characters)
+            {
+                if (c.name == character)
+                {
+                    int currentLoc = GetVec3(c.schedule, day, loop);
+                    if (currentLoc != loc && currentLoc != 0)
+                    {
+                        Debug.Log("NECESSARY CHARACTER IS SOMEWHERE ELSE (" + c.name + ")");
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private int GetVec3(Vector3[] vec, int day, int loop)
+    {
+        if (day == 1)
+            return (int)vec[loop-1].x;
+        else if (day == 2)
+            return (int)vec[loop-1].y;
+        else if (day == 3)
+            return (int)vec[loop-1].z;
+        return 0;
+    }
+}
+
+
+[System.Serializable]
+public class Event
+{
+    public string name;
+    public string[] chars;
+    public int loc; //0 = anywhere, 1-4 = locations
+    public Vector3[] timing;
+    public string[] prereqsNeeded;
+    public string[] prereqsGained;
+    public bool played;
 }
