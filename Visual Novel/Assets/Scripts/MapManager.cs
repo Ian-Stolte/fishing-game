@@ -8,6 +8,9 @@ public class MapManager : MonoBehaviour
     public Location[] locations;
 
     [SerializeField] private GameObject eventSummary;
+    [SerializeField] private GameObject eventBG;
+    [SerializeField] private Transform eventSprites;
+    [SerializeField] private TextMeshProUGUI eventTxt;
     [SerializeField] private GameObject timeTxt;
     private int currentDay;
     private int currentLoop = 1;
@@ -27,10 +30,33 @@ public class MapManager : MonoBehaviour
 
     public void SelectLocation(int n)
     {
-        eventSummary.SetActive(true);
+        /*eventSummary.SetActive(true);
         eventSummary.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "You head to the " + locations[n].name + "...";
         Event e = eventManager.SelectEvent(n+1, locations[n].charsHere, currentDay, currentLoop);
-        eventSummary.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "You trigger: " + e.name;
+        eventSummary.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "You trigger: " + e.name;*/
+        eventBG.SetActive(true);
+        eventBG.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = locations[n].name;
+        Event e = eventManager.SelectEvent(n+1, locations[n].charsHere, currentDay, currentLoop);
+        eventBG.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = e.name;
+        eventTxt.text = e.description;
+        List<GameObject> sprites = new List<GameObject>();
+        foreach (string name in e.chars)
+        {
+            foreach (Character c in charManager.characters)
+            {
+                if (name == c.name)
+                {
+                    sprites.Add(c.sprite);
+                }
+            }
+        }
+        foreach (Transform child in eventSprites)
+            child.gameObject.SetActive(false);
+        for (int i = 0; i < sprites.Count; i++)
+        {
+            sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-70*(sprites.Count-1) + 140*i, 6.5f);
+            sprites[i].SetActive(true);
+        }
         foreach (string req in e.prereqsGained)
             player.prereqs.Add(req);
         e.played = true;
@@ -81,14 +107,5 @@ public class Location
 {
     public string name;
     public RectTransform iconPos;
-    //public CharacterPct[] characterPcts;
     public List<string> charsHere;
-}
-
-[System.Serializable]
-public class CharacterPct
-{
-    public float orange;
-    public float green;
-    public float purple;
 }

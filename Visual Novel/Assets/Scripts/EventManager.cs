@@ -113,6 +113,7 @@ public class EventManager : MonoBehaviour
 public class Event
 {
     public string name;
+    public string description;
     public string[] chars;
     public int loc; //0 = anywhere, 1-4 = locations
     public Vector3[] timing;

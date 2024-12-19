@@ -15,4 +15,5 @@ public class Character
     public int relationship;
     public Vector3[] schedule; //0 = undecided, 1-4 = locations
     public GameObject icon;
+    public GameObject sprite;
 }
