@@ -8,8 +8,10 @@ public class PlayerManager : MonoBehaviour
     public List<string> prereqs;
     
     //stats
-    public int up;
-    public int left;
-    public int down;
-    public int right;
+    public int arts;
+    public int smarts;
+    public int heart;
+    public int charm;
+
+    public int money;
 }

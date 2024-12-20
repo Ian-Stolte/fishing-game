@@ -9,6 +9,7 @@ public class MapManager : MonoBehaviour
 
     [SerializeField] private GameObject eventSummary;
     [SerializeField] private GameObject eventBG;
+    [SerializeField] private GameObject getStuff;
     [SerializeField] private Transform eventSprites;
     [SerializeField] private TextMeshProUGUI eventTxt;
     [SerializeField] private GameObject timeTxt;
@@ -30,15 +31,13 @@ public class MapManager : MonoBehaviour
 
     public void SelectLocation(int n)
     {
-        /*eventSummary.SetActive(true);
-        eventSummary.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "You head to the " + locations[n].name + "...";
         Event e = eventManager.SelectEvent(n+1, locations[n].charsHere, currentDay, currentLoop);
-        eventSummary.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "You trigger: " + e.name;*/
+        
         eventBG.SetActive(true);
+        StartCoroutine(eventBG.GetComponent<EventPlayer>().NewDialogue(e.dialogue, (n!=0)));
+        getStuff.SetActive(n==0);
         eventBG.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = locations[n].name;
-        Event e = eventManager.SelectEvent(n+1, locations[n].charsHere, currentDay, currentLoop);
         eventBG.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = e.name;
-        eventTxt.text = e.description;
         List<GameObject> sprites = new List<GameObject>();
         foreach (string name in e.chars)
         {
@@ -54,7 +53,17 @@ public class MapManager : MonoBehaviour
             child.gameObject.SetActive(false);
         for (int i = 0; i < sprites.Count; i++)
         {
-            sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-70*(sprites.Count-1) + 140*i, 6.5f);
+            if (n == 0)
+            {
+                int[] spriteX = new int[]{-170, 170, -270};
+                if (sprites.Count > 2)
+                    spriteX[0] = -140;
+                sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(spriteX[i], 6.5f);
+            }
+            else
+            {
+                sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-70*(sprites.Count-1) + 140*i, 6.5f);
+            }
             sprites[i].SetActive(true);
         }
         foreach (string req in e.prereqsGained)
