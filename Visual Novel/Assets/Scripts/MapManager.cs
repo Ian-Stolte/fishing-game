@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class MapManager : MonoBehaviour
@@ -8,13 +9,21 @@ public class MapManager : MonoBehaviour
     public Location[] locations;
 
     [SerializeField] private GameObject eventSummary;
-    [SerializeField] private GameObject eventBG;
     [SerializeField] private GameObject getStuff;
     [SerializeField] private Transform eventSprites;
     [SerializeField] private TextMeshProUGUI eventTxt;
+    
     [SerializeField] private GameObject timeTxt;
-    private int currentDay;
-    private int currentLoop = 1;
+    private int time = -1;
+    private int day = 1;
+    private string[] timeStrings = new string[]{"Morning", "Afternoon", "Evening"};
+
+    [SerializeField] private GameObject eveningOverlay;
+    [SerializeField] private GameObject mapBG;
+    [SerializeField] private GameObject locBG;
+    [SerializeField] private Color[] mapColors;
+
+
 
     private CharacterManager charManager;
     private EventManager eventManager;
@@ -31,13 +40,12 @@ public class MapManager : MonoBehaviour
 
     public void SelectLocation(int n)
     {
-        Event e = eventManager.SelectEvent(n+1, locations[n].charsHere, currentDay, currentLoop);
+        Event e = eventManager.SelectEvent(n+1, locations[n].charsHere, time, day);
         
-        eventBG.SetActive(true);
-        StartCoroutine(eventBG.GetComponent<EventPlayer>().NewDialogue(e.dialogue, (n!=0)));
+        locBG.SetActive(true);
         getStuff.SetActive(n==0);
-        eventBG.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = locations[n].name;
-        eventBG.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = e.name;
+        locBG.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = locations[n].name;
+        locBG.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = e.name;
         List<GameObject> sprites = new List<GameObject>();
         foreach (string name in e.chars)
         {
@@ -51,49 +59,40 @@ public class MapManager : MonoBehaviour
         }
         foreach (Transform child in eventSprites)
             child.gameObject.SetActive(false);
-        for (int i = 0; i < sprites.Count; i++)
-        {
-            if (n == 0)
-            {
-                int[] spriteX = new int[]{-170, 170, -270};
-                if (sprites.Count > 2)
-                    spriteX[0] = -140;
-                sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(spriteX[i], 6.5f);
-            }
-            else
-            {
-                sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-70*(sprites.Count-1) + 140*i, 6.5f);
-            }
-            sprites[i].SetActive(true);
-        }
         foreach (string req in e.prereqsGained)
             player.prereqs.Add(req);
         e.played = true;
+        StartCoroutine(locBG.GetComponent<EventPlayer>().SetupEvent(e.dialogue, n, time, sprites, (n!=0)));
     }
 
     public void UpdateInfo()
     {
+        //update day & time
+        time++;
+        if (time > 2)
+        {
+            time = 0;
+            day++;
+        }
+        timeTxt.GetComponent<TextMeshProUGUI>().text =  "Day " + day + " - " + timeStrings[time];
+        mapBG.GetComponent<Image>().color = mapColors[time];
+        locBG.GetComponent<Image>().color = mapColors[time];
+        eveningOverlay.SetActive(time==2);
+
+        //move character icons
         foreach (Location l in locations)
         {
             l.charsHere.Clear();
         }
-
-        currentDay++;
-        if (currentDay > 3)
-        {
-            currentDay = 1;
-            currentLoop++;
-        }
-        timeTxt.GetComponent<TextMeshProUGUI>().text = "Day " + currentDay + ", Loop " + currentLoop;
         foreach (Character c in charManager.characters)
         {
-            Vector3 loop = c.schedule[currentLoop-1];
+            Vector3 loop = c.schedule[(day-1)%c.schedule.Length];
             int loc = 0;
-            if (currentDay == 1)
+            if (time == 0)
                 loc = (int)loop.x;
-            else if (currentDay == 2)
+            else if (time == 1)
                 loc = (int)loop.y;
-            else if (currentDay == 3)
+            else if (time == 2)
                 loc = (int)loop.z;
 
             if (loc != 0)

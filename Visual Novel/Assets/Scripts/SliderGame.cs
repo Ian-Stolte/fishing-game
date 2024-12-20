@@ -12,8 +12,13 @@ public class SliderGame : MonoBehaviour
 
     [SerializeField] private float rarePct;
 
-    private string[] defaultFish = new string[]{"Red Mackler", "Arpeggiated Bass", "Endoryte", "Scaled Swimmer", "Tenderfin"};
-    private string[] rareFish = new string[]{"Pearl-catcher", "Lluria", "Angel Tuna", "Sallow Ray"};
+    private FishTracker fishTracker;
+
+
+    void Start()
+    {
+        fishTracker = GameObject.Find("Fish Tracker").GetComponent<FishTracker>();
+    }
 
     void OnEnable()
     {
@@ -33,17 +38,17 @@ public class SliderGame : MonoBehaviour
             if (yVal < 15)
             {
                 fishQuality.text = "High-Quality catch!";
-                CatchFish(Random.Range(0f, 1f) < rarePct);
+                fishTracker.CatchFish(Random.Range(0f, 1f) < rarePct, 2, fishType);
             }
             else if (yVal < 40)
             {
                 fishQuality.text = "Medium-Quality catch";
-                CatchFish(false);
+                fishTracker.CatchFish(false, 1, fishType);
             }
             else if (yVal < 70)
             {
                 fishQuality.text = "Low-Quality catch";
-                CatchFish(false);
+                fishTracker.CatchFish(false, 0, fishType);
             }
             else
             {
@@ -52,14 +57,5 @@ public class SliderGame : MonoBehaviour
             }
             fishPopup.SetActive(true);
         }
-    }
-
-    private void CatchFish(bool rare)
-    {
-        if (rare)
-            fishType.text = "You caught a rare fish: a <b>" + rareFish[Random.Range(0, rareFish.Length)] + "</b>!";
-        else
-            fishType.text = "You caught a <b>" + defaultFish[Random.Range(0, defaultFish.Length)] + "</b>";
-        //add fish to inventory
     }
 }

@@ -24,12 +24,12 @@ public class EventManager : MonoBehaviour
             if (ValidEvent(e, loc, charsHere, day, loop))
             {
                 candidates.Add(e);
-                Debug.Log("Adding " + e.name);
+                //Debug.Log("Adding " + e.name);
             }
         }
         if (candidates.Count == 0)
         {
-            Debug.Log("NO VALID EVENTS!!");
+            //Debug.Log("NO VALID EVENTS!!");
             return events[0];
         }
         return candidates[UnityEngine.Random.Range(0, candidates.Count)];
@@ -37,34 +37,34 @@ public class EventManager : MonoBehaviour
 
     private bool ValidEvent(Event e, int loc, List<string> charsHere, int day, int loop)
     {
-        Debug.Log("Checking " + e.name + "...");
+        //Debug.Log("Checking " + e.name + "...");
         //filter by already played
         if (e.played)
         {
-            Debug.Log("ALREADY PLAYED!");
+            //Debug.Log("ALREADY PLAYED!");
             return false;
         }
         //filter by loc
         if ((e.loc != loc && e.loc != 0))
         {
-            Debug.Log("WRONG LOC (needs " + e.loc + ")");
+            //Debug.Log("WRONG LOC (needs " + e.loc + ")");
             return false;
         }
         //filter by timing
-        if (e.timing.Length > 0)
+        /*if (e.timing.Length > 0)
         {
             if (GetVec3(e.timing, day, loop) == 0)
             {
-                Debug.Log("WRONG TIMING");
+                //Debug.Log("WRONG TIMING");
                 return false;
             }
-        }
+        }*/
         //filter by prereqs
         foreach (string req in e.prereqsNeeded)
         {
             if (!player.prereqs.Contains(req))
             {
-                Debug.Log("MISSING PREREQ (" + req + ")");
+                //Debug.Log("MISSING PREREQ (" + req + ")");
                 return false;
             }
         }
@@ -73,7 +73,7 @@ public class EventManager : MonoBehaviour
         {
             if (Array.IndexOf(e.chars, c) == -1)
             {
-                Debug.Log("DOESN'T INCLUDE CHARACTER PRESENT (" + c + ")");
+                //Debug.Log("DOESN'T INCLUDE CHARACTER PRESENT (" + c + ")");
                 return false;
             }
         }
@@ -87,7 +87,7 @@ public class EventManager : MonoBehaviour
                     int currentLoc = GetVec3(c.schedule, day, loop);
                     if (currentLoc != loc && currentLoc != 0)
                     {
-                        Debug.Log("NECESSARY CHARACTER IS SOMEWHERE ELSE (" + c.name + ")");
+                        //Debug.Log("NECESSARY CHARACTER IS SOMEWHERE ELSE (" + c.name + ")");
                         return false;
                     }
                 }
@@ -98,12 +98,13 @@ public class EventManager : MonoBehaviour
 
     private int GetVec3(Vector3[] vec, int day, int loop)
     {
-        if (day == 1)
-            return (int)vec[loop-1].x;
+        
+        if (day == 0)
+            return (int)vec[(loop-1)%vec.Length].x;
+        else if (day == 1)
+            return (int)vec[(loop-1)%vec.Length].y;
         else if (day == 2)
-            return (int)vec[loop-1].y;
-        else if (day == 3)
-            return (int)vec[loop-1].z;
+            return (int)vec[(loop-1)%vec.Length].z;
         return 0;
     }
 }
@@ -116,7 +117,7 @@ public class Event
     public string[] dialogue;
     public string[] chars;
     public int loc; //0 = anywhere, 1-4 = locations
-    public Vector3[] timing;
+    //public Vector3[] timing;
     public string[] prereqsNeeded;
     public string[] prereqsGained;
     public bool played;
