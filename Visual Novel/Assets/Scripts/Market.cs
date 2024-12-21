@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Market : MonoBehaviour
@@ -8,14 +9,24 @@ public class Market : MonoBehaviour
     [SerializeField] private GameObject inventoryBox;
     [SerializeField] private Transform inventoryParent;
     [SerializeField] private Transform deals;
+    [SerializeField] private GameObject sellPopup;
+    [SerializeField] private Color dealColor;
+    [SerializeField] private Color priceColor;
     public bool visitedToday;
 
+    private Fish[] sortedFish;
+    private Fish hoveredFish;
+    private Transform hoveredBox;
+
     [SerializeField] private int numDeals;
+    
+    [SerializeField] private PlayerManager player;
     [SerializeField] private FishTracker fishTracker;
 
 
     void Start()
     {
+        player = GameObject.Find("Player Manager").GetComponent<PlayerManager>();
         fishTracker = GameObject.Find("Fish Tracker").GetComponent<FishTracker>();
     }
 
@@ -45,7 +56,7 @@ public class Market : MonoBehaviour
             Destroy(child.gameObject);
         }
         
-        Fish[] sortedFish = fishTracker.SortByQuantity();
+        sortedFish = fishTracker.SortByQuantity();
         for (int i = 0; i < 12; i++)
         {
             GameObject box = null;
@@ -61,6 +72,8 @@ public class Market : MonoBehaviour
                 {
                     box.transform.GetChild(3).gameObject.SetActive(true); //show disable filter
                 }
+                int index = i;
+                box.GetComponent<Button>().onClick.AddListener(() => ShowSellPopup(index));
             }
             else
             {
@@ -68,5 +81,65 @@ public class Market : MonoBehaviour
             }
             box.GetComponent<RectTransform>().anchoredPosition = new Vector2(-100 + 75*(i%4), 70 - 75*(i/4));
         }
+    }
+
+    public void ShowSellPopup(int n)
+    {
+        hoveredFish = sortedFish[n];
+        hoveredBox = inventoryParent.GetChild(n);
+        sellPopup.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = hoveredFish.name;
+        if (hoveredFish.dealPrice != 0)
+        {
+            sellPopup.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = hoveredFish.dealPrice + " sp.";
+            sellPopup.transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = dealColor;
+        }
+        else
+        {
+            sellPopup.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "" + hoveredFish.price + " sp.";
+            sellPopup.transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = priceColor;
+        }
+        SetSellQuantities();
+        sellPopup.SetActive(true);
+    }
+
+    public void SellFish(int n)
+    {
+        foreach (Fish f in fishTracker.fish)
+        {
+            if (f.name == hoveredFish.name)
+            {
+                if (n == 0)
+                {
+                    f.currentTotal.z--;
+                    player.money += Mathf.Max(f.dealPrice, f.price);
+                }
+                else if (n == 1)
+                {
+                    f.currentTotal.y--;
+                    player.money += (int)Mathf.Round(Mathf.Max(f.dealPrice, f.price) * 0.6f);
+                }
+                else if (n == 2)
+                {
+                    f.currentTotal.x--;
+                    player.money += (int)Mathf.Round(Mathf.Max(f.dealPrice, f.price) * 0.3f);
+                }
+                hoveredBox.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + hoveredFish.Quantity();
+                if (hoveredFish.Quantity() == 0)
+                    hoveredBox.GetChild(3).gameObject.SetActive(true);
+                SetSellQuantities();
+                break;
+            }
+        }
+    }
+
+    private void SetSellQuantities()
+    {
+        sellPopup.transform.GetChild(3).GetChild(2).GetComponent<Button>().interactable = (hoveredFish.currentTotal.z > 0);
+        sellPopup.transform.GetChild(4).GetChild(2).GetComponent<Button>().interactable = (hoveredFish.currentTotal.y > 0);
+        sellPopup.transform.GetChild(5).GetChild(2).GetComponent<Button>().interactable = (hoveredFish.currentTotal.x > 0);
+        
+        sellPopup.transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + hoveredFish.currentTotal.z; //high
+        sellPopup.transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + hoveredFish.currentTotal.y; //medium
+        sellPopup.transform.GetChild(5).GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + hoveredFish.currentTotal.x; //low
     }
 }
