@@ -7,6 +7,9 @@ public class EventPlayer : MonoBehaviour
 {
     [SerializeField] private MapManager mapManager;
 
+    [SerializeField] private GameObject fishingGame;
+    [SerializeField] private GameObject market;
+
     private bool canClick = true;
     public bool readyToReturn;
 
@@ -40,22 +43,7 @@ public class EventPlayer : MonoBehaviour
                 txtBox.text = dialogue[index];
                 if (index == 0)
                 {
-                    //show sprites
-                    for (int i = 0; i < sprites.Count; i++)
-                    {
-                        if (loc == 0)
-                        {
-                            int[] spriteX = new int[]{-170, 170, -270};
-                            if (sprites.Count > 2)
-                                spriteX[0] = -140;
-                            sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(spriteX[i], 6.5f);
-                        }
-                        else
-                        {
-                            sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-70*(sprites.Count-1) + 140*i, 6.5f);
-                        }
-                        sprites[i].SetActive(true);
-                    }
+                    ShowEvent();
                 }
             }
             else
@@ -65,7 +53,7 @@ public class EventPlayer : MonoBehaviour
         }
     }
 
-    public IEnumerator SetupEvent(string[] newDialogue, int newLoc, int time, List<GameObject> newSprites, bool dialogueOnly)
+    public void SetupEvent(string[] newDialogue, int newLoc, int time, List<GameObject> newSprites, bool dialogueOnly)
     {
         dialogue = newDialogue;
         index = -1;
@@ -73,6 +61,31 @@ public class EventPlayer : MonoBehaviour
         loc = newLoc;
         txtBox.text = locationTxt[loc, time];
         readyToReturn = dialogueOnly;
-        yield return null;
+        fishingGame.SetActive(false);
+        market.SetActive(false);
     }
+
+    private void ShowEvent()
+    {
+        fishingGame.SetActive(loc==0);
+        market.SetActive(loc==1);
+
+        //TODO: have sprites come in at a more dynamic time
+        for (int i = 0; i < sprites.Count; i++)
+        {
+            if (loc == 0)
+            {
+                int[] spriteX = new int[]{-170, 170, -270};
+                if (sprites.Count > 2)
+                    spriteX[0] = -140;
+                sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(spriteX[i], 6.5f);
+            }
+            else
+            {
+                sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-70*(sprites.Count-1) + 140*i, 6.5f);
+            }
+            sprites[i].SetActive(true);
+        }
+    }
+
 }

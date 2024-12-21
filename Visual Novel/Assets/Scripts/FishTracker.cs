@@ -12,9 +12,9 @@ public class FishTracker : MonoBehaviour
     {
         foreach (Fish f in fish)
         {
-            if (f.rarity == Fish.Rarity.COMMON)
+            if (f.rarity == Fish.Rarity.COMMON && f.sprite != null)
                 commonFish.Add(f);
-            else if (f.rarity == Fish.Rarity.RARE)
+            else if (f.rarity == Fish.Rarity.RARE && f.sprite != null)
                 rareFish.Add(f);
         }
     }
@@ -46,6 +46,37 @@ public class FishTracker : MonoBehaviour
             }
         }
     }
+
+    public Fish[] SortByQuantity()
+    {
+        
+        List<Fish> discovered = new List<Fish>();
+        foreach (Fish f in fish)
+        {
+            if (f.totalCaught > 0)
+            {
+                discovered.Add(f);
+            }
+        }
+        Fish[] arr = discovered.ToArray();
+
+        for (int i = 1; i < arr.Length; i++)
+        {
+            int curr = i;
+            Debug.Log(arr[curr].name + " : " + arr[curr].Quantity());
+            while (arr[curr-1].Quantity() < arr[curr].Quantity())
+            {
+                Fish temp = arr[curr-1];
+                arr[curr-1] = arr[curr];
+                arr[curr] = temp;
+                if (curr > 1)
+                    curr--;
+                else
+                    break;
+            }
+        }
+        return arr;
+    }
 }
 
 
@@ -59,6 +90,8 @@ public class Fish
 
     public int totalCaught;
     public Vector3 currentTotal;
+    public int Quantity() { return (int)currentTotal.x + (int)currentTotal.y + (int)currentTotal.z; }
 
-    public int currentPrice;
+    //public int currentPrice;
+    public GameObject sprite;
 }

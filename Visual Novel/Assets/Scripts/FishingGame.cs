@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class SliderGame : MonoBehaviour
+public class FishingGame : MonoBehaviour
 {
     [SerializeField] private GameObject slider;
     [SerializeField] private GameObject fishPopup;

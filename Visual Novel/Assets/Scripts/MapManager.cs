@@ -9,7 +9,6 @@ public class MapManager : MonoBehaviour
     public Location[] locations;
 
     [SerializeField] private GameObject eventSummary;
-    [SerializeField] private GameObject getStuff;
     [SerializeField] private Transform eventSprites;
     [SerializeField] private TextMeshProUGUI eventTxt;
     
@@ -23,8 +22,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] private GameObject locBG;
     [SerializeField] private Color[] mapColors;
 
-
-
+    [SerializeField] private Market market;
     private CharacterManager charManager;
     private EventManager eventManager;
     private PlayerManager player;
@@ -43,7 +41,6 @@ public class MapManager : MonoBehaviour
         Event e = eventManager.SelectEvent(n+1, locations[n].charsHere, time, day);
         
         locBG.SetActive(true);
-        getStuff.SetActive(n==0);
         locBG.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = locations[n].name;
         locBG.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = e.name;
         List<GameObject> sprites = new List<GameObject>();
@@ -62,7 +59,7 @@ public class MapManager : MonoBehaviour
         foreach (string req in e.prereqsGained)
             player.prereqs.Add(req);
         e.played = true;
-        StartCoroutine(locBG.GetComponent<EventPlayer>().SetupEvent(e.dialogue, n, time, sprites, (n!=0)));
+        locBG.GetComponent<EventPlayer>().SetupEvent(e.dialogue, n, time, sprites, (n!=0));
     }
 
     public void UpdateInfo()
@@ -73,6 +70,7 @@ public class MapManager : MonoBehaviour
         {
             time = 0;
             day++;
+            market.visitedToday = false;
         }
         timeTxt.GetComponent<TextMeshProUGUI>().text =  "Day " + day + " - " + timeStrings[time];
         mapBG.GetComponent<Image>().color = mapColors[time];
