@@ -29,7 +29,7 @@ public class FishingGame : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
             slider.GetComponent<Animator>().speed = 0;
             GameObject.Find("Location BG").GetComponent<EventPlayer>().readyToReturn = true;

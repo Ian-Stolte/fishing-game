@@ -63,7 +63,6 @@ public class FishTracker : MonoBehaviour
         for (int i = 1; i < arr.Length; i++)
         {
             int curr = i;
-            Debug.Log(arr[curr].name + " : " + arr[curr].Quantity());
             while (arr[curr-1].Quantity() < arr[curr].Quantity())
             {
                 Fish temp = arr[curr-1];
@@ -76,6 +75,16 @@ public class FishTracker : MonoBehaviour
             }
         }
         return arr;
+    }
+
+    public Fish RandomFish() //add bool to choose rarity (e.g so we don't have deals on 3 rare fish and 0 common)?
+    {
+        Fish f = fish[Random.Range(0, fish.Length)];
+        while (f.sprite == null || f.dealPrice != 0)
+        {
+            f = fish[Random.Range(0, fish.Length)];
+        }
+        return f;
     }
 }
 
@@ -92,6 +101,8 @@ public class Fish
     public Vector3 currentTotal;
     public int Quantity() { return (int)currentTotal.x + (int)currentTotal.y + (int)currentTotal.z; }
 
-    //public int currentPrice;
+    [HideInInspector] public int dealPrice;
+    public int price;
+
     public GameObject sprite;
 }

@@ -844,8 +844,7 @@ MonoBehaviour:
   - name: Purple
     relationship: 0
     schedule:
-    - {x: 0, y: 1, z: 2}
-    - {x: 0, y: 0, z: 1}
+    - {x: 2, y: 2, z: 2}
     icon: {fileID: 1607502517}
     sprite: {fileID: 986298587}
 --- !u!4 &308455146
@@ -995,7 +994,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Get resources!
+  m_text: Go fishing!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1936,7 +1935,7 @@ GameObject:
   - component: {fileID: 619779411}
   - component: {fileID: 619779410}
   m_Layer: 5
-  m_Name: Hexagon
+  m_Name: Cliffs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2096,72 +2095,96 @@ MonoBehaviour:
     rarity: 0
     totalCaught: 0
     currentTotal: {x: 0, y: 0, z: 0}
+    dealPrice: 0
+    price: 5
     sprite: {fileID: 3976157057894247578, guid: b1ab07932a0ebf144ad5b818a9b2dd23, type: 3}
   - name: Red Mackler
     spawnRate: []
     rarity: 0
     totalCaught: 0
     currentTotal: {x: 0, y: 0, z: 0}
+    dealPrice: 0
+    price: 3
     sprite: {fileID: 7511158929567086440, guid: 6f99c5bb08f66d2479c395a6ed827e3a, type: 3}
   - name: Arpeggiated Bass
     spawnRate: []
     rarity: 0
     totalCaught: 0
     currentTotal: {x: 0, y: 0, z: 1}
+    dealPrice: 0
+    price: 6
     sprite: {fileID: 7800752395702582708, guid: b569d893b046df04391ff7a1265ee5c3, type: 3}
   - name: Scaled Limer
     spawnRate: []
     rarity: 0
     totalCaught: 0
     currentTotal: {x: 0, y: 0, z: 0}
+    dealPrice: 0
+    price: 4
     sprite: {fileID: 5446654545294852697, guid: 878bf4279e110a14e9c8c4df8df5660b, type: 3}
   - name: Endoryte
     spawnRate: []
     rarity: 0
     totalCaught: 0
     currentTotal: {x: 0, y: 0, z: 0}
+    dealPrice: 0
+    price: 0
     sprite: {fileID: 0}
   - name: Green Wriggler
     spawnRate: []
     rarity: 0
     totalCaught: 0
     currentTotal: {x: 0, y: 0, z: 0}
+    dealPrice: 0
+    price: 0
     sprite: {fileID: 0}
   - name: Hunchback
     spawnRate: []
     rarity: 0
     totalCaught: 0
     currentTotal: {x: 0, y: 0, z: 0}
+    dealPrice: 0
+    price: 0
     sprite: {fileID: 0}
   - name: Tenderfin
     spawnRate: []
     rarity: 0
     totalCaught: 0
     currentTotal: {x: 0, y: 0, z: 0}
+    dealPrice: 0
+    price: 0
     sprite: {fileID: 0}
   - name: Alabaster Tuna
     spawnRate: []
     rarity: 1
     totalCaught: 0
     currentTotal: {x: 0, y: 0, z: 0}
+    dealPrice: 0
+    price: 15
     sprite: {fileID: 1450892113654838509, guid: 02d25ffb58f23804a8af7d1b3e476518, type: 3}
   - name: Pearl-Catcher
     spawnRate: []
     rarity: 1
     totalCaught: 0
     currentTotal: {x: 0, y: 0, z: 0}
+    dealPrice: 0
+    price: 20
     sprite: {fileID: 6978380510511988798, guid: 08b8f817b85b4394aa2311a4ec163ac6, type: 3}
   - name: Sallow Ray
     spawnRate: []
     rarity: 1
     totalCaught: 0
     currentTotal: {x: 0, y: 0, z: 0}
+    dealPrice: 0
+    price: 0
     sprite: {fileID: 0}
   - name: Lluria
     spawnRate: []
     rarity: 1
     totalCaught: 0
     currentTotal: {x: 0, y: 0, z: 0}
+    dealPrice: 0
+    price: 0
     sprite: {fileID: 0}
   rareFish: []
   commonFish: []
@@ -2180,6 +2203,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &777031235
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 777031236}
+  - component: {fileID: 777031238}
+  - component: {fileID: 777031237}
+  m_Layer: 5
+  m_Name: Image (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &777031236
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777031235}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1497666157}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 26.59555, y: 1.1873322}
+  m_SizeDelta: {x: 63.2344, y: 25.8943}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &777031237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777031235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.61006284, g: 0.61006284, b: 0.61006284, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &777031238
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777031235}
+  m_CullTransparentMesh: 1
 --- !u!1 &784245429
 GameObject:
   m_ObjectHideFlags: 0
@@ -2809,7 +2907,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &986298588
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3004,7 +3102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1024635689
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3618,7 +3716,7 @@ GameObject:
   - component: {fileID: 1268172050}
   - component: {fileID: 1268172049}
   m_Layer: 5
-  m_Name: Square
+  m_Name: Docks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4169,6 +4267,7 @@ MonoBehaviour:
   mapManager: {fileID: 1734410937}
   fishingGame: {fileID: 0}
   market: {fileID: 0}
+  purpleSprite: {fileID: 0}
   readyToReturn: 0
   txtBox: {fileID: 0}
   dialogue: []
@@ -4724,6 +4823,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413539790}
   m_CullTransparentMesh: 1
+--- !u!1 &1444016913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1444016914}
+  - component: {fileID: 1444016916}
+  - component: {fileID: 1444016915}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1444016914
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444016913}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.56982, y: 0.56982, z: 0.56982}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1497666157}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -29.72171, y: -0.000045776367}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1444016915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444016913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.61006284, g: 0.61006284, b: 0.61006284, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1444016916
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444016913}
+  m_CullTransparentMesh: 1
 --- !u!1 &1475719037
 GameObject:
   m_ObjectHideFlags: 0
@@ -4877,6 +5051,100 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489164621}
   m_CullTransparentMesh: 1
+--- !u!1 &1497666156
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1497666157}
+  - component: {fileID: 1497666158}
+  m_Layer: 5
+  m_Name: Arrow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1497666157
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497666156}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.73482, y: 0.73482, z: 0.73482}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1444016914}
+  - {fileID: 777031236}
+  m_Father: {fileID: 1998145860}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -360, y: 212}
+  m_SizeDelta: {x: 116.425385, y: 56.981995}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1497666158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497666156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1444016915}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1727903567}
+        m_TargetAssemblyTypeName: EventPlayer, Assembly-CSharp
+        m_MethodName: ReturnToMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1511937093
 GameObject:
   m_ObjectHideFlags: 0
@@ -5834,7 +6102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Buy stuff!
+  m_text: Buy & sell!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6008,6 +6276,7 @@ MonoBehaviour:
   mapManager: {fileID: 1734410937}
   fishingGame: {fileID: 1326190394}
   market: {fileID: 1998145859}
+  purpleSprite: {fileID: 986298587}
   readyToReturn: 0
   txtBox: {fileID: 449098322}
   dialogue: []
@@ -6583,7 +6852,7 @@ GameObject:
   - component: {fileID: 1873963238}
   - component: {fileID: 1873963237}
   m_Layer: 5
-  m_Name: Rhombus
+  m_Name: Market
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7007,6 +7276,7 @@ RectTransform:
   m_Children:
   - {fileID: 1243857376}
   - {fileID: 102733661}
+  - {fileID: 1497666157}
   m_Father: {fileID: 1727903564}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -7028,7 +7298,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryBox: {fileID: 5185702399886880380, guid: 1a0021533f14eab4795bba52a9696ab9, type: 3}
   inventoryParent: {fileID: 102733661}
+  deals: {fileID: 1243857376}
   visitedToday: 0
+  numDeals: 2
   fishTracker: {fileID: 677070620}
 --- !u!1 &2003172738
 GameObject:
@@ -7252,7 +7524,7 @@ GameObject:
   - component: {fileID: 2028070598}
   - component: {fileID: 2028070597}
   m_Layer: 5
-  m_Name: Circle
+  m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
