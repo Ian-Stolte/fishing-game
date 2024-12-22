@@ -8,6 +8,10 @@ public class Market : MonoBehaviour
 {
     [SerializeField] private GameObject inventoryBox;
     [SerializeField] private Transform inventoryParent;
+    
+    [SerializeField] private TextMeshProUGUI moneyTxt;
+    [SerializeField] private GameObject moneyPopup;
+
     [SerializeField] private Transform deals;
     [SerializeField] private GameObject sellPopup;
     [SerializeField] private Color dealColor;
@@ -24,17 +28,12 @@ public class Market : MonoBehaviour
     [SerializeField] private FishTracker fishTracker;
 
 
-    void Start()
-    {
-        player = GameObject.Find("Player Manager").GetComponent<PlayerManager>();
-        fishTracker = GameObject.Find("Fish Tracker").GetComponent<FishTracker>();
-    }
-
     void OnEnable()
     {
         if (!visitedToday)
         {
             visitedToday = true;
+            //set daily deals
             foreach (Fish f in fishTracker.fish)
                 f.dealPrice = 0;
             foreach (Transform child in deals)
@@ -81,6 +80,8 @@ public class Market : MonoBehaviour
             }
             box.GetComponent<RectTransform>().anchoredPosition = new Vector2(-100 + 75*(i%4), 70 - 75*(i/4));
         }
+        sellPopup.SetActive(false);
+        moneyTxt.text = "Money: <b>" + player.money;
     }
 
     public void ShowSellPopup(int n)
@@ -108,25 +109,30 @@ public class Market : MonoBehaviour
         {
             if (f.name == hoveredFish.name)
             {
+                int price = 0;
                 if (n == 0)
                 {
                     f.currentTotal.z--;
-                    player.money += Mathf.Max(f.dealPrice, f.price);
+                    price = Mathf.Max(f.dealPrice, f.price);
                 }
                 else if (n == 1)
                 {
                     f.currentTotal.y--;
-                    player.money += (int)Mathf.Round(Mathf.Max(f.dealPrice, f.price) * 0.6f);
+                    price = (int)Mathf.Round(Mathf.Max(f.dealPrice, f.price) * 0.6f);
                 }
                 else if (n == 2)
                 {
                     f.currentTotal.x--;
-                    player.money += (int)Mathf.Round(Mathf.Max(f.dealPrice, f.price) * 0.3f);
+                    price = (int)Mathf.Round(Mathf.Max(f.dealPrice, f.price) * 0.3f);
                 }
                 hoveredBox.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + hoveredFish.Quantity();
                 if (hoveredFish.Quantity() == 0)
                     hoveredBox.GetChild(3).gameObject.SetActive(true);
                 SetSellQuantities();
+                player.money += price;
+                moneyTxt.text = "Money: <b>" + player.money;
+                GameObject popup = Instantiate(moneyPopup, Vector3.zero, Quaternion.identity, transform);
+                popup.GetComponent<TextMeshProUGUI>().text = "+" + price;
                 break;
             }
         }

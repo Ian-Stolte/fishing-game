@@ -45,29 +45,39 @@ public class EventPlayer : MonoBehaviour
         {
             fishingGame.SetActive(loc==0);
             market.SetActive(loc==1);
-            if (readyToReturn && index >= dialogue.Length-1 && loc != 1)
+            if (loc == 1)
             {
-                ReturnToMap();
-            }
-            else if (shopIndex < shopDialogue.Length-1)
-            {
-                purpleSprite.GetComponent<RectTransform>().anchoredPosition = new Vector2(128, -8);
-                purpleSprite.SetActive(true);
-                shopIndex++;
-                txtBox.text = shopDialogue[shopIndex];
-            }
-            else if (index < dialogue.Length-1)
-            {
-                index++;
-                txtBox.text = dialogue[index];
-                if (index == 0)
+                if (shopIndex < shopDialogue.Length-1)
                 {
-                    ShowEvent();
+                    purpleSprite.GetComponent<RectTransform>().anchoredPosition = new Vector2(128, -8);
+                    purpleSprite.SetActive(true);
+                    shopIndex++;
+                    txtBox.text = shopDialogue[shopIndex];
+                }
+                else
+                {
+                    txtBox.text = "";
                 }
             }
             else
             {
-                txtBox.text = "";
+                if (readyToReturn && index >= dialogue.Length-1)
+                {
+                    ReturnToMap();
+                }
+                else if (index < dialogue.Length-1)
+                {
+                    index++;
+                    txtBox.text = dialogue[index];
+                    if (index == 0)
+                    {
+                        ShowEvent();
+                    }
+                }
+                else
+                {
+                    txtBox.text = "";
+                }
             }
         }
     }
