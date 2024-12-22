@@ -130,7 +130,7 @@ public class Market : MonoBehaviour
                     hoveredBox.GetChild(3).gameObject.SetActive(true);
                 SetSellQuantities();
                 player.money += price;
-                moneyTxt.text = "Money: <b>" + player.money;
+                moneyTxt.text = "Money:  <b>" + player.money;
                 GameObject popup = Instantiate(moneyPopup, Vector3.zero, Quaternion.identity, transform);
                 popup.GetComponent<TextMeshProUGUI>().text = "+" + price;
                 break;

@@ -10,13 +10,21 @@ public class EventPlayer : MonoBehaviour
     [SerializeField] private GameObject fishingGame;
     [SerializeField] private GameObject market;
     [SerializeField] private GameObject purpleSprite;
+    [SerializeField] private GameObject clickToEnd;
 
-    private bool canClick = true;
+    [HideInInspector] public bool eventStarted;
     public bool readyToReturn;
+    private bool returned;
 
     [SerializeField] TextMeshProUGUI txtBox;
     public string[] dialogue;
     private int index;
+    private bool playingLine;
+    private bool skip;
+    [SerializeField] private float lineDelay;
+    private float lineDelayTimer;
+
+
     private List<GameObject> sprites;
     private int loc;
 
@@ -34,78 +42,80 @@ public class EventPlayer : MonoBehaviour
         new string[] {"\"I hope you brought a good haul for me today!\"", "\"I rely on you for my supply, you know.\""},
         new string[] {"Purple seems busy behind the counter, scribbling away at a sheet of notes..."},
         new string[] {"Purple greets you with a smile as you arrive: \"Well, look who decided to turn up today!\"", "\"Tell me, what did you catch out there? Anything rare?\"", "\"Customers will go wild for something like a Pearl-Catcher, you know.\""},
-        new string[] {"The stall seems empty as you walk up...", "But then Purple stands up from behind a barrel of Red Macklers, hastily wiping their hands on an apron and rushing over on the counter.", "\"Sorry, sorry, just got caught up packing up these Macklers...\"", "\"You got anything for me today?\""}
+        new string[] {"The stall seems empty as you walk up...", "But then Purple stands up from behind a barrel of Red Macklers, hastily wiping their hands on an apron and rushing over to the counter.", "\"Sorry, sorry, just got caught up packing up these Macklers...\"", "\"You got anything for me today?\""}
     };
 
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canClick)
+        if (!eventStarted && Input.GetMouseButtonDown(0))
         {
+            eventStarted = true;
             fishingGame.SetActive(loc==0);
             market.SetActive(loc==1);
             if (loc == 1)
             {
-                if (shopIndex < shopDialogue.Length-1)
-                {
-                    purpleSprite.GetComponent<RectTransform>().anchoredPosition = new Vector2(128, -8);
-                    purpleSprite.SetActive(true);
-                    shopIndex++;
-                    txtBox.text = shopDialogue[shopIndex];
-                }
-                else
-                {
-                    txtBox.text = "";
-                }
+                purpleSprite.GetComponent<RectTransform>().anchoredPosition = new Vector2(128, -8);
+                purpleSprite.SetActive(true);
             }
-            else
+            else    
+                ShowSprites();
+        }
+
+        if (eventStarted)
+        {
+            if (Input.GetMouseButtonDown(0) && readyToReturn)
             {
-                if (readyToReturn && index >= dialogue.Length-1)
-                {
-                    ReturnToMap();
-                }
+                if (playingLine)
+                    skip = true;
                 else if (index < dialogue.Length-1)
                 {
                     index++;
-                    txtBox.text = dialogue[index];
-                    if (index == 0)
-                    {
-                        ShowEvent();
-                    }
+                    StartCoroutine(PlayLine(dialogue[index]));
                 }
-                else
+            }
+            if (index >= dialogue.Length-1 && !playingLine && readyToReturn && loc != 1)
+            {
+                clickToEnd.SetActive(true);
+                if (Input.GetMouseButtonDown(0))
                 {
-                    txtBox.text = "";
+                    ReturnToMap();
                 }
+            }
+
+            lineDelayTimer = Mathf.Max(0, lineDelayTimer-Time.deltaTime);
+            if (index < dialogue.Length-1 && !playingLine && lineDelayTimer <= 0)
+            {
+                index++;
+                StartCoroutine(PlayLine(dialogue[index]));
             }
         }
     }
 
-    public void SetupEvent(string[] newDialogue, int newLoc, int time, List<GameObject> newSprites, bool dialogueOnly)
+    public void SetupEvent(string[] newDialogue, int newLoc, int time, List<GameObject> newSprites)
     {
         loc = newLoc;
         if (loc == 1)
         {
-            shopDialogue = shopTxt[Random.Range(0, shopTxt.Length)];
-            shopIndex = -1;
-            dialogue = new string[0];
+            dialogue = shopTxt[Random.Range(0, shopTxt.Length)];
         }
         else
         {
-            shopDialogue = new string[0];
             dialogue = newDialogue;
-            index = -1;
             sprites = newSprites;
         }
+        index = -1;
         
+        readyToReturn = (loc != 0 && loc != 1);
         txtBox.text = locationTxt[loc, time];
-        readyToReturn = dialogueOnly;
+        returned = false;
         fishingGame.SetActive(false);
         market.SetActive(false);
+        clickToEnd.SetActive(false);
     }
 
-    private void ShowEvent()
+    private void ShowSprites()
     {
         //TODO: have sprites come in at a more dynamic time
         for (int i = 0; i < sprites.Count; i++)
@@ -131,7 +141,43 @@ public class EventPlayer : MonoBehaviour
 
     public void ReturnToMap()
     {
-        gameObject.SetActive(false);
-        mapManager.UpdateInfo();
+        if (!returned)
+        {
+            returned = true;
+            StartCoroutine(mapManager.ShowTimeTransition());
+        }
+    }
+
+    private IEnumerator PlayLine(string line)
+    {
+        playingLine = true;
+        txtBox.text = "";
+        skip = false;
+        foreach (char c in line)
+        {
+            if (skip)
+            {
+                txtBox.text = line;
+                break;
+            }
+
+            if (c != '*')
+                txtBox.text += c;
+            
+            /*if (skip)
+                yield return new WaitForSeconds(0.001f);
+            else*/ if (c == '*')
+                yield return new WaitForSeconds(0.1f);
+            else if (c == '.' || c == '?' || c == '!') //add condition so quotes after punctuation appear with it
+                yield return new WaitForSeconds(0.3f);
+            else if (c == ',')
+                yield return new WaitForSeconds(0.15f);
+            else if (c == ' ')
+                yield return new WaitForSeconds(0.05f);
+            else
+                yield return new WaitForSeconds(0.03f);
+        }
+        playingLine = false;
+        lineDelayTimer = lineDelay;
     }
 }

@@ -8,9 +8,9 @@ public class MapManager : MonoBehaviour
 {
     public Location[] locations;
 
-    [SerializeField] private GameObject eventSummary;
     [SerializeField] private Transform eventSprites;
     [SerializeField] private TextMeshProUGUI eventTxt;
+    [SerializeField] private Transform fader;
     
     [SerializeField] private GameObject timeTxt;
     private int time = -1;
@@ -64,7 +64,7 @@ public class MapManager : MonoBehaviour
         foreach (string req in e.prereqsGained)
             player.prereqs.Add(req);
         e.played = true;
-        locBG.GetComponent<EventPlayer>().SetupEvent(e.dialogue, n, time, sprites, (n!=0));
+        locBG.GetComponent<EventPlayer>().SetupEvent(e.dialogue, n, time, sprites);
     }
 
     public void UpdateInfo()
@@ -111,30 +111,39 @@ public class MapManager : MonoBehaviour
         }
 
         //Quests
+        moneyQuest.text = "Earn 100 sp. <b>(" + player.money + "/100)";
         if (player.money > 100)
         {
-            moneyQuest.text = "<s>Earn 100 sp. <b>(" + player.money + "/100)</s>";
+            moneyQuest.transform.GetChild(1).gameObject.SetActive(true);
+            moneyQuest.color = new Color(200, 200, 200);
             //give player reward if first time
         }
-        else
-        {
-            moneyQuest.text = "Earn 100 sp. <b>(" + player.money + "/100)";
-        }
+
         int caughtFish = 0;
         foreach (Fish f in fishTracker.fish)
         {
             if (f.totalCaught > 0)
                 caughtFish++;
         }
+        fishQuest.text = "Catch all 6 fish <b>(" + caughtFish + "/6)";
         if (caughtFish >= 6)
         {
-            fishQuest.text = "<s>Catch all 6 fish <b>(" + caughtFish + "/6)</s>";
+            fishQuest.transform.GetChild(1).gameObject.SetActive(true);
+            fishQuest.color = new Color(200, 200, 200);
             //give player reward if 1st time
         }
-        else
-        {
-            fishQuest.text = "Catch all 6 fish <b>(" + caughtFish + "/6)";
-        }
+    }
+
+    public IEnumerator ShowTimeTransition()
+    {
+        fader.GetComponent<Animator>().Play("FadeToDark");
+        yield return new WaitForSeconds(0.5f);
+        locBG.GetComponent<EventPlayer>().eventStarted = false;
+        UpdateInfo();
+        fader.GetChild(0).GetComponent<TextMeshProUGUI>().text = timeStrings[time];
+        yield return new WaitForSeconds(2f);
+        fader.GetComponent<Animator>().Play("FadeToLight");
+        locBG.SetActive(false); 
     }
 }
 
