@@ -22,7 +22,11 @@ public class MapManager : MonoBehaviour
     [SerializeField] private GameObject locBG;
     [SerializeField] private Color[] mapColors;
 
+    [SerializeField] private TextMeshProUGUI moneyQuest;
+    [SerializeField] private TextMeshProUGUI fishQuest;
+
     [SerializeField] private Market market;
+    private FishTracker fishTracker;
     private CharacterManager charManager;
     private EventManager eventManager;
     private PlayerManager player;
@@ -33,6 +37,7 @@ public class MapManager : MonoBehaviour
         charManager = GameObject.Find("Character Manager").GetComponent<CharacterManager>();
         eventManager = GameObject.Find("Event Manager").GetComponent<EventManager>();
         player = GameObject.Find("Player Manager").GetComponent<PlayerManager>();
+        fishTracker = GameObject.Find("Fish Tracker").GetComponent<FishTracker>();
         UpdateInfo();
     }
 
@@ -103,6 +108,32 @@ public class MapManager : MonoBehaviour
             {
                 c.icon.SetActive(false);
             }
+        }
+
+        //Quests
+        if (player.money > 100)
+        {
+            moneyQuest.text = "<s>Earn 100 sp. <b>(" + player.money + "/100)</s>";
+            //give player reward if first time
+        }
+        else
+        {
+            moneyQuest.text = "Earn 100 sp. <b>(" + player.money + "/100)";
+        }
+        int caughtFish = 0;
+        foreach (Fish f in fishTracker.fish)
+        {
+            if (f.totalCaught > 0)
+                caughtFish++;
+        }
+        if (caughtFish >= 6)
+        {
+            fishQuest.text = "<s>Catch all 6 fish <b>(" + caughtFish + "/6)</s>";
+            //give player reward if 1st time
+        }
+        else
+        {
+            fishQuest.text = "Catch all 6 fish <b>(" + caughtFish + "/6)";
         }
     }
 }

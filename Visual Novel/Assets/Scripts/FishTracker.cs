@@ -11,7 +11,9 @@ public class FishTracker : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI fishNameTxt;
     [SerializeField] TextMeshProUGUI fishPriceTxt;
-    
+    [SerializeField] private Transform fishSprite;
+    [SerializeField] private Color rareColor;
+
     [SerializeField] private bool showAllCaught;
 
 
@@ -32,13 +34,14 @@ public class FishTracker : MonoBehaviour
         if (rare)
         {
             caughtFish = rareFish[Random.Range(0, rareFish.Count)]; //change to calc by weather
-            fishNameTxt.text = "Rare fish: <b>" + caughtFish.name + "</b>!";
+            fishNameTxt.color = rareColor;
         }
         else
         {
             caughtFish = commonFish[Random.Range(0, commonFish.Count)]; //change to calc by weather
-            fishNameTxt.text = "<b>" + caughtFish.name + "</b>";
+            fishNameTxt.color = new Color(255, 255, 255);
         }
+        fishNameTxt.text = "" + caughtFish.name;
         foreach (Fish f in fish)
         {
             if (f.name == caughtFish.name)
@@ -59,6 +62,12 @@ public class FishTracker : MonoBehaviour
                     fishPriceTxt.text = "<b>" + f.price + " sp.";
                 }
                 f.totalCaught++;
+                foreach (Transform child in fishSprite)
+                {
+                    Destroy(child.gameObject);
+                }
+                GameObject sprite = Instantiate(f.sprite, Vector3.zero, Quaternion.identity, fishSprite);
+                sprite.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             }
         }
     }
@@ -121,4 +130,5 @@ public class Fish
     public int price;
 
     public GameObject sprite;
+    public GameObject boxSprite;
 }

@@ -61,7 +61,7 @@ public class Market : MonoBehaviour
             GameObject box = null;
             if (i < sortedFish.Length)
             {
-                box = Instantiate(sortedFish[i].sprite, Vector3.zero, Quaternion.identity, inventoryParent);
+                box = Instantiate(sortedFish[i].boxSprite, Vector3.zero, Quaternion.identity, inventoryParent);
                 box.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = "" + sortedFish[i].Quantity();
                 if (sortedFish[i].dealPrice != 0)
                 {

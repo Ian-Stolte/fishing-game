@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 4927572728012661013}
   - component: {fileID: 4069865001382267798}
   m_Layer: 5
-  m_Name: Arpeggiated Bass
+  m_Name: Arpeggiated Bass Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
