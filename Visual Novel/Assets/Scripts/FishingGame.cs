@@ -12,6 +12,9 @@ public class FishingGame : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fishType;
     [SerializeField] private TextMeshProUGUI fishPrice;
 
+    private int timesCast;
+    [SerializeField] private TextMeshProUGUI castsLeft;
+
     [SerializeField] private float rarePct;
     [SerializeField] private Color[] qualityColors;
 
@@ -29,6 +32,8 @@ public class FishingGame : MonoBehaviour
         failPopup.SetActive(false);
         slider.GetComponent<Animator>().Play("SlideUpDown");
         slider.GetComponent<Animator>().speed = 1;
+        timesCast = 0;
+        castsLeft.text = "Casts Left:  <b>2";
     }
 
     void Update()
@@ -66,7 +71,15 @@ public class FishingGame : MonoBehaviour
             }
             else
             {
-                GameObject.Find("Location BG").GetComponent<EventPlayer>().readyToReturn = true;
+                timesCast++;
+                if (timesCast >= 3)
+                    GameObject.Find("Location BG").GetComponent<EventPlayer>().readyToReturn = true;
+                else
+                {
+                    castsLeft.text = "Casts Left:  <b>" + (2-timesCast);
+                    slider.GetComponent<Animator>().Play("SlideUpDown");
+                    slider.GetComponent<Animator>().speed = 1;
+                }
                 fishPopup.SetActive(false);
                 failPopup.SetActive(false);
             }

@@ -49,46 +49,49 @@ public class EventPlayer : MonoBehaviour
 
     void Update()
     {
-        if (!eventStarted && Input.GetMouseButtonDown(0))
+        if (!returned)
         {
-            eventStarted = true;
-            fishingGame.SetActive(loc==0);
-            market.SetActive(loc==1);
-            if (loc == 1)
+            if (!eventStarted && Input.GetMouseButtonDown(0))
             {
-                purpleSprite.GetComponent<RectTransform>().anchoredPosition = new Vector2(128, -8);
-                purpleSprite.SetActive(true);
+                eventStarted = true;
+                fishingGame.SetActive(loc==0);
+                market.SetActive(loc==1);
+                if (loc == 1)
+                {
+                    purpleSprite.GetComponent<RectTransform>().anchoredPosition = new Vector2(128, -8);
+                    purpleSprite.SetActive(true);
+                }
+                else    
+                    ShowSprites();
             }
-            else    
-                ShowSprites();
-        }
 
-        if (eventStarted)
-        {
-            if (Input.GetMouseButtonDown(0) && readyToReturn)
+            if (eventStarted)
             {
-                if (playingLine)
-                    skip = true;
-                else if (index < dialogue.Length-1)
+                if (Input.GetMouseButtonDown(0) && readyToReturn)
+                {
+                    if (playingLine)
+                        skip = true;
+                    else if (index < dialogue.Length-1)
+                    {
+                        index++;
+                        StartCoroutine(PlayLine(dialogue[index]));
+                    }
+                }
+                if (index >= dialogue.Length-1 && !playingLine && readyToReturn && loc != 1)
+                {
+                    clickToEnd.SetActive(true);
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        ReturnToMap();
+                    }
+                }
+
+                lineDelayTimer = Mathf.Max(0, lineDelayTimer-Time.deltaTime);
+                if (index < dialogue.Length-1 && !playingLine && lineDelayTimer <= 0)
                 {
                     index++;
                     StartCoroutine(PlayLine(dialogue[index]));
                 }
-            }
-            if (index >= dialogue.Length-1 && !playingLine && readyToReturn && loc != 1)
-            {
-                clickToEnd.SetActive(true);
-                if (Input.GetMouseButtonDown(0))
-                {
-                    ReturnToMap();
-                }
-            }
-
-            lineDelayTimer = Mathf.Max(0, lineDelayTimer-Time.deltaTime);
-            if (index < dialogue.Length-1 && !playingLine && lineDelayTimer <= 0)
-            {
-                index++;
-                StartCoroutine(PlayLine(dialogue[index]));
             }
         }
     }
