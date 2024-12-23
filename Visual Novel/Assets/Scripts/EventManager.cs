@@ -1,11 +1,16 @@
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class EventManager : MonoBehaviour
 {
     public Event[] events;
+    public Dictionary<string, Dictionary<string, string>> dockEvents;
+    public Dictionary<string, Dictionary<string, string>> marketEvents;
+
     private CharacterManager charManager;
     private PlayerManager player;
 
@@ -14,7 +19,46 @@ public class EventManager : MonoBehaviour
     {
         charManager = GameObject.Find("Character Manager").GetComponent<CharacterManager>();
         player = GameObject.Find("Player Manager").GetComponent<PlayerManager>();
+        
+        LoadFromJson(dockEvents, "Resources/Events/Docks");
+        LoadFromJson(marketEvents, "Resources/Events/Market");
     }
+    
+    private void LoadFromJson(Dictionary<string, Dictionary<string, string>> destination, string path)
+    {
+        string fullPath = Path.Combine(Application.dataPath, path);
+
+        if (Directory.Exists(fullPath))
+        {
+            string[] files = Directory.GetFiles(fullPath);
+            foreach (string file in files)
+            {
+                if (!file.Contains(".meta"))
+                {
+                    string relativePath = Path.GetRelativePath(Application.dataPath, file).Substring("Resources".Length+1);
+                    relativePath = Path.ChangeExtension(relativePath, null);
+                    var res = Resources.Load<TextAsset>(relativePath).text;
+                    destination = ParseJsonToDictionary(res);
+                    Debug.Log(destination["Dialogue"]["0"]);
+                }
+            }
+        }
+    }
+
+    private Dictionary<string, Dictionary<string, string>> ParseJsonToDictionary(string jsonString)
+    {
+        try
+        {
+            var parsedData = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(jsonString);
+            return parsedData;
+        }
+        catch (JsonException ex)
+        {
+            Debug.LogError("Error parsing JSON: " + ex.Message);
+            return null;
+        }
+    }
+
 
     public Event SelectEvent(int loc, List<string> charsHere, int day, int loop)
     {

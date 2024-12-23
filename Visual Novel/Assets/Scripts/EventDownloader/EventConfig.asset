@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueConfigs:
   - name: Docks
-    sheetID: AKfycbyHlXPHyaoXiMK_IuyVZlTQNu1SaKEKnBSFI-zim6u17O3HGI9XwcORvsEKJ2RfyhCw
+    sheetID: AKfycbzeyNaxLYm0KxHJK-dJri24bHxfVrjnsWWET-ekbBZ8lsLPukfQd0PKfrelrtWC_kWI
     sheetNames:
     - Orange-Intro
     - Orange-SmallTalk
     - Orange-Weather
   - name: Market
-    sheetID: AKfycbxe5LHCAoQNpbWSxoiCkw6xMPEh1RojMn6-cwvC4Z73dGZs8WMIXHudIdt_bKCaIarBHA
+    sheetID: AKfycbzXQQz17FGLs2a1psae0grjhUxdapnGadM3ab2inHYpJgIjnmi0WCP0U7-hMiY6FyDroQ
     sheetNames:
     - Purple-Intro
     - Purple-FishingTips
