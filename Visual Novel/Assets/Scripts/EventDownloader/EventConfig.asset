@@ -16,12 +16,22 @@ MonoBehaviour:
   - name: Docks
     sheetID: AKfycbzeyNaxLYm0KxHJK-dJri24bHxfVrjnsWWET-ekbBZ8lsLPukfQd0PKfrelrtWC_kWI
     sheetNames:
-    - Orange-Intro
-    - Orange-SmallTalk
-    - Orange-Weather
+    - '''Enry-Intro'
+    - '''Enry-SmallTalk'
+    - '''Enry-Weather'
   - name: Market
     sheetID: AKfycbzXQQz17FGLs2a1psae0grjhUxdapnGadM3ab2inHYpJgIjnmi0WCP0U7-hMiY6FyDroQ
     sheetNames:
-    - Purple-Intro
-    - Purple-FishingTips
-    - Orange-Interrupts
+    - Violet-Intro
+    - Violet-FishingTips
+    - '''Enry-Interrupts'
+  - name: Bar
+    sheetID: AKfycby9Uj6fe3H0Smw_4d4KrYQusHgoZUUOEuUEa7kOZVPiNIYsn6PF4HF1s33iaNPmeuOU4g
+    sheetNames:
+    - Violet-OffWork
+    - '''Enry-TallTales'
+  - name: Cliffs
+    sheetID: AKfycbzv501hkp1mUn6ZNIXiGJRM89AXKY-CUB8a9xnlCzbLMdooxDAT-oB4A9SQS9gqaVSd
+    sheetNames:
+    - Rein-Picnic
+    - '''Enry-Hiking'

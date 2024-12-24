@@ -1345,21 +1345,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characters:
-  - name: Orange
+  - name: '''Enry'
     relationship: 0
     schedule:
     - {x: 4, y: 0, z: 1}
     - {x: 0, y: 0, z: 1}
     icon: {fileID: 396746444}
     sprite: {fileID: 1850605217}
-  - name: Green
+  - name: Rein
     relationship: 0
     schedule:
     - {x: 4, y: 4, z: 0}
     - {x: 0, y: 0, z: 0}
     icon: {fileID: 1827430888}
     sprite: {fileID: 915686925}
-  - name: Purple
+  - name: Violet
     relationship: 0
     schedule:
     - {x: 2, y: 2, z: 2}
@@ -6034,25 +6034,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events:
   - name: Failed Event
+    speakers: []
     dialogue:
     - This is a placeholder event
     - Unfortunately, there were no available events to trigger
     chars: []
-    loc: 5
     prereqsNeeded: []
     prereqsGained: []
     played: 0
   - name: Orange Intro
+    speakers: []
     dialogue:
     - You meet a new character...
     - Orange!
     chars:
     - Orange
-    loc: 0
     prereqsNeeded: []
     prereqsGained: []
     played: 0
   - name: Drama!
+    speakers: []
     dialogue:
     - There's a massive fight today!
     - First, Orange insults Purple, then Purple insults Green, then Green insults
@@ -6063,54 +6064,54 @@ MonoBehaviour:
     - Orange
     - Green
     - Purple
-    loc: 0
     prereqsNeeded: []
     prereqsGained: []
     played: 0
   - name: Betrayal? (Orange)
+    speakers: []
     dialogue:
     - oh my god
     - Did Orange just betray you?!
     - Surely they wouldn't...
     chars:
     - Orange
-    loc: 3
     prereqsNeeded: []
     prereqsGained: []
     played: 0
   - name: Betrayal? (Green)
+    speakers: []
     dialogue:
     - No way, I think Green just betrayed you!
     - Better watch your back more carefully.
     chars:
     - Green
-    loc: 3
     prereqsNeeded: []
     prereqsGained: []
     played: 0
   - name: Betrayal? (Purple)
+    speakers: []
     dialogue:
     - But... it couldn't be...
     - Betrayal?!
     - From your best friend Purple?!
     chars:
     - Purple
-    loc: 3
     prereqsNeeded: []
     prereqsGained: []
     played: 0
   - name: Purple Questline 1
+    speakers: []
     dialogue:
     - Purple invites you on a nice little quest.
     - '"Head to the Rhombus and we''ll keep questng together," they say.'
     chars:
     - Purple
-    loc: 0
     prereqsNeeded: []
     prereqsGained:
     - purple-quest-1
     played: 0
   - name: Purple Questline 2
+    speakers: []
     dialogue:
     - The quest continues!
     - You do some epic questing today
@@ -6118,34 +6119,35 @@ MonoBehaviour:
     - In fact, too legendary to describe!
     chars:
     - Purple
-    loc: 2
     prereqsNeeded:
     - purple-quest-1
     prereqsGained:
     - purple-quest-2
     played: 0
   - name: Purple Questline 3
+    speakers: []
     dialogue:
     - At long last, the quest is complete!
     - What a great adventure!
     chars:
     - Purple
-    loc: 0
     prereqsNeeded:
     - purple-quest-2
     prereqsGained:
     - purple-quest-done
     played: 0
   - name: Green Day-to-Day
+    speakers: []
     dialogue:
     - Today you get a glimpse into Green's day-to-day life...
     - Not the most exciting, to be honest, but you don't say that!
     chars:
     - Green
-    loc: 0
     prereqsNeeded: []
     prereqsGained: []
     played: 0
+  dockEvents: []
+  marketEvents: []
 --- !u!4 &1223302919
 Transform:
   m_ObjectHideFlags: 0

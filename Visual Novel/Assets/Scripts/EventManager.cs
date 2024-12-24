@@ -11,6 +11,8 @@ public class EventManager : MonoBehaviour
     public Event[] events;
     public List<Event> dockEvents;
     public List<Event> marketEvents;
+    public List<Event> barEvents;
+    public List<Event> cliffEvents;
 
     private CharacterManager charManager;
     private PlayerManager player;
@@ -23,6 +25,8 @@ public class EventManager : MonoBehaviour
         
         LoadFromJson(dockEvents, "Resources/Events/Docks");
         LoadFromJson(marketEvents, "Resources/Events/Market");
+        LoadFromJson(barEvents, "Resources/Events/Bar");
+        LoadFromJson(cliffEvents, "Resources/Events/Cliffs");
     }
     
     private void LoadFromJson(List<Event> destination, string path)
@@ -75,6 +79,10 @@ public class EventManager : MonoBehaviour
         List<Event> locEvents = dockEvents;
         if (loc == 2)
             locEvents = marketEvents;
+        if (loc == 3)
+            locEvents = barEvents;
+        if (loc == 4)
+            locEvents = cliffEvents;
         
         foreach (Event e in locEvents)
         {
