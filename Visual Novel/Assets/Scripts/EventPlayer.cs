@@ -162,12 +162,14 @@ public class EventPlayer : MonoBehaviour
         if (!returned)
         {
             returned = true;
+            GameObject.Find("Event Manager").GetComponent<EventManager>().RemoveEvents(currentEvent);
             StartCoroutine(mapManager.ShowTimeTransition());
         }
     }
 
     private IEnumerator PlayLine(string line)
     {
+        line = line.Replace("{name}", GameObject.Find("Player Manager").GetComponent<PlayerManager>().name);
         playingLine = true;
         txtBox.text = "";
         skip = false;
@@ -218,6 +220,13 @@ public class EventPlayer : MonoBehaviour
         foreach (Transform child in portraitParent)
         {
             child.gameObject.SetActive(child.name == name);
+        }
+        foreach (GameObject g in sprites)
+        {
+            if (g.name == name)
+                g.GetComponent<CanvasGroup>().alpha = 1;
+            else
+                g.GetComponent<CanvasGroup>().alpha = 0.6f;
         }
     }
 }

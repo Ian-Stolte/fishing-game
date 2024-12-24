@@ -16,9 +16,10 @@ MonoBehaviour:
   - name: Docks
     sheetID: AKfycbzeyNaxLYm0KxHJK-dJri24bHxfVrjnsWWET-ekbBZ8lsLPukfQd0PKfrelrtWC_kWI
     sheetNames:
-    - '''Enry-Intro'
+    - '''Enry-IntroDocks'
     - '''Enry-SmallTalk'
     - '''Enry-Weather'
+    - Introspection (RPT)
   - name: Market
     sheetID: AKfycbzXQQz17FGLs2a1psae0grjhUxdapnGadM3ab2inHYpJgIjnmi0WCP0U7-hMiY6FyDroQ
     sheetNames:
@@ -30,8 +31,11 @@ MonoBehaviour:
     sheetNames:
     - Violet-OffWork
     - '''Enry-TallTales'
+    - '''Enry-IntroBar'
+    - DepressingJob (RPT)
   - name: Cliffs
     sheetID: AKfycbzv501hkp1mUn6ZNIXiGJRM89AXKY-CUB8a9xnlCzbLMdooxDAT-oB4A9SQS9gqaVSd
     sheetNames:
     - Rein-Picnic
     - '''Enry-Hiking'
+    - NiceHike (RPT)

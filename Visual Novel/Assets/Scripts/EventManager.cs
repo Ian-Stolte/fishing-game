@@ -52,6 +52,7 @@ public class EventManager : MonoBehaviour
                     e.chars = txt["Chars"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
                     e.prereqsNeeded = txt["Prereqs-Needed"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
                     e.prereqsGained = txt["Prereqs-Gained"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
+                    e.removes = txt["Removes"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
                     
                     destination.Add(e);
                 }
@@ -96,19 +97,16 @@ public class EventManager : MonoBehaviour
         {
             return events[0];
         }
-        return candidates[UnityEngine.Random.Range(0, candidates.Count)];
+        Event chosenEvent = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+        if (chosenEvent.removes.Count() == 0)
+            chosenEvent = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+        return chosenEvent;
     }
 
 
     private bool ValidEvent(Event e, int loc, List<string> charsHere, int time, int day)
     {
         //Debug.Log("Checking " + e.name + "...");
-        //filter by already played
-        if (e.played)
-        {
-            //Debug.Log("ALREADY PLAYED!");
-            return false;
-        }
         //filter by prereqs
         foreach (string req in e.prereqsNeeded)
         {
@@ -157,6 +155,19 @@ public class EventManager : MonoBehaviour
             return (int)vec[(day-1)%vec.Length].z;
         return 0;
     }
+
+
+    public void RemoveEvents(Event playedEvent)
+    {
+        foreach (string str in playedEvent.removes)
+        {
+            string toCompare = (str == "this") ? playedEvent.name : str;
+            dockEvents.RemoveAll(e => e.name == toCompare);
+            marketEvents.RemoveAll(e => e.name == toCompare);
+            barEvents.RemoveAll(e => e.name == toCompare);
+            cliffEvents.RemoveAll(e => e.name == toCompare);
+        }
+    }
 }
 
 
@@ -177,5 +188,5 @@ public class Event
 
     public string[] prereqsNeeded;
     public string[] prereqsGained;
-    public bool played;
+    public string[] removes;
 }

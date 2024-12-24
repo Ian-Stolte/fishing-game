@@ -2234,6 +2234,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457838777}
   m_CullTransparentMesh: 1
+--- !u!1 &476490109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 476490111}
+  - component: {fileID: 476490110}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &476490110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476490109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43660744d2ccc43efa770d0d554ee929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  music:
+  - name: Uncharted Waters
+    clip: {fileID: 8300000, guid: 2ff12a40bdc9949d4a8f6c39c5dcc7b6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  sfx: []
+  audios: []
+  currentSong:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+--- !u!4 &476490111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476490109}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &492805117
 GameObject:
   m_ObjectHideFlags: 0
@@ -4986,6 +5046,7 @@ GameObject:
   - component: {fileID: 915686926}
   - component: {fileID: 915686928}
   - component: {fileID: 915686927}
+  - component: {fileID: 915686929}
   m_Layer: 5
   m_Name: Rein
   m_TagString: Untagged
@@ -5055,6 +5116,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 915686925}
   m_CullTransparentMesh: 1
+--- !u!225 &915686929
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915686925}
+  m_Enabled: 1
+  m_Alpha: 0.6
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &917595854
 GameObject:
   m_ObjectHideFlags: 0
@@ -5668,6 +5741,7 @@ GameObject:
   - component: {fileID: 986298588}
   - component: {fileID: 986298590}
   - component: {fileID: 986298589}
+  - component: {fileID: 986298591}
   m_Layer: 5
   m_Name: Violet
   m_TagString: Untagged
@@ -5737,6 +5811,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986298587}
   m_CullTransparentMesh: 1
+--- !u!225 &986298591
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986298587}
+  m_Enabled: 1
+  m_Alpha: 0.6
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &989589805
 GameObject:
   m_ObjectHideFlags: 0
@@ -6761,7 +6847,7 @@ MonoBehaviour:
     chars: []
     prereqsNeeded: []
     prereqsGained: []
-    played: 0
+    removes: []
   - name: Orange Intro
     speakers: []
     sprites: []
@@ -6772,7 +6858,7 @@ MonoBehaviour:
     - Orange
     prereqsNeeded: []
     prereqsGained: []
-    played: 0
+    removes: []
   - name: Drama!
     speakers: []
     sprites: []
@@ -6788,7 +6874,7 @@ MonoBehaviour:
     - Purple
     prereqsNeeded: []
     prereqsGained: []
-    played: 0
+    removes: []
   - name: Betrayal? (Orange)
     speakers: []
     sprites: []
@@ -6800,7 +6886,7 @@ MonoBehaviour:
     - Orange
     prereqsNeeded: []
     prereqsGained: []
-    played: 0
+    removes: []
   - name: Betrayal? (Green)
     speakers: []
     sprites: []
@@ -6811,7 +6897,7 @@ MonoBehaviour:
     - Green
     prereqsNeeded: []
     prereqsGained: []
-    played: 0
+    removes: []
   - name: Betrayal? (Purple)
     speakers: []
     sprites: []
@@ -6823,7 +6909,7 @@ MonoBehaviour:
     - Purple
     prereqsNeeded: []
     prereqsGained: []
-    played: 0
+    removes: []
   - name: Purple Questline 1
     speakers: []
     sprites: []
@@ -6835,7 +6921,7 @@ MonoBehaviour:
     prereqsNeeded: []
     prereqsGained:
     - purple-quest-1
-    played: 0
+    removes: []
   - name: Purple Questline 2
     speakers: []
     sprites: []
@@ -6850,7 +6936,7 @@ MonoBehaviour:
     - purple-quest-1
     prereqsGained:
     - purple-quest-2
-    played: 0
+    removes: []
   - name: Purple Questline 3
     speakers: []
     sprites: []
@@ -6863,7 +6949,7 @@ MonoBehaviour:
     - purple-quest-2
     prereqsGained:
     - purple-quest-done
-    played: 0
+    removes: []
   - name: Green Day-to-Day
     speakers: []
     sprites: []
@@ -6874,7 +6960,7 @@ MonoBehaviour:
     - Green
     prereqsNeeded: []
     prereqsGained: []
-    played: 0
+    removes: []
   dockEvents: []
   marketEvents: []
   barEvents: []
@@ -10458,7 +10544,7 @@ MonoBehaviour:
     chars: []
     prereqsNeeded: []
     prereqsGained: []
-    played: 0
+    removes: []
   txtBox: {fileID: 449098322}
   dialogue: []
   lineDelay: 2
@@ -11486,6 +11572,7 @@ GameObject:
   - component: {fileID: 1850605218}
   - component: {fileID: 1850605220}
   - component: {fileID: 1850605219}
+  - component: {fileID: 1850605221}
   m_Layer: 5
   m_Name: '''Enry'
   m_TagString: Untagged
@@ -11555,6 +11642,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1850605217}
   m_CullTransparentMesh: 1
+--- !u!225 &1850605221
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850605217}
+  m_Enabled: 1
+  m_Alpha: 0.6
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1860607576
 GameObject:
   m_ObjectHideFlags: 0
@@ -13496,6 +13595,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 476490111}
   - {fileID: 519420032}
   - {fileID: 532558955}
   - {fileID: 677070621}
