@@ -64,7 +64,7 @@ public class MapManager : MonoBehaviour
         foreach (string req in e.prereqsGained)
             player.prereqs.Add(req);
         e.played = true;
-        locBG.GetComponent<EventPlayer>().SetupEvent(e.dialogue, n, time, sprites);
+        locBG.GetComponent<EventPlayer>().SetupEvent(e, n, time, sprites);
     }
 
     public void UpdateInfo()

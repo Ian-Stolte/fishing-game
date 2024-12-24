@@ -9,12 +9,15 @@ public class EventPlayer : MonoBehaviour
 
     [SerializeField] private GameObject fishingGame;
     [SerializeField] private GameObject market;
-    [SerializeField] private GameObject purpleSprite;
+    [SerializeField] private GameObject violetSprite;
     [SerializeField] private GameObject clickToEnd;
+    [SerializeField] private Transform spriteParent;
 
     [HideInInspector] public bool eventStarted;
     public bool readyToReturn;
     private bool returned;
+
+    public Event currentEvent;
 
     [SerializeField] TextMeshProUGUI txtBox;
     public string[] dialogue;
@@ -23,7 +26,6 @@ public class EventPlayer : MonoBehaviour
     private bool skip;
     [SerializeField] private float lineDelay;
     private float lineDelayTimer;
-
 
     private List<GameObject> sprites;
     private int loc;
@@ -40,9 +42,9 @@ public class EventPlayer : MonoBehaviour
     private string[][] shopTxt = new string[][]{
         new string[] {"\"Hi there, what can I get for ya?\""},
         new string[] {"\"I hope you brought a good haul for me today!\"", "\"I rely on you for my supply, you know.\""},
-        new string[] {"Purple seems busy behind the counter, scribbling away at a sheet of notes..."},
-        new string[] {"Purple greets you with a smile as you arrive: \"Well, look who decided to turn up today!\"", "\"Tell me, what did you catch out there? Anything rare?\"", "\"Customers will go wild for something like a Pearl-Catcher, you know.\""},
-        new string[] {"The stall seems empty as you walk up...", "But then Purple stands up from behind a barrel of Red Macklers, hastily wiping their hands on an apron and rushing over to the counter.", "\"Sorry, sorry, just got caught up packing up these Macklers...\"", "\"You got anything for me today?\""}
+        new string[] {"Violet seems busy behind the counter, scribbling away at a sheet of notes..."},
+        new string[] {"Violet greets you with a smile as you arrive: \"Well, look who decided to turn up today!\"", "\"Tell me, what did you catch out there? Anything rare?\"", "\"Customers will go wild for something like a Pearl-Catcher, you know.\""},
+        new string[] {"The stall seems empty as you walk up...", "But then Violet stands up from behind a barrel of Red Macklers, hastily wiping their hands on an apron and rushing over to the counter.", "\"Sorry, sorry, just got caught up packing up these Macklers...\"", "\"You got anything for me today?\""}
     };
 
 
@@ -53,19 +55,24 @@ public class EventPlayer : MonoBehaviour
         {
             if (!eventStarted && Input.GetMouseButtonDown(0))
             {
-                eventStarted = true;
-                fishingGame.SetActive(loc==0);
-                market.SetActive(loc==1);
-                if (loc == 1)
+                if (playingLine)
+                    skip = true;
+                else
                 {
-                    purpleSprite.GetComponent<RectTransform>().anchoredPosition = new Vector2(128, -8);
-                    purpleSprite.SetActive(true);
+                    eventStarted = true;
+                    fishingGame.SetActive(loc==0);
+                    market.SetActive(loc==1);
+                    if (loc == 1)
+                    {
+                        violetSprite.GetComponent<RectTransform>().anchoredPosition = new Vector2(128, -8);
+                        violetSprite.SetActive(true);
+                    }
+                    index = 0;
+                    StartCoroutine(PlayLine(dialogue[0]));
                 }
-                else    
-                    ShowSprites();
             }
 
-            if (eventStarted)
+            else if (eventStarted)
             {
                 if (Input.GetMouseButtonDown(0) && readyToReturn)
                 {
@@ -96,31 +103,37 @@ public class EventPlayer : MonoBehaviour
         }
     }
 
-    public void SetupEvent(string[] newDialogue, int newLoc, int time, List<GameObject> newSprites)
+    public void SetupEvent(Event e, int newLoc, int time, List<GameObject> newSprites)
     {
         loc = newLoc;
+        currentEvent = e;
+        sprites = new List<GameObject>();
         if (loc == 1)
-        {
             dialogue = shopTxt[Random.Range(0, shopTxt.Length)];
-        }
         else
-        {
-            dialogue = newDialogue;
-            sprites = newSprites;
-        }
+            dialogue = e.dialogue;
         index = -1;
         
         readyToReturn = (loc != 0 && loc != 1);
-        txtBox.text = locationTxt[loc, time];
+        StartCoroutine(PlayLine(locationTxt[loc, time]));
         returned = false;
         fishingGame.SetActive(false);
         market.SetActive(false);
         clickToEnd.SetActive(false);
     }
 
-    private void ShowSprites()
+    private void ShowSprites(string spriteName, bool add=true)
     {
-        //TODO: have sprites come in at a more dynamic time
+        foreach (Transform child in spriteParent)
+        {
+            if (child.name == spriteName)
+            {
+                if (add)
+                    sprites.Add(child.gameObject);
+                else
+                    sprites.Remove(child.gameObject);
+            }
+        }
         for (int i = 0; i < sprites.Count; i++)
         {
             if (loc == 0)
@@ -156,6 +169,23 @@ public class EventPlayer : MonoBehaviour
         playingLine = true;
         txtBox.text = "";
         skip = false;
+        if (index != -1 && loc != 1)
+        {
+            if (currentEvent.sprites[index] != "")
+            {
+                if (currentEvent.sprites[index].Contains("- "))
+                {
+                    ShowSprites(currentEvent.sprites[index].Substring(2), false);
+                }
+                else
+                    ShowSprites(currentEvent.sprites[index]);
+            }
+            if (currentEvent.speakers[index] != "Narration")
+            {
+                ShowPortrait(currentEvent.speakers[index]);
+            }
+        }
+        
         foreach (char c in line)
         {
             if (skip)
@@ -182,5 +212,10 @@ public class EventPlayer : MonoBehaviour
         }
         playingLine = false;
         lineDelayTimer = lineDelay;
+    }
+
+    private void ShowPortrait(string name)
+    {
+        Debug.Log("Showing " + name + "'s portrait");
     }
 }

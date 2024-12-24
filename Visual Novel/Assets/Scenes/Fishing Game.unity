@@ -1348,21 +1348,22 @@ MonoBehaviour:
   - name: '''Enry'
     relationship: 0
     schedule:
-    - {x: 4, y: 0, z: 1}
-    - {x: 0, y: 0, z: 1}
+    - {x: 1, y: 0, z: 3}
+    - {x: 1, y: 0, z: 1}
     icon: {fileID: 396746444}
     sprite: {fileID: 1850605217}
   - name: Rein
     relationship: 0
     schedule:
-    - {x: 4, y: 4, z: 0}
-    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 4, z: 3}
+    - {x: 0, y: 3, z: 0}
     icon: {fileID: 1827430888}
     sprite: {fileID: 915686925}
   - name: Violet
     relationship: 0
     schedule:
     - {x: 2, y: 2, z: 2}
+    - {x: 2, y: 2, z: 3}
     icon: {fileID: 1607502517}
     sprite: {fileID: 986298587}
 --- !u!4 &308455146
@@ -4422,7 +4423,7 @@ GameObject:
   - component: {fileID: 915686928}
   - component: {fileID: 915686927}
   m_Layer: 5
-  m_Name: Green Sprite
+  m_Name: Rein
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5029,7 +5030,7 @@ GameObject:
   - component: {fileID: 986298590}
   - component: {fileID: 986298589}
   m_Layer: 5
-  m_Name: Purple Sprite
+  m_Name: Violet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6034,7 +6035,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events:
   - name: Failed Event
-    speakers: []
+    speakers:
+    - Narration
+    - Narration
+    sprites:
+    - 
+    - 
     dialogue:
     - This is a placeholder event
     - Unfortunately, there were no available events to trigger
@@ -6044,6 +6050,7 @@ MonoBehaviour:
     played: 0
   - name: Orange Intro
     speakers: []
+    sprites: []
     dialogue:
     - You meet a new character...
     - Orange!
@@ -6054,6 +6061,7 @@ MonoBehaviour:
     played: 0
   - name: Drama!
     speakers: []
+    sprites: []
     dialogue:
     - There's a massive fight today!
     - First, Orange insults Purple, then Purple insults Green, then Green insults
@@ -6069,6 +6077,7 @@ MonoBehaviour:
     played: 0
   - name: Betrayal? (Orange)
     speakers: []
+    sprites: []
     dialogue:
     - oh my god
     - Did Orange just betray you?!
@@ -6080,6 +6089,7 @@ MonoBehaviour:
     played: 0
   - name: Betrayal? (Green)
     speakers: []
+    sprites: []
     dialogue:
     - No way, I think Green just betrayed you!
     - Better watch your back more carefully.
@@ -6090,6 +6100,7 @@ MonoBehaviour:
     played: 0
   - name: Betrayal? (Purple)
     speakers: []
+    sprites: []
     dialogue:
     - But... it couldn't be...
     - Betrayal?!
@@ -6101,6 +6112,7 @@ MonoBehaviour:
     played: 0
   - name: Purple Questline 1
     speakers: []
+    sprites: []
     dialogue:
     - Purple invites you on a nice little quest.
     - '"Head to the Rhombus and we''ll keep questng together," they say.'
@@ -6112,6 +6124,7 @@ MonoBehaviour:
     played: 0
   - name: Purple Questline 2
     speakers: []
+    sprites: []
     dialogue:
     - The quest continues!
     - You do some epic questing today
@@ -6126,6 +6139,7 @@ MonoBehaviour:
     played: 0
   - name: Purple Questline 3
     speakers: []
+    sprites: []
     dialogue:
     - At long last, the quest is complete!
     - What a great adventure!
@@ -6138,6 +6152,7 @@ MonoBehaviour:
     played: 0
   - name: Green Day-to-Day
     speakers: []
+    sprites: []
     dialogue:
     - Today you get a glimpse into Green's day-to-day life...
     - Not the most exciting, to be honest, but you don't say that!
@@ -6148,6 +6163,8 @@ MonoBehaviour:
     played: 0
   dockEvents: []
   marketEvents: []
+  barEvents: []
+  cliffEvents: []
 --- !u!4 &1223302919
 Transform:
   m_ObjectHideFlags: 0
@@ -9487,10 +9504,20 @@ MonoBehaviour:
   mapManager: {fileID: 1734410937}
   fishingGame: {fileID: 1326190394}
   market: {fileID: 1998145859}
-  purpleSprite: {fileID: 986298587}
+  violetSprite: {fileID: 986298587}
   clickToEnd: {fileID: 2092725183}
+  spriteParent: {fileID: 2060433312}
   eventStarted: 0
   readyToReturn: 0
+  currentEvent:
+    name: 
+    speakers: []
+    sprites: []
+    dialogue: []
+    chars: []
+    prereqsNeeded: []
+    prereqsGained: []
+    played: 0
   txtBox: {fileID: 449098322}
   dialogue: []
   lineDelay: 2
@@ -10369,7 +10396,7 @@ GameObject:
   - component: {fileID: 1850605220}
   - component: {fileID: 1850605219}
   m_Layer: 5
-  m_Name: Orange Sprite
+  m_Name: '''Enry'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

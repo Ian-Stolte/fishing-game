@@ -48,6 +48,7 @@ public class EventManager : MonoBehaviour
                     Event e = new Event(Path.ChangeExtension(Path.GetFileName(file), null));
                     e.speakers = txt["Speaker"].Values.ToArray();
                     e.dialogue = txt["Dialogue"].Values.ToArray();
+                    e.sprites = txt["Sprite"].Values.ToArray();
                     e.chars = txt["Chars"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
                     e.prereqsNeeded = txt["Prereqs-Needed"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
                     e.prereqsGained = txt["Prereqs-Gained"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
@@ -120,7 +121,7 @@ public class EventManager : MonoBehaviour
         //filter by chars at loc
         foreach (string c in charsHere)
         {
-            if (e.chars.Contains(c))
+            if (!e.chars.Contains(c))
             {
                 //Debug.Log("DOESN'T INCLUDE CHARACTER PRESENT (" + c + ")");
                 return false;
@@ -169,6 +170,7 @@ public class Event
 
     public string name;
     public string[] speakers;
+    public string[] sprites;
     public string[] dialogue;
     public string[] chars;
     //public Vector3[] timing;
