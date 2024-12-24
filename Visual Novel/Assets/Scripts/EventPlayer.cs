@@ -12,6 +12,7 @@ public class EventPlayer : MonoBehaviour
     [SerializeField] private GameObject violetSprite;
     [SerializeField] private GameObject clickToEnd;
     [SerializeField] private Transform spriteParent;
+    [SerializeField] private Transform portraitParent;
 
     [HideInInspector] public bool eventStarted;
     public bool readyToReturn;
@@ -103,7 +104,7 @@ public class EventPlayer : MonoBehaviour
         }
     }
 
-    public void SetupEvent(Event e, int newLoc, int time, List<GameObject> newSprites)
+    public void SetupEvent(Event e, int newLoc, int time)
     {
         loc = newLoc;
         currentEvent = e;
@@ -120,6 +121,7 @@ public class EventPlayer : MonoBehaviour
         fishingGame.SetActive(false);
         market.SetActive(false);
         clickToEnd.SetActive(false);
+        ShowPortrait("none");
     }
 
     private void ShowSprites(string spriteName, bool add=true)
@@ -180,10 +182,7 @@ public class EventPlayer : MonoBehaviour
                 else
                     ShowSprites(currentEvent.sprites[index]);
             }
-            if (currentEvent.speakers[index] != "Narration")
-            {
-                ShowPortrait(currentEvent.speakers[index]);
-            }
+            ShowPortrait(currentEvent.speakers[index]);
         }
         
         foreach (char c in line)
@@ -216,6 +215,9 @@ public class EventPlayer : MonoBehaviour
 
     private void ShowPortrait(string name)
     {
-        Debug.Log("Showing " + name + "'s portrait");
+        foreach (Transform child in portraitParent)
+        {
+            child.gameObject.SetActive(child.name == name);
+        }
     }
 }

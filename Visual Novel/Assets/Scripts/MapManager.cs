@@ -48,23 +48,12 @@ public class MapManager : MonoBehaviour
         locBG.SetActive(true);
         locBG.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = locations[n].name;
         locBG.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = e.name;
-        List<GameObject> sprites = new List<GameObject>();
-        foreach (string name in e.chars)
-        {
-            foreach (Character c in charManager.characters)
-            {
-                if (name == c.name)
-                {
-                    sprites.Add(c.sprite);
-                }
-            }
-        }
         foreach (Transform child in eventSprites)
             child.gameObject.SetActive(false);
         foreach (string req in e.prereqsGained)
             player.prereqs.Add(req);
         e.played = true;
-        locBG.GetComponent<EventPlayer>().SetupEvent(e, n, time, sprites);
+        locBG.GetComponent<EventPlayer>().SetupEvent(e, n, time);
     }
 
     public void UpdateInfo()
