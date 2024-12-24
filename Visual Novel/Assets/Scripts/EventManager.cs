@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,8 +9,8 @@ using Newtonsoft.Json;
 public class EventManager : MonoBehaviour
 {
     public Event[] events;
-    public Dictionary<string, Dictionary<string, string>> dockEvents;
-    public Dictionary<string, Dictionary<string, string>> marketEvents;
+    public List<Event> dockEvents;
+    public List<Event> marketEvents;
 
     private CharacterManager charManager;
     private PlayerManager player;
@@ -24,7 +25,7 @@ public class EventManager : MonoBehaviour
         LoadFromJson(marketEvents, "Resources/Events/Market");
     }
     
-    private void LoadFromJson(Dictionary<string, Dictionary<string, string>> destination, string path)
+    private void LoadFromJson(List<Event> destination, string path)
     {
         string fullPath = Path.Combine(Application.dataPath, path);
 
@@ -38,8 +39,16 @@ public class EventManager : MonoBehaviour
                     string relativePath = Path.GetRelativePath(Application.dataPath, file).Substring("Resources".Length+1);
                     relativePath = Path.ChangeExtension(relativePath, null);
                     var res = Resources.Load<TextAsset>(relativePath).text;
-                    destination = ParseJsonToDictionary(res);
-                    Debug.Log(destination["Dialogue"]["0"]);
+                    var txt = ParseJsonToDictionary(res);
+
+                    Event e = new Event(Path.ChangeExtension(Path.GetFileName(file), null));
+                    e.speakers = txt["Speaker"].Values.ToArray();
+                    e.dialogue = txt["Dialogue"].Values.ToArray();
+                    e.chars = txt["Chars"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
+                    e.prereqsNeeded = txt["Prereqs-Needed"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
+                    e.prereqsGained = txt["Prereqs-Gained"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
+                    
+                    destination.Add(e);
                 }
             }
         }
@@ -60,26 +69,29 @@ public class EventManager : MonoBehaviour
     }
 
 
-    public Event SelectEvent(int loc, List<string> charsHere, int day, int loop)
+    public Event SelectEvent(int loc, List<string> charsHere, int time, int day)
     {
         List<Event> candidates = new List<Event>();
-        foreach (Event e in events)
+        List<Event> locEvents = dockEvents;
+        if (loc == 2)
+            locEvents = marketEvents;
+        
+        foreach (Event e in locEvents)
         {
-            if (ValidEvent(e, loc, charsHere, day, loop))
+            if (ValidEvent(e, loc, charsHere, time, day))
             {
                 candidates.Add(e);
-                //Debug.Log("Adding " + e.name);
             }
         }
         if (candidates.Count == 0)
         {
-            //Debug.Log("NO VALID EVENTS!!");
             return events[0];
         }
         return candidates[UnityEngine.Random.Range(0, candidates.Count)];
     }
 
-    private bool ValidEvent(Event e, int loc, List<string> charsHere, int day, int loop)
+
+    private bool ValidEvent(Event e, int loc, List<string> charsHere, int time, int day)
     {
         //Debug.Log("Checking " + e.name + "...");
         //filter by already played
@@ -88,21 +100,6 @@ public class EventManager : MonoBehaviour
             //Debug.Log("ALREADY PLAYED!");
             return false;
         }
-        //filter by loc
-        if ((e.loc != loc && e.loc != 0))
-        {
-            //Debug.Log("WRONG LOC (needs " + e.loc + ")");
-            return false;
-        }
-        //filter by timing
-        /*if (e.timing.Length > 0)
-        {
-            if (GetVec3(e.timing, day, loop) == 0)
-            {
-                //Debug.Log("WRONG TIMING");
-                return false;
-            }
-        }*/
         //filter by prereqs
         foreach (string req in e.prereqsNeeded)
         {
@@ -115,7 +112,7 @@ public class EventManager : MonoBehaviour
         //filter by chars at loc
         foreach (string c in charsHere)
         {
-            if (Array.IndexOf(e.chars, c) == -1)
+            if (e.chars.Contains(c))
             {
                 //Debug.Log("DOESN'T INCLUDE CHARACTER PRESENT (" + c + ")");
                 return false;
@@ -128,7 +125,7 @@ public class EventManager : MonoBehaviour
             {
                 if (c.name == character)
                 {
-                    int currentLoc = GetVec3(c.schedule, day, loop);
+                    int currentLoc = GetVec3(c.schedule, time, day);
                     if (currentLoc != loc && currentLoc != 0)
                     {
                         //Debug.Log("NECESSARY CHARACTER IS SOMEWHERE ELSE (" + c.name + ")");
@@ -140,15 +137,15 @@ public class EventManager : MonoBehaviour
         return true;
     }
 
-    private int GetVec3(Vector3[] vec, int day, int loop)
+    private int GetVec3(Vector3[] vec, int time, int day)
     {
         
-        if (day == 0)
-            return (int)vec[(loop-1)%vec.Length].x;
-        else if (day == 1)
-            return (int)vec[(loop-1)%vec.Length].y;
-        else if (day == 2)
-            return (int)vec[(loop-1)%vec.Length].z;
+        if (time == 0)
+            return (int)vec[(day-1)%vec.Length].x;
+        else if (time == 1)
+            return (int)vec[(day-1)%vec.Length].y;
+        else if (time == 2)
+            return (int)vec[(day-1)%vec.Length].z;
         return 0;
     }
 }
@@ -157,11 +154,17 @@ public class EventManager : MonoBehaviour
 [System.Serializable]
 public class Event
 {
+    public Event(string name_)
+    {
+        name = name_;
+    }
+
     public string name;
+    public string[] speakers;
     public string[] dialogue;
     public string[] chars;
-    public int loc; //0 = anywhere, 1-4 = locations
     //public Vector3[] timing;
+
     public string[] prereqsNeeded;
     public string[] prereqsGained;
     public bool played;
