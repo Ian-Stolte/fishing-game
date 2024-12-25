@@ -133,7 +133,10 @@ public class EventPlayer : MonoBehaviour
                 if (add)
                     sprites.Add(child.gameObject);
                 else
+                {
                     sprites.Remove(child.gameObject);
+                    child.gameObject.SetActive(false);
+                }
             }
         }
         for (int i = 0; i < sprites.Count; i++)
@@ -170,6 +173,7 @@ public class EventPlayer : MonoBehaviour
     private IEnumerator PlayLine(string line)
     {
         line = line.Replace("{name}", GameObject.Find("Player Manager").GetComponent<PlayerManager>().name);
+        //line = line.Replace("{fish}", /*a random fish*/);
         playingLine = true;
         txtBox.text = "";
         skip = false;
@@ -177,39 +181,38 @@ public class EventPlayer : MonoBehaviour
         {
             if (currentEvent.sprites[index] != "")
             {
-                if (currentEvent.sprites[index].Contains("- "))
+                string[] spritesToMod = currentEvent.sprites[index].Split(new string[] { ", " }, System.StringSplitOptions.None);
+                foreach (string str in spritesToMod)
                 {
-                    ShowSprites(currentEvent.sprites[index].Substring(2), false);
+                    if (str.Contains("- "))
+                    {
+                        ShowSprites(str.Substring(2), false);
+                    }
+                    else
+                        ShowSprites(str);
                 }
-                else
-                    ShowSprites(currentEvent.sprites[index]);
             }
             ShowPortrait(currentEvent.speakers[index]);
         }
         
         foreach (char c in line)
         {
-            if (skip)
-            {
-                txtBox.text = line;
-                break;
-            }
-
             if (c != '*')
                 txtBox.text += c;
             
-            /*if (skip)
-                yield return new WaitForSeconds(0.001f);
-            else*/ if (c == '*')
-                yield return new WaitForSeconds(0.1f);
-            else if (c == '.' || c == '?' || c == '!') //add condition so quotes after punctuation appear with it
-                yield return new WaitForSeconds(0.3f);
-            else if (c == ',')
-                yield return new WaitForSeconds(0.15f);
-            else if (c == ' ')
-                yield return new WaitForSeconds(0.05f);
-            else
-                yield return new WaitForSeconds(0.03f);
+            if (!skip)
+            {
+                if (c == '*')
+                    yield return new WaitForSeconds(0.1f);
+                else if (c == '.' || c == '?' || c == '!') //add condition so quotes after punctuation appear with it
+                    yield return new WaitForSeconds(0.3f);
+                else if (c == ',')
+                    yield return new WaitForSeconds(0.15f);
+                else if (c == ' ')
+                    yield return new WaitForSeconds(0.05f);
+                else
+                    yield return new WaitForSeconds(0.03f);
+            }
         }
         playingLine = false;
         lineDelayTimer = lineDelay;
