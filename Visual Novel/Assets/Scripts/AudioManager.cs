@@ -54,7 +54,7 @@ public class AudioManager : MonoBehaviour
             s.volume = storedVol;
         }
 
-        Play("Uncharted Waters");
+        Play(music[UnityEngine.Random.Range(0, music.Length)].name);
     }
     
     public IEnumerator FadeOutAll(float duration)
