@@ -1,0 +1,30 @@
+{
+  "Speaker": {
+    "0": "'Enry",
+    "1": ""
+  },
+  "Dialogue": {
+    "0": "\"Ahoy there. I'm 'Enry!\"",
+    "1": ""
+  },
+  "Sprite": {
+    "0": "'Enry",
+    "1": ""
+  },
+  "Chars": {
+    "0": "'Enry",
+    "1": ""
+  },
+  "Prereqs-Needed": {
+    "0": "",
+    "1": ""
+  },
+  "Prereqs-Gained": {
+    "0": "'Enry-Intro",
+    "1": ""
+  },
+  "Removes": {
+    "0": "this",
+    "1": "'Enry-IntroBar"
+  }
+}
