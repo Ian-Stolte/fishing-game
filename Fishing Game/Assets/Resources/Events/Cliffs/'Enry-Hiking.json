@@ -7,7 +7,7 @@
   "Dialogue": {
     "0": "You're enjoying the cool breeze up here, the tranquil forest all around you, the sound of the distant waves...",
     "1": "When suddenly you hear a very different sound!",
-    "2": "\"---son of a yellow-bellied seaweed sucker's left toenail! I'll send ya so deep even the dirt at the bottom of the ocean won't find ya!\""
+    "2": "\"Narrationson of a yellow-bellied seaweed sucker's left toenail! I'll send ya so deep even the dirt at the bottom of the ocean won't find ya!\""
   },
   "Sprite": {
     "0": "",
@@ -24,13 +24,13 @@
     "1": "",
     "2": ""
   },
-  "Prereqs-Gained": {
-    "0": "",
+  "Removes": {
+    "0": "this",
     "1": "",
     "2": ""
   },
-  "Removes": {
-    "0": "this",
+  "Priority": {
+    "0": 0,
     "1": "",
     "2": ""
   }

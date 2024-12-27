@@ -13,6 +13,7 @@ public class EventManager : MonoBehaviour
     public List<Event> marketEvents;
     public List<Event> barEvents;
     public List<Event> cliffEvents;
+    public List<Event> popupEvents;
 
     private CharacterManager charManager;
     private PlayerManager player;
@@ -27,6 +28,7 @@ public class EventManager : MonoBehaviour
         LoadFromJson(marketEvents, "Resources/Events/Market");
         LoadFromJson(barEvents, "Resources/Events/Bar");
         LoadFromJson(cliffEvents, "Resources/Events/Cliffs");
+        LoadFromJson(popupEvents, "Resources/Events/Pop-Up");
     }
     
     private void LoadFromJson(List<Event> destination, string path)
@@ -51,8 +53,8 @@ public class EventManager : MonoBehaviour
                     e.sprites = txt["Sprite"].Values.ToArray();
                     e.chars = txt["Chars"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
                     e.prereqsNeeded = txt["Prereqs-Needed"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
-                    e.prereqsGained = txt["Prereqs-Gained"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
                     e.removes = txt["Removes"].Values.Where(value => !string.IsNullOrEmpty(value)).ToArray();
+                    e.priority = int.Parse(txt["Priority"].Values.ToArray()[0]);
                     
                     destination.Add(e);
                 }
@@ -87,16 +89,22 @@ public class EventManager : MonoBehaviour
             locEvents = cliffEvents;
         
         foreach (Event e in locEvents)
-        {
             if (ValidEvent(e, loc, charsHere, time, day))
-            {
                 candidates.Add(e);
-            }
-        }
+        foreach (Event e in popupEvents)
+            if (ValidEvent(e, loc, charsHere, time, day))
+                candidates.Add(e);
+
         if (candidates.Count == 0)
         {
             return events[0];
         }
+        int highestPriority = 0;
+        foreach (Event e in candidates)
+            if (e.priority > highestPriority)
+                highestPriority = e.priority;
+        candidates.RemoveAll(e => e.priority < highestPriority);
+                
         Event chosenEvent = candidates[UnityEngine.Random.Range(0, candidates.Count)];
         if (chosenEvent.removes.Count() == 0)
             chosenEvent = candidates[UnityEngine.Random.Range(0, candidates.Count)];
@@ -187,6 +195,6 @@ public class Event
     //public Vector3[] timing;
 
     public string[] prereqsNeeded;
-    public string[] prereqsGained;
     public string[] removes;
+    public int priority;
 }

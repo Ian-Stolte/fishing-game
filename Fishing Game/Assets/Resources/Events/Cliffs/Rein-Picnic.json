@@ -9,7 +9,7 @@
   },
   "Dialogue": {
     "0": "You spot a figure along the edge of the cliffside, seated on a bright red square of fabric...",
-    "1": "As you approach, you realize it's Rein---and that she appears to be in the middle of a picnic!",
+    "1": "As you approach, you realize it's Rein—and that she appears to be in the middle of a picnic!",
     "2": "But... she also appears to be alone. Which, as far you know, is not how picnics are usually supposed to go.",
     "3": "\"Oh-- hello, {name}! Fancy seeing you all the way up here...\"",
     "4": "\"Come, take a seat! I have far more food that I could possibly hope to finish on my own.\"",
@@ -39,16 +39,16 @@
     "4": "",
     "5": ""
   },
-  "Prereqs-Gained": {
-    "0": "",
+  "Removes": {
+    "0": "this",
     "1": "",
     "2": "",
     "3": "",
     "4": "",
     "5": ""
   },
-  "Removes": {
-    "0": "this",
+  "Priority": {
+    "0": 0,
     "1": "",
     "2": "",
     "3": "",

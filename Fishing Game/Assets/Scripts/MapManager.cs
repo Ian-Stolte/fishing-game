@@ -13,8 +13,8 @@ public class MapManager : MonoBehaviour
     [SerializeField] private Transform fader;
     
     [SerializeField] private GameObject timeTxt;
-    private int time = -1;
-    private int day = 1;
+    public int time = -1;
+    public int day = 1;
     private string[] timeStrings = new string[]{"Morning", "Afternoon", "Evening"};
 
     [SerializeField] private GameObject eveningOverlay;
@@ -41,6 +41,7 @@ public class MapManager : MonoBehaviour
         UpdateInfo();
     }
 
+
     public void SelectLocation(int n)
     {
         Event e = eventManager.SelectEvent(n+1, locations[n].charsHere, time, day);
@@ -50,10 +51,9 @@ public class MapManager : MonoBehaviour
         locBG.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = e.name;
         foreach (Transform child in eventSprites)
             child.gameObject.SetActive(false);
-        foreach (string req in e.prereqsGained)
-            player.prereqs.Add(req);
         locBG.GetComponent<EventPlayer>().SetupEvent(e, n, time);
     }
+
 
     public void UpdateInfo()
     {
@@ -121,6 +121,32 @@ public class MapManager : MonoBehaviour
             //give player reward if 1st time
         }
     }
+
+
+    public string ReturnModdedTime(int timeChange)
+    {
+        int newTime = time + timeChange;
+        int dayDiff = time/3;
+        newTime = newTime%3;
+
+        if (dayDiff == 0)
+            return ("this " + timeStrings[newTime].ToLower());
+        else if (dayDiff == -1)
+            return ("yesterday " + timeStrings[newTime].ToLower());
+        else if (dayDiff == 1)
+            return ("tomorrow " + timeStrings[newTime].ToLower());
+        else
+        {
+            int newDay = day + dayDiff;
+            string suffix = "st";
+            if (newDay%10 == 1)
+                suffix = "st";
+            else if (newDay%10 == 2)
+                suffix = "nd";
+            return ("on the " + timeStrings[newTime].ToLower() + " of the " + (day + dayDiff) + suffix);
+        }
+    }
+
 
     public IEnumerator ShowTimeTransition()
     {

@@ -5,6 +5,15 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     public Character[] characters;
+
+    public void ChangeRelationship(string character, int amount)
+    {
+        foreach (Character c in characters)
+        {
+            if (c.name == character)
+                c.relationship += amount;
+        }
+    }
 }
 
 

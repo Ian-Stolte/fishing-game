@@ -1154,6 +1154,7 @@ GameObject:
   - component: {fileID: 236333395}
   - component: {fileID: 236333397}
   - component: {fileID: 236333396}
+  - component: {fileID: 236333398}
   m_Layer: 5
   m_Name: Text Box (3)
   m_TagString: Untagged
@@ -1219,6 +1220,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 236333394}
   m_CullTransparentMesh: 1
+--- !u!114 &236333398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236333394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.8235294, g: 0.8235294, b: 0.8235294, a: 1}
+    m_PressedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 236333396}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1727903567}
+        m_TargetAssemblyTypeName: EventPlayer, Assembly-CSharp
+        m_MethodName: MakeChoice
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &251104910
 GameObject:
   m_ObjectHideFlags: 0
@@ -4113,6 +4170,7 @@ GameObject:
   - component: {fileID: 766139688}
   - component: {fileID: 766139690}
   - component: {fileID: 766139689}
+  - component: {fileID: 766139691}
   m_Layer: 5
   m_Name: Text Box (1)
   m_TagString: Untagged
@@ -4178,6 +4236,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766139687}
   m_CullTransparentMesh: 1
+--- !u!114 &766139691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766139687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.8235294, g: 0.8235294, b: 0.8235294, a: 1}
+    m_PressedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 766139689}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1727903567}
+        m_TargetAssemblyTypeName: EventPlayer, Assembly-CSharp
+        m_MethodName: MakeChoice
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &768641812
 GameObject:
   m_ObjectHideFlags: 0
@@ -7311,8 +7425,8 @@ MonoBehaviour:
     - Unfortunately, there were no available events to trigger
     chars: []
     prereqsNeeded: []
-    prereqsGained: []
     removes: []
+    priority: 0
   - name: Orange Intro
     speakers: []
     sprites: []
@@ -7322,8 +7436,8 @@ MonoBehaviour:
     chars:
     - Orange
     prereqsNeeded: []
-    prereqsGained: []
     removes: []
+    priority: 0
   - name: Drama!
     speakers: []
     sprites: []
@@ -7338,8 +7452,8 @@ MonoBehaviour:
     - Green
     - Purple
     prereqsNeeded: []
-    prereqsGained: []
     removes: []
+    priority: 0
   - name: Betrayal? (Orange)
     speakers: []
     sprites: []
@@ -7350,8 +7464,8 @@ MonoBehaviour:
     chars:
     - Orange
     prereqsNeeded: []
-    prereqsGained: []
     removes: []
+    priority: 0
   - name: Betrayal? (Green)
     speakers: []
     sprites: []
@@ -7361,8 +7475,8 @@ MonoBehaviour:
     chars:
     - Green
     prereqsNeeded: []
-    prereqsGained: []
     removes: []
+    priority: 0
   - name: Betrayal? (Purple)
     speakers: []
     sprites: []
@@ -7373,8 +7487,8 @@ MonoBehaviour:
     chars:
     - Purple
     prereqsNeeded: []
-    prereqsGained: []
     removes: []
+    priority: 0
   - name: Purple Questline 1
     speakers: []
     sprites: []
@@ -7384,9 +7498,8 @@ MonoBehaviour:
     chars:
     - Purple
     prereqsNeeded: []
-    prereqsGained:
-    - purple-quest-1
     removes: []
+    priority: 0
   - name: Purple Questline 2
     speakers: []
     sprites: []
@@ -7399,9 +7512,8 @@ MonoBehaviour:
     - Purple
     prereqsNeeded:
     - purple-quest-1
-    prereqsGained:
-    - purple-quest-2
     removes: []
+    priority: 0
   - name: Purple Questline 3
     speakers: []
     sprites: []
@@ -7412,9 +7524,8 @@ MonoBehaviour:
     - Purple
     prereqsNeeded:
     - purple-quest-2
-    prereqsGained:
-    - purple-quest-done
     removes: []
+    priority: 0
   - name: Green Day-to-Day
     speakers: []
     sprites: []
@@ -7424,12 +7535,13 @@ MonoBehaviour:
     chars:
     - Green
     prereqsNeeded: []
-    prereqsGained: []
     removes: []
+    priority: 0
   dockEvents: []
   marketEvents: []
   barEvents: []
   cliffEvents: []
+  popupEvents: []
 --- !u!4 &1223302919
 Transform:
   m_ObjectHideFlags: 0
@@ -11009,10 +11121,11 @@ MonoBehaviour:
     dialogue: []
     chars: []
     prereqsNeeded: []
-    prereqsGained: []
     removes: []
+    priority: 0
   txtBox: {fileID: 449098322}
   dialogue: []
+  index: 0
   lineDelay: 2
   choices: {fileID: 348370057}
 --- !u!1 &1733753483
@@ -11195,6 +11308,8 @@ MonoBehaviour:
   eventTxt: {fileID: 449098322}
   fader: {fileID: 155545109}
   timeTxt: {fileID: 260403386}
+  time: -1
+  day: 1
   eveningOverlay: {fileID: 1024635688}
   mapBG: {fileID: 1795691169}
   locBG: {fileID: 1727903563}
@@ -13821,6 +13936,7 @@ GameObject:
   - component: {fileID: 2041278424}
   - component: {fileID: 2041278426}
   - component: {fileID: 2041278425}
+  - component: {fileID: 2041278427}
   m_Layer: 5
   m_Name: Text Box (2)
   m_TagString: Untagged
@@ -13886,6 +14002,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041278423}
   m_CullTransparentMesh: 1
+--- !u!114 &2041278427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041278423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.8235294, g: 0.8235294, b: 0.8235294, a: 1}
+    m_PressedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2041278425}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1727903567}
+        m_TargetAssemblyTypeName: EventPlayer, Assembly-CSharp
+        m_MethodName: MakeChoice
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2060433311
 GameObject:
   m_ObjectHideFlags: 0

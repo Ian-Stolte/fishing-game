@@ -1,11 +1,11 @@
 {
   "Speaker": {
     "0": "'Enry",
-    "1": ""
+    "1": "Prereq"
   },
   "Dialogue": {
     "0": "\"Ahoy there. I'm 'Enry!\"",
-    "1": ""
+    "1": "'Enry-Intro"
   },
   "Sprite": {
     "0": "'Enry",
@@ -19,12 +19,12 @@
     "0": "",
     "1": ""
   },
-  "Prereqs-Gained": {
-    "0": "'Enry-Intro",
-    "1": ""
-  },
   "Removes": {
     "0": "this",
     "1": "'Enry-IntroBar"
+  },
+  "Priority": {
+    "0": 100,
+    "1": ""
   }
 }

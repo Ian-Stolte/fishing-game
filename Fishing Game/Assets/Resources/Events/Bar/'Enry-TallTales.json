@@ -12,7 +12,7 @@
     "9": "Rein"
   },
   "Dialogue": {
-    "0": "\"Aye, it be true! The beast were tall as the mast of my ship---no, taller still!\"",
+    "0": "\"Aye, it be true! The beast were tall as the mast of my ship—no, taller still!\"",
     "1": "You can't help but overhear the end of 'Enry's story as you walk in... although it seems like most of the bar is already listening in.",
     "2": "You drag over a chair and slump down in it, not even bothering to walk over to the bar and order something.",
     "3": "You don't know why you're so tired right now. I mean, the bar is pretty far away, all the way across the room... you'll do it later, you tell yourself.",
@@ -59,8 +59,8 @@
     "8": "",
     "9": ""
   },
-  "Prereqs-Gained": {
-    "0": "",
+  "Removes": {
+    "0": "this",
     "1": "",
     "2": "",
     "3": "",
@@ -71,8 +71,8 @@
     "8": "",
     "9": ""
   },
-  "Removes": {
-    "0": "this",
+  "Priority": {
+    "0": 0,
     "1": "",
     "2": "",
     "3": "",

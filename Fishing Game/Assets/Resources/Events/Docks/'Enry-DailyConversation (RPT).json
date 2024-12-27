@@ -8,12 +8,12 @@
     "5": "Narration"
   },
   "Dialogue": {
-    "0": "'Enry is out by the dock when you get there, hand resting lightly on the crank for his fishing arm. He's focused, you can tell???so much so that he doesn't notice you approach.",
-    "1": "\"Mmhm, that's it. Just come a little closer now???\"",
-    "2": "You don't see any fish, but you know by now not to doubt 'Enry's senses???as nonsensical as they may seem.",
+    "0": "'Enry is out by the dock when you get there, hand resting lightly on the crank for his fishing arm. He's focused, you can tell—so much so that he doesn't notice you approach.",
+    "1": "\"Mmhm, that's it. Just come a little closer now…\"",
+    "2": "You don't <i>see</i> any fish, but you know by now not to doubt 'Enry's senses—as nonsensical as they may seem.",
     "3": "As you settle down next to him, 'Enry leaps up and grasps tight to his fishing arm, grinning as he reels in a massive {fish}.",
-    "4": "\"Could feel him waiting down there. Patient bastard??? But they all bite sooner or later!\"",
-    "5": "Well, that doesn't necessarily seem to be true for you??? but you settle for casting out your line and hoping you get lucky!"
+    "4": "\"Could feel him waiting down there. Patient bastard… But they all bite sooner or later!\"",
+    "5": "Well, that doesn't necessarily seem to be true for you… but you settle for casting out your line and hoping you get lucky!"
   },
   "Sprite": {
     "0": "'Enry",
@@ -39,7 +39,7 @@
     "4": "",
     "5": ""
   },
-  "Prereqs-Gained": {
+  "Removes": {
     "0": "",
     "1": "",
     "2": "",
@@ -47,8 +47,8 @@
     "4": "",
     "5": ""
   },
-  "Removes": {
-    "0": "",
+  "Priority": {
+    "0": 0,
     "1": "",
     "2": "",
     "3": "",

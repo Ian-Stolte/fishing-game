@@ -22,7 +22,7 @@ public class EventPlayer : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI txtBox;
     public string[] dialogue;
-    private int index;
+    [SerializeField] private int index;
     private bool playingLine;
     private bool skip;
     [SerializeField] private float lineDelay;
@@ -30,7 +30,6 @@ public class EventPlayer : MonoBehaviour
 
     [SerializeField] private Transform choices;
     private bool choosing;
-
 
     private List<GameObject> sprites;
     private int loc;
@@ -52,7 +51,13 @@ public class EventPlayer : MonoBehaviour
         new string[] {"The stall seems empty as you walk up...", "But then Violet stands up from behind a barrel of Red Macklers, hastily wiping their hands on an apron and rushing over to the counter.", "\"Sorry, sorry, just got caught up packing up these Macklers...\"", "\"You got anything for me today?\""}
     };
 
+    private PlayerManager player;
 
+
+    void Awake()
+    {
+        player = GameObject.Find("Player Manager").GetComponent<PlayerManager>();
+    }
 
     void Update()
     {
@@ -78,7 +83,7 @@ public class EventPlayer : MonoBehaviour
 
             else if (choosing)
             {
-                //arrow keys to mouse between options (or just click on them -- buttons)
+                //arrow keys to mouse between options
             }
 
             else if (eventStarted)
@@ -112,6 +117,7 @@ public class EventPlayer : MonoBehaviour
         }
     }
 
+
     public void SetupEvent(Event e, int newLoc, int time)
     {
         loc = newLoc;
@@ -131,6 +137,7 @@ public class EventPlayer : MonoBehaviour
         clickToEnd.SetActive(false);
         ShowPortrait("none");
     }
+
 
     private void ShowSprites(string spriteName, bool add=true)
     {
@@ -180,8 +187,26 @@ public class EventPlayer : MonoBehaviour
     }
 
 
+    public void MakeChoice(int i)
+    {
+        choosing = false;
+        txtBox.transform.parent.gameObject.SetActive(true);
+        foreach (Transform child in choices)
+            child.gameObject.SetActive(false);
+        
+        while (currentEvent.speakers[index] != ("Result " + i))
+        {
+            index++;
+        }
+        index++;
+        StartCoroutine(PlayLine(dialogue[index]));
+    }
+
+
     private IEnumerator PlayLine(string line)
     {
+        //Debug.Log("Now playing " + index + ": " + dialogue[index]);
+        //player choice
         if (currentEvent.speakers[index] == "Option 1")
         {
             txtBox.transform.parent.gameObject.SetActive(false);
@@ -190,29 +215,87 @@ public class EventPlayer : MonoBehaviour
             {
                 numOptions++;
             }
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < numOptions; i++)
             {
-                if (i < numOptions)
-                {
-                    choices.GetChild(i).gameObject.SetActive(true);
-                    if (numOptions==1)
-                        choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -124);
-                    else if (numOptions==2)
-                        choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -93 - 73*i); //-93, -166
-                    else
-                        choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -37 - 73*i); //-37, -110, -183
-                    choices.GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = dialogue[index+i];
-                }
+                choices.GetChild(i).gameObject.SetActive(true);
+                if (numOptions==1)
+                    choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -124);
+                else if (numOptions==2)
+                    choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -93 - 73*i); //-93, -166
                 else
-                    choices.GetChild(i).gameObject.SetActive(false);
+                    choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -37 - 73*i); //-37, -110, -183
+                choices.GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = dialogue[index+i];
             }
             choosing = true;
             yield return null;
         }
+        else if (currentEvent.speakers[index] == "Prereq")
+        {
+            string[] splitStr = line.Split('[', System.StringSplitOptions.None);
+            if (splitStr.Length > 1)
+            {
+                int reqTime = int.Parse(splitStr[1].Substring(0, splitStr[1].Length-1)) + mapManager.time + mapManager.day*3;
+                player.delayedPrereqs.Add(splitStr[0].Trim(), reqTime);
+            }
+            else
+                player.prereqs.Add(splitStr[0]);
+            index++;
+            if (index < dialogue.Length)
+                StartCoroutine(PlayLine(dialogue[index]));
+        }
+        else if (currentEvent.speakers[index] == "Jump")
+        {
+            index = int.Parse(line);
+            StartCoroutine(PlayLine(dialogue[index]));
+        }
+        else if (currentEvent.speakers[index].Contains("Result"))
+        {
+            while (index < currentEvent.speakers.Length-1)
+            {
+                index++;
+                if (currentEvent.speakers[index] == "Merge")
+                {
+                    index++;
+                    if (index < dialogue.Length)
+                        StartCoroutine(PlayLine(dialogue[index]));
+                    break;
+                }
+            }
+        }
+        else if (currentEvent.speakers[index] == "Stats")
+        {
+            string[] splitStr = currentEvent.dialogue[index].Split('[', System.StringSplitOptions.None);
+            string amountStr = splitStr[1].Substring(0, splitStr[1].Length-1);
+            int amount = int.Parse(amountStr);
+
+            if (splitStr[0].Contains("Relationship")) //e.g Relationship-Rein [+1]
+            {
+                string character = splitStr[0].Substring(13, splitStr[0].Length-14);
+                GameObject.Find("Character Manager").GetComponent<CharacterManager>().ChangeRelationship(character, amount);
+            }
+            else //e.g Arts [-2]
+                player.ChangeStats(splitStr[0].Trim(), amount);
+            index++;
+            StartCoroutine(PlayLine(dialogue[index]));
+        }
         else
         {
-            line = line.Replace("{name}", GameObject.Find("Player Manager").GetComponent<PlayerManager>().name);
+            line = line.Replace("{name}", player.name);
+            line = line.Replace("{loc}", mapManager.locations[loc].name.ToLower());
             //line = line.Replace("{fish}", /*a random fish*/);
+            if (line.Contains("{time"))
+            {
+                int startIndex = 0;
+                while (line.IndexOf("{time", startIndex) != -1)
+                {
+                    startIndex = line.IndexOf("{time", startIndex);
+                    int endIndex = line.IndexOf('}', startIndex);
+                    int n = int.Parse(line.Substring(endIndex-1, 1));
+                    string moddedTime = mapManager.ReturnModdedTime(n);
+                    line = line.Replace(line.Substring(startIndex, endIndex-startIndex+1), moddedTime);
+                    startIndex += moddedTime.Length;
+                }
+            }
             playingLine = true;
             txtBox.text = "";
             skip = false;
@@ -234,18 +317,24 @@ public class EventPlayer : MonoBehaviour
                 ShowPortrait(currentEvent.speakers[index]);
             }
             
+            bool addingHTML = false;
             foreach (char c in line)
             {
-                if (c != '*')
+                if (c == '<')
+                    addingHTML = true;
+                else if (c == '>')
+                    addingHTML = false;
+
+                if (c != '*' && !addingHTML)
                     txtBox.text += c;
                 
-                if (!skip)
+                if (!skip && !addingHTML)
                 {
                     if (c == '*')
                         yield return new WaitForSeconds(0.1f);
-                    else if (c == '.' || c == '?' || c == '!') //add condition so quotes after punctuation appear with it
+                    else if (c == '.' || c == '?' || c == '!' || c == ':' || c == '—') //add condition so quotes after punctuation appear with it //also speed up ellipses
                         yield return new WaitForSeconds(0.3f);
-                    else if (c == ',')
+                    else if (c == ',' || c == ';')
                         yield return new WaitForSeconds(0.15f);
                     else if (c == ' ')
                         yield return new WaitForSeconds(0.05f);
@@ -257,6 +346,7 @@ public class EventPlayer : MonoBehaviour
             lineDelayTimer = lineDelay;
         }
     }
+
 
     private void ShowPortrait(string name)
     {

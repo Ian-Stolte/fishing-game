@@ -14,10 +14,10 @@
   "Prereqs-Needed": {
     "0": ""
   },
-  "Prereqs-Gained": {
-    "0": ""
-  },
   "Removes": {
     "0": "this"
+  },
+  "Priority": {
+    "0": 0
   }
 }

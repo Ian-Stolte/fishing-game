@@ -18,7 +18,7 @@
     "3": "\"Hmmm, I don't know!\"",
     "4": "She seems... far too excited about that fact.",
     "5": "But Erik just grabs another bottle from the shelf and pops the cap off, swirling the amber liquid before gracefully splashing it into Violet's waiting cup. ",
-    "6": "\"As long as you keep paying, whisky keeps flowing. The minute you stop--\"",
+    "6": "\"As long as you keep paying, whisky keeps flowing. The minute you stop—\"",
     "7": "\"Yeah, I got it**... Boss. **You're the boss, Boss!\"",
     "8": "Violet stumbles her way from the bar to a table on the side of the room, bumping into you as she passes.",
     "9": "\"Oops! Sorry there, {name}!\""
@@ -59,8 +59,8 @@
     "8": "",
     "9": ""
   },
-  "Prereqs-Gained": {
-    "0": "",
+  "Removes": {
+    "0": "this",
     "1": "",
     "2": "",
     "3": "",
@@ -71,8 +71,8 @@
     "8": "",
     "9": ""
   },
-  "Removes": {
-    "0": "this",
+  "Priority": {
+    "0": 0,
     "1": "",
     "2": "",
     "3": "",
