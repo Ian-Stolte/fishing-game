@@ -15,6 +15,8 @@ public class PlayerManager : MonoBehaviour
     public int charm;
     public int money;
 
+    [SerializeField] private Color[] statColors;
+
     private MapManager mapManager;
 
 
@@ -53,8 +55,52 @@ public class PlayerManager : MonoBehaviour
         else if (stat == "Charm")
             charm += amount;
         else if (stat == "Money")
+        {
+            if (money - amount < 0)
+                Debug.LogError("Not enough money to pay!");
             money += amount;
+        }
         else
             Debug.LogError("Stat " + stat + " not found!");
+    }
+
+
+
+    public Color StatColor(string stat)
+    {
+        if (stat == "Arts")
+            return statColors[0];
+        else if (stat == "Smarts")
+            return statColors[1];
+        else if (stat == "Heart")
+            return statColors[2];
+        else if (stat == "Charm")
+            return statColors[3];
+        else if (stat == "Money")
+            return statColors[4];
+        else
+        {
+            Debug.LogError("Stat " + stat + " not found!");
+            return new Color(255, 255, 255);
+        }
+    }
+
+    public int StrToStat(string stat)
+    {
+        if (stat == "Arts")
+            return arts;
+        else if (stat == "Smarts")
+            return smarts;
+        else if (stat == "Heart")
+            return heart;
+        else if (stat == "Charm")
+            return charm;
+        else if (stat == "Money")
+            return money;
+        else
+        {
+            Debug.LogError("Stat " + stat + " not found!");
+            return 0;
+        }
     }
 }

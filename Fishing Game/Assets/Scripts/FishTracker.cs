@@ -74,7 +74,6 @@ public class FishTracker : MonoBehaviour
 
     public Fish[] SortByQuantity()
     {
-        
         List<Fish> discovered = new List<Fish>();
         foreach (Fish f in fish)
         {
@@ -101,6 +100,7 @@ public class FishTracker : MonoBehaviour
         }
         return arr;
     }
+
 
     public Fish RandomFish() //add bool to choose rarity (e.g so we don't have deals on 3 rare fish and 0 common)?
     {

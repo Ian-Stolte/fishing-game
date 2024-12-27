@@ -19,6 +19,11 @@ public class EventPlayer : MonoBehaviour
     private bool returned;
 
     public Event currentEvent;
+    private List<GameObject> sprites;
+    private int loc;
+
+    [SerializeField] private TextMeshProUGUI checkPopup;
+    [SerializeField] private Color failedColor;
 
     [SerializeField] TextMeshProUGUI txtBox;
     public string[] dialogue;
@@ -30,9 +35,6 @@ public class EventPlayer : MonoBehaviour
 
     [SerializeField] private Transform choices;
     private bool choosing;
-
-    private List<GameObject> sprites;
-    private int loc;
 
     private string[,] locationTxt = new string[,]{
         {"You head down to the docks this morning, ready for a day on the water.", "\"Time for some fishing!\" you say to yourself.", "The docks are quieter at night, almost peaceful. You stop for a moment to hear the waves lap against the boats."},
@@ -52,11 +54,13 @@ public class EventPlayer : MonoBehaviour
     };
 
     private PlayerManager player;
+    private FishTracker fishTracker;
 
 
     void Awake()
     {
         player = GameObject.Find("Player Manager").GetComponent<PlayerManager>();
+        fishTracker = GameObject.Find("Fish Tracker").GetComponent<FishTracker>();
     }
 
     void Update()
@@ -231,7 +235,7 @@ public class EventPlayer : MonoBehaviour
         }
         else if (currentEvent.speakers[index] == "Prereq")
         {
-            string[] splitStr = line.Split('[', System.StringSplitOptions.None);
+            string[] splitStr = line.Split('[');
             if (splitStr.Length > 1)
             {
                 int reqTime = int.Parse(splitStr[1].Substring(0, splitStr[1].Length-1)) + mapManager.time + mapManager.day*3;
@@ -262,9 +266,14 @@ public class EventPlayer : MonoBehaviour
                 }
             }
         }
+        else if (currentEvent.speakers[index] == "Merge")
+        {
+            index++;
+            StartCoroutine(PlayLine(dialogue[index]));
+        }
         else if (currentEvent.speakers[index] == "Stats")
         {
-            string[] splitStr = currentEvent.dialogue[index].Split('[', System.StringSplitOptions.None);
+            string[] splitStr = currentEvent.dialogue[index].Split('[');
             string amountStr = splitStr[1].Substring(0, splitStr[1].Length-1);
             int amount = int.Parse(amountStr);
 
@@ -278,11 +287,44 @@ public class EventPlayer : MonoBehaviour
             index++;
             StartCoroutine(PlayLine(dialogue[index]));
         }
+        else if (currentEvent.speakers[index] == "Stat Check")
+        {
+            if (dialogue[index].Contains(">"))
+            {
+                string[] splitStr = dialogue[index].Split('>');
+                if (player.StrToStat(splitStr[0].Trim()) > int.Parse(splitStr[1].Trim()))
+                {
+                    StartCoroutine(StatPopup(splitStr[0].Trim(), true));
+                }
+                else
+                {
+                    StartCoroutine(StatPopup(splitStr[0].Trim(), false));
+                    while (currentEvent.speakers[index] != "Merge" && currentEvent.speakers[index] != "Jump")
+                        index++;
+                }
+            }
+            else if (dialogue[index].Contains("<"))
+            {
+                string[] splitStr = dialogue[index].Split('<');
+                if (player.StrToStat(splitStr[0].Trim()) < int.Parse(splitStr[1].Trim()))
+                {
+                    StartCoroutine(StatPopup(splitStr[0].Trim(), false));
+                }
+                else
+                {
+                    StartCoroutine(StatPopup(splitStr[0].Trim(), true));  // <--- maybe not? Like for money < 3 don't want to see a popup... (maybe have a different code for hidden check)
+                    while (currentEvent.speakers[index] != "Merge" && currentEvent.speakers[index] != "Jump")
+                        index++;
+                }
+            }
+            index++;
+            StartCoroutine(PlayLine(dialogue[index]));
+        }
         else
         {
             line = line.Replace("{name}", player.name);
             line = line.Replace("{loc}", mapManager.locations[loc].name.ToLower());
-            //line = line.Replace("{fish}", /*a random fish*/);
+            line = line.Replace("{fish}", fishTracker.fish[Random.Range(0, fishTracker.fish.Length)].name);
             if (line.Contains("{time"))
             {
                 int startIndex = 0;
@@ -318,14 +360,24 @@ public class EventPlayer : MonoBehaviour
             }
             
             bool addingHTML = false;
+            string HTMLtag = "";
             foreach (char c in line)
             {
                 if (c == '<')
+                {
                     addingHTML = true;
+                    HTMLtag = "";
+                }
                 else if (c == '>')
+                {
                     addingHTML = false;
+                    txtBox.text += (HTMLtag + c);
+                    continue;
+                }
 
-                if (c != '*' && !addingHTML)
+                if (addingHTML)
+                    HTMLtag += c;
+                else if (c != '*')
                     txtBox.text += c;
                 
                 if (!skip && !addingHTML)
@@ -345,6 +397,29 @@ public class EventPlayer : MonoBehaviour
             playingLine = false;
             lineDelayTimer = lineDelay;
         }
+    }
+
+
+    private IEnumerator StatPopup(string stat, bool success)
+    {
+        checkPopup.gameObject.SetActive(true);
+        if (success)
+        {
+            checkPopup.text = stat + " succeeded!";
+            checkPopup.color = player.StatColor(stat.Trim());
+        }
+        else
+        {
+            checkPopup.text = stat + " failed...";
+            checkPopup.color = failedColor;
+        }
+        yield return new WaitForSeconds(2);
+        for (float i = 1; i > 0; i -= 0.02f)
+        {
+            checkPopup.color = new Color(checkPopup.color.r, checkPopup.color.g, checkPopup.color.b, i);
+            yield return new WaitForSeconds(0.01f);
+        }
+        checkPopup.gameObject.SetActive(false);
     }
 
 

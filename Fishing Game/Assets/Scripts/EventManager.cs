@@ -174,6 +174,7 @@ public class EventManager : MonoBehaviour
             marketEvents.RemoveAll(e => e.name == toCompare);
             barEvents.RemoveAll(e => e.name == toCompare);
             cliffEvents.RemoveAll(e => e.name == toCompare);
+            popupEvents.RemoveAll(e => e.name == toCompare);
         }
     }
 }
