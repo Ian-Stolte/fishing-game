@@ -10,44 +10,46 @@
     "7": "Option 2",
     "8": "Result 1",
     "9": "Stats",
-    "10": "Stat Check",
-    "11": "Narration",
-    "12": "Jump",
-    "13": "Stats",
-    "14": "Narration",
+    "10": "Narration",
+    "11": "Stat Check",
+    "12": "Narration",
+    "13": "Jump",
+    "14": "Stats",
     "15": "Narration",
     "16": "Narration",
-    "17": "Stats",
-    "18": "Narration",
-    "19": "Stats",
-    "20": "Result 2",
-    "21": "Narration",
-    "22": "Narration"
+    "17": "Narration",
+    "18": "Stats",
+    "19": "Narration",
+    "20": "Stats",
+    "21": "Result 2",
+    "22": "Narration",
+    "23": "Narration"
   },
   "Dialogue": {
     "0": "You pass a pair of beggars at the side of the road on your way to the {loc}.",
     "1": "They're dirty and skinny, huddled under threadbare cloaks that you know can't be doing anything to keep out the cold.",
     "2": "As you get close, one of them—the tall, extra-skinny one—reaches out a hand. ",
-    "3": "Smarts > 3",
+    "3": "Smarts > 4",
     "4": "You see a glimmer of metal from between his fingers: a knife.",
     "5": "",
     "6": "Give the beggar a couple coins.",
     "7": "Hurry on your way.",
     "8": "",
     "9": "Heart [1]",
-    "10": "Money < 3",
-    "11": "But you don't have a couple coins! Instead, you give the beggar an apologetic look and turn away.",
-    "12": 21,
-    "13": "Money [-3]",
-    "14": "You step forward to hand over a couple coins, and the beggar gives you a slow, pained smile in return…",
-    "15": "Before you can react, he darts forward and lunges at you—a moment later, a stinging pain erupts across your right leg.",
-    "16": "As you stagger away, your money pouch spills open, scattering your hard-earned savings across the filthy street.",
-    "17": "Money [*0.7]",
-    "18": "You eventually make your way to the {loc}, but even after your stab wound is patched up, you walk with a limp and a permanent scar to your pride.",
-    "19": "Charm [-2]",
-    "20": "",
-    "21": "You hurry away from the two, an unsettling feeling creeping into your bones.",
-    "22": "When you look back moments later, they're both gone."
+    "10": "You decide you're feeling charitable today!",
+    "11": "Money < 3",
+    "12": "But you don't have a couple coins! Instead, you give the beggar an apologetic look and turn away.",
+    "13": 22,
+    "14": "Money [-3]",
+    "15": "You step forward to hand over a couple coins, and the beggar gives you a slow, pained smile in return…",
+    "16": "Before you can react, he darts forward and lunges at you—a moment later, a stinging pain erupts across your right leg.",
+    "17": "As you stagger away, your money pouch spills open, scattering your hard-earned savings across the filthy street.",
+    "18": "Money [*0.7]",
+    "19": "You eventually make your way to the {loc}, but even after your stab wound is patched up, you walk with a limp and a permanent scar to your pride.",
+    "20": "Charm [-2]",
+    "21": "",
+    "22": "You hurry away from the two, an unsettling feeling creeping into your bones.",
+    "23": "When you look back moments later, they're both gone."
   },
   "Sprite": {
     "0": "",
@@ -72,7 +74,8 @@
     "19": "",
     "20": "",
     "21": "",
-    "22": ""
+    "22": "",
+    "23": ""
   },
   "Chars": {
     "0": "",
@@ -97,7 +100,8 @@
     "19": "",
     "20": "",
     "21": "",
-    "22": ""
+    "22": "",
+    "23": ""
   },
   "Prereqs-Needed": {
     "0": "",
@@ -122,7 +126,8 @@
     "19": "",
     "20": "",
     "21": "",
-    "22": ""
+    "22": "",
+    "23": ""
   },
   "Removes": {
     "0": "this",
@@ -147,7 +152,8 @@
     "19": "",
     "20": "",
     "21": "",
-    "22": ""
+    "22": "",
+    "23": ""
   },
   "Priority": {
     "0": 0,
@@ -172,6 +178,7 @@
     "19": "",
     "20": "",
     "21": "",
-    "22": ""
+    "22": "",
+    "23": ""
   }
 }

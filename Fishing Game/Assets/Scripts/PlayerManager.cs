@@ -44,7 +44,7 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    public void ChangeStats(string stat, int amount)
+    public void AddStats(string stat, int amount)
     {
         if (stat == "Arts")
             arts += amount;
@@ -64,7 +64,21 @@ public class PlayerManager : MonoBehaviour
             Debug.LogError("Stat " + stat + " not found!");
     }
 
-
+    public void MultiplyStats(string stat, float amount)
+    {
+        if (stat == "Arts")
+            arts = (int)Mathf.Round(arts*amount);
+        else if (stat == "Smarts")
+            smarts = (int)Mathf.Round(smarts*amount);
+        else if (stat == "Heart")
+            heart = (int)Mathf.Round(heart*amount);
+        else if (stat == "Charm")
+            charm = (int)Mathf.Round(charm*amount);
+        else if (stat == "Money")
+            money = (int)Mathf.Round(money*amount);
+        else
+            Debug.LogError("Stat " + stat + " not found!");
+    }
 
     public Color StatColor(string stat)
     {

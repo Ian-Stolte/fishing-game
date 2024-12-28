@@ -9,7 +9,7 @@ public class EventPlayer : MonoBehaviour
 
     [SerializeField] private GameObject fishingGame;
     [SerializeField] private GameObject market;
-    [SerializeField] private GameObject violetSprite;
+    //[SerializeField] private GameObject violetSprite;
     [SerializeField] private GameObject clickToEnd;
     [SerializeField] private Transform spriteParent;
     [SerializeField] private Transform portraitParent;
@@ -23,6 +23,7 @@ public class EventPlayer : MonoBehaviour
     private int loc;
 
     [SerializeField] private TextMeshProUGUI checkPopup;
+    [SerializeField] private TextMeshProUGUI abilityUpdate;
     [SerializeField] private Color failedColor;
 
     [SerializeField] TextMeshProUGUI txtBox;
@@ -76,11 +77,11 @@ public class EventPlayer : MonoBehaviour
                     eventStarted = true;
                     fishingGame.SetActive(loc==0);
                     market.SetActive(loc==1);
-                    if (loc == 1)
+                    /*if (loc == 1)
                     {
-                        violetSprite.GetComponent<RectTransform>().anchoredPosition = new Vector2(128, -8);
+                        violetSprite.GetComponent<RectTransform>().anchoredPosition = new Vector2(80, 27.4f);
                         violetSprite.SetActive(true);
-                    }
+                    }*/
                     StartCoroutine(PlayLine(dialogue[0]));
                 }
             }
@@ -225,7 +226,7 @@ public class EventPlayer : MonoBehaviour
                 if (numOptions==1)
                     choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -124);
                 else if (numOptions==2)
-                    choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -93 - 73*i); //-93, -166
+                    choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -83 - 73*i); //-83, -156
                 else
                     choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -37 - 73*i); //-37, -110, -183
                 choices.GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = dialogue[index+i];
@@ -275,15 +276,37 @@ public class EventPlayer : MonoBehaviour
         {
             string[] splitStr = currentEvent.dialogue[index].Split('[');
             string amountStr = splitStr[1].Substring(0, splitStr[1].Length-1);
-            int amount = int.Parse(amountStr);
-
-            if (splitStr[0].Contains("Relationship")) //e.g Relationship-Rein [+1]
+            if (amountStr.Contains("*"))
             {
-                string character = splitStr[0].Substring(13, splitStr[0].Length-14);
-                GameObject.Find("Character Manager").GetComponent<CharacterManager>().ChangeRelationship(character, amount);
+                string floatStr = amountStr.Substring(1, amountStr.Length-1);
+                player.MultiplyStats(splitStr[0].Trim(), float.Parse(floatStr));
             }
-            else //e.g Arts [-2]
-                player.ChangeStats(splitStr[0].Trim(), amount);
+            else
+            {
+                int amount = int.Parse(amountStr);
+
+                if (splitStr[0].Contains("Relationship")) //e.g Relationship-Rein [+1]
+                {
+                    string character = splitStr[0].Substring(13, splitStr[0].Length-14);
+                    GameObject.Find("Character Manager").GetComponent<CharacterManager>().ChangeRelationship(character, amount);
+                }
+                else //e.g Arts [-2]
+                {
+                    player.AddStats(splitStr[0].Trim(), amount);
+                    if (amount > 0)
+                    {
+                        Debug.Log("+" + amount + " " + splitStr[0].Trim().ToUpper() + "!");
+                        abilityUpdate.text = "+" + amount + " " + splitStr[0].Trim().ToUpper() + "!";
+                        abilityUpdate.color = player.StatColor(splitStr[0].Trim());
+                    }
+                    else
+                    {
+                        abilityUpdate.text = amount + " " + splitStr[0].Trim().ToUpper();
+                        abilityUpdate.color = failedColor;
+                    }
+                    abilityUpdate.GetComponent<Animator>().Play("AbilityUpdate");
+                }
+            }
             index++;
             StartCoroutine(PlayLine(dialogue[index]));
         }
@@ -308,11 +331,11 @@ public class EventPlayer : MonoBehaviour
                 string[] splitStr = dialogue[index].Split('<');
                 if (player.StrToStat(splitStr[0].Trim()) < int.Parse(splitStr[1].Trim()))
                 {
-                    StartCoroutine(StatPopup(splitStr[0].Trim(), false));
+                    //StartCoroutine(StatPopup(splitStr[0].Trim(), false));
                 }
                 else
                 {
-                    StartCoroutine(StatPopup(splitStr[0].Trim(), true));  // <--- maybe not? Like for money < 3 don't want to see a popup... (maybe have a different code for hidden check)
+                    //StartCoroutine(StatPopup(splitStr[0].Trim(), true));  // <--- maybe not? Like for money < 3 don't want to see a popup... (maybe have a different code for hidden check)
                     while (currentEvent.speakers[index] != "Merge" && currentEvent.speakers[index] != "Jump")
                         index++;
                 }
