@@ -10,7 +10,13 @@ public class MapManager : MonoBehaviour
 
     [SerializeField] private Transform eventSprites;
     [SerializeField] private TextMeshProUGUI eventTxt;
+
     [SerializeField] private Transform fader;
+    [SerializeField] private GameObject calendar;
+    [SerializeField] private GameObject calendarArrow;
+    private bool calendarOpen;
+    private bool timeTransition;
+    [SerializeField] private GameObject currentTime;
     
     [SerializeField] private GameObject timeTxt;
     public int time = -1;
@@ -42,6 +48,40 @@ public class MapManager : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab) && !timeTransition)
+        {
+            calendarOpen = !calendarOpen;
+            StopCoroutine("OpenCalendar");
+            StartCoroutine("OpenCalendar");
+        }
+    }
+
+    private IEnumerator OpenCalendar()
+    {
+        if (!calendarOpen)
+        {
+            while (calendar.GetComponent<RectTransform>().anchoredPosition.x > -1925)
+            {
+                float speed = (-1f/30000) * Mathf.Pow(calendar.GetComponent<RectTransform>().anchoredPosition.x + 1000, 2) + 40;
+                calendar.GetComponent<RectTransform>().anchoredPosition -= new Vector2(speed, 0);
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+        else
+        {
+            while (calendar.GetComponent<RectTransform>().anchoredPosition.x < 0)
+            {
+                float speed = (-1f/30000) * Mathf.Pow(calendar.GetComponent<RectTransform>().anchoredPosition.x + 1000, 2) + 40;
+                calendar.GetComponent<RectTransform>().anchoredPosition += new Vector2(speed, 0);
+                yield return new WaitForSeconds(0.01f);
+            }
+            calendar.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        }
+    }
+
+
     public void SelectLocation(int n)
     {
         Event e = eventManager.SelectEvent(n+1, locations[n].charsHere, time, day);
@@ -65,6 +105,10 @@ public class MapManager : MonoBehaviour
             day++;
             market.visitedToday = false;
         }
+        if (time == 1)
+            currentTime.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -20);
+        else if (time == 2)
+            currentTime.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -110);
         timeTxt.GetComponent<TextMeshProUGUI>().text =  "Day " + day + " - " + timeStrings[time];
         mapBG.GetComponent<Image>().color = mapColors[time];
         locBG.GetComponent<Image>().color = mapColors[time];
@@ -150,14 +194,44 @@ public class MapManager : MonoBehaviour
 
     public IEnumerator ShowTimeTransition()
     {
+        timeTransition = true;
+        fader.GetChild(0).gameObject.SetActive(time != 2);
         fader.GetComponent<Animator>().Play("FadeToDark");
         yield return new WaitForSeconds(0.5f);
         locBG.GetComponent<EventPlayer>().eventStarted = false;
         UpdateInfo();
         fader.GetChild(0).GetComponent<TextMeshProUGUI>().text = timeStrings[time];
-        yield return new WaitForSeconds(2f);
+        if (time == 0)
+        {
+            calendarOpen = true;
+            StartCoroutine("OpenCalendar");
+            yield return new WaitForSeconds(1.8f);
+            while (currentTime.GetComponent<RectTransform>().anchoredPosition.y > -150)
+            {
+                currentTime.GetComponent<RectTransform>().anchoredPosition -= new Vector2(0, 1.2f);
+                yield return new WaitForSeconds(0.02f);
+            }
+            currentTime.transform.SetParent(calendar.transform.GetChild(day));
+            currentTime.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 150);
+            while (currentTime.GetComponent<RectTransform>().anchoredPosition.y > 75)
+            {
+                currentTime.GetComponent<RectTransform>().anchoredPosition -= new Vector2(0, 1.2f);
+                yield return new WaitForSeconds(0.02f);
+            }
+            calendarArrow.SetActive(true);
+            yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+            calendarArrow.SetActive(false);
+            calendarOpen = false;
+            StartCoroutine("OpenCalendar");
+            yield return new WaitForSeconds(0.5f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(2f);
+        }
         fader.GetComponent<Animator>().Play("FadeToLight");
-        locBG.SetActive(false); 
+        locBG.SetActive(false);
+        timeTransition = false;
     }
 }
 
