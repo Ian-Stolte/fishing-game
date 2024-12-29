@@ -51,7 +51,7 @@ public class EventPlayer : MonoBehaviour
         new string[] {"\"I hope you brought a good haul for me today!\"", "\"I rely on you for my supply, you know.\""},
         new string[] {"Violet seems busy behind the counter, scribbling away at a sheet of notes..."},
         new string[] {"Violet greets you with a smile as you arrive: \"Well, look who decided to turn up today!\"", "\"Tell me, what did you catch out there? Anything rare?\"", "\"Customers will go wild for something like a Pearl-Catcher, you know.\""},
-        new string[] {"The stall seems empty as you walk up...", "But then Violet stands up from behind a barrel of Red Macklers, hastily wiping their hands on an apron and rushing over to the counter.", "\"Sorry, sorry, just got caught up packing up these Macklers...\"", "\"You got anything for me today?\""}
+        new string[] {"The stall seems empty as you walk up...", "But then Violet stands up from behind a barrel of Red Macklers, hastily wiping her hands on an apron and rushing over to the counter.", "\"Sorry, sorry, just got caught up packing up these Macklers...\"", "\"You got anything for me today?\""}
     };
 
     private PlayerManager player;
@@ -163,7 +163,7 @@ public class EventPlayer : MonoBehaviour
         {
             if (loc == 0)
             {
-                int[] spriteX = new int[]{-170, 170, -270};
+                int[] spriteX = new int[]{-160, 170, -270};
                 if (sprites.Count > 2)
                     spriteX[0] = -140;
                 sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(spriteX[i], 6.5f);
@@ -174,7 +174,12 @@ public class EventPlayer : MonoBehaviour
             }
             else
             {
-                sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-70*(sprites.Count-1) + 140*i, 6.5f);
+                if (sprites.Count == 1)
+                    sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 6.5f);
+                else if (sprites.Count == 2)
+                    sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-100*(sprites.Count-1) + 200*i, 6.5f);
+                else if (sprites.Count == 3)
+                    sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-80*(sprites.Count-1) + 160*i, 6.5f);
             }
             sprites[i].SetActive(true);
         }
