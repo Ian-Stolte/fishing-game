@@ -13,10 +13,13 @@ public class MapManager : MonoBehaviour
 
     [SerializeField] private Transform fader;
     [SerializeField] private GameObject calendar;
+    [SerializeField] private GameObject calendarEvent;
+    [SerializeField] private GameObject calendarUpdate;
     [SerializeField] private GameObject calendarArrow;
+    [SerializeField] private GameObject currentTime;
     private bool calendarOpen;
     private bool timeTransition;
-    [SerializeField] private GameObject currentTime;
+    [SerializeField] private Color[] calendarColors;
     
     [SerializeField] private GameObject timeTxt;
     public int time = -1;
@@ -88,7 +91,6 @@ public class MapManager : MonoBehaviour
         
         locBG.SetActive(true);
         locBG.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = locations[n].name;
-        locBG.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = e.name;
         foreach (Transform child in eventSprites)
             child.gameObject.SetActive(false);
         locBG.GetComponent<EventPlayer>().SetupEvent(e, n, time);
@@ -98,6 +100,20 @@ public class MapManager : MonoBehaviour
     public void UpdateInfo()
     {
         //update day & time
+        if (time != -1)
+        {
+            foreach (Transform child in calendar.transform.GetChild(day))
+            {
+                if (child.GetComponent<Image>() != null)
+                {
+                    if (child.GetComponent<Image>().color == calendarColors[time])
+                    {
+                        child.GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color(0.6f, 0.6f, 0.6f);
+                        child.GetComponent<Image>().color = new Color(child.GetComponent<Image>().color.r, child.GetComponent<Image>().color.g, child.GetComponent<Image>().color.b, 0.6f);
+                    }
+                }    
+            }
+        }
         time++;
         if (time > 2)
         {
@@ -106,7 +122,7 @@ public class MapManager : MonoBehaviour
             market.visitedToday = false;
         }
         if (time == 1)
-            currentTime.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -20);
+            currentTime.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -10);
         else if (time == 2)
             currentTime.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -110);
         timeTxt.GetComponent<TextMeshProUGUI>().text =  "Day " + day + " - " + timeStrings[time];
@@ -170,7 +186,7 @@ public class MapManager : MonoBehaviour
     public string ReturnModdedTime(int timeChange)
     {
         int newTime = time + timeChange;
-        int dayDiff = time/3;
+        int dayDiff = newTime/3;
         newTime = newTime%3;
 
         if (dayDiff == 0)
@@ -232,6 +248,33 @@ public class MapManager : MonoBehaviour
         fader.GetComponent<Animator>().Play("FadeToLight");
         locBG.SetActive(false);
         timeTransition = false;
+    }
+
+
+    public void AddToCalendar(string name, int addedTime)
+    {
+        int newTime = time + addedTime;
+        int newDay = day + newTime/3;
+        newTime = newTime%3;
+        GameObject calEvent = Instantiate(calendarEvent, Vector3.zero, Quaternion.identity, calendar.transform.GetChild(newDay));
+        TextMeshProUGUI txt = calEvent.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        txt.text = name;
+        if (txt.preferredHeight > 60)
+        {
+            txt.fontSize = 32;
+        }
+        calEvent.GetComponent<RectTransform>().sizeDelta = new Vector2(calEvent.GetComponent<RectTransform>().sizeDelta.x, txt.preferredHeight+20);
+        if (newTime==0)
+            calEvent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 90-calEvent.GetComponent<RectTransform>().sizeDelta.y/2);
+        else if (newTime==1)
+            calEvent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -20);
+        else if (newTime==2)
+            calEvent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -130+calEvent.GetComponent<RectTransform>().sizeDelta.y/2);
+        
+        calEvent.GetComponent<Image>().color = calendarColors[newTime];
+        calendarUpdate.GetComponent<Animator>().Play("CalendarUpdate");
+        Debug.Log("Adding " + name + " to calendar at day=" + newDay + ", time=" + newTime);
+        currentTime.transform.SetSiblingIndex(currentTime.transform.parent.childCount-1);
     }
 }
 

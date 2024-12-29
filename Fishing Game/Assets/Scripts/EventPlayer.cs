@@ -231,7 +231,7 @@ public class EventPlayer : MonoBehaviour
                 if (numOptions==1)
                     choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -124);
                 else if (numOptions==2)
-                    choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -83 - 73*i); //-83, -156
+                    choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -62 - 73*i); //-63, -135
                 else
                     choices.GetChild(i).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -37 - 73*i); //-37, -110, -183
                 choices.GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = dialogue[index+i];
@@ -242,10 +242,20 @@ public class EventPlayer : MonoBehaviour
         else if (currentEvent.speakers[index] == "Prereq")
         {
             string[] splitStr = line.Split('[');
-            if (splitStr.Length > 1)
+            if (splitStr.Length > 1) //if delayed prereq
             {
-                int reqTime = int.Parse(splitStr[1].Substring(0, splitStr[1].Length-1)) + mapManager.time + mapManager.day*3;
-                player.delayedPrereqs.Add(splitStr[0].Trim(), reqTime);
+                string[] splitAgain = splitStr[1].Split(',');
+                if (splitAgain.Length > 1) //if calendar event
+                {
+                    mapManager.AddToCalendar(splitAgain[0], int.Parse(splitAgain[1].Substring(1, splitAgain[1].Length-2)));
+                    int reqTime = int.Parse(splitAgain[1].Substring(0, splitAgain[1].Length-1)) + mapManager.time + mapManager.day*3;
+                    player.delayedPrereqs.Add(splitStr[0].Trim(), reqTime);
+                }
+                else
+                {
+                    int reqTime = int.Parse(splitStr[1].Substring(0, splitStr[1].Length-1)) + mapManager.time + mapManager.day*3;
+                    player.delayedPrereqs.Add(splitStr[0].Trim(), reqTime);
+                }
             }
             else
                 player.prereqs.Add(splitStr[0]);

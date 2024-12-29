@@ -12,12 +12,12 @@
     "9": "Option 2",
     "10": "Option 3",
     "11": "Result 1",
-    "12": "Prereq",
-    "13": "Rein",
+    "12": "Rein",
+    "13": "Narration",
     "14": "Narration",
-    "15": "Narration",
+    "15": "Rein",
     "16": "Rein",
-    "17": "Rein",
+    "17": "Prereq",
     "18": "Narration",
     "19": "Narration",
     "20": "Result 2",
@@ -26,16 +26,15 @@
     "23": "Option 1",
     "24": "Option 2",
     "25": "Result 1",
-    "26": "Prereq",
-    "27": "Jump",
-    "28": "Result 2",
-    "29": "Jump",
-    "30": "Result 3",
-    "31": "Prereq",
-    "32": "Rein",
+    "26": "Jump",
+    "27": "Result 2",
+    "28": "Jump",
+    "29": "Result 3",
+    "30": "Prereq",
+    "31": "Rein",
+    "32": "Narration",
     "33": "Narration",
-    "34": "Narration",
-    "35": "Rein"
+    "34": "Rein"
   },
   "Dialogue": {
     "0": "You and Rein spend a few hours hiking through the woods and exploring the rugged coastline to the north of the village.",
@@ -50,12 +49,12 @@
     "9": "\"Your patron doesn't know what she's talking about! Your landscapes are beautiful.\"",
     "10": "\"Oh, you should do a portrait of Ol 'Enry! People would love that!\"",
     "11": "",
-    "12": "Painting-OfYou [2]",
-    "13": "\"Wait, but I didn't even ask you—\"",
-    "14": "You tell her you're up for pretty much whatever, as long as it helps out her art show.",
-    "15": "Judging by the sudden relief on her face, you guess she must have been pretty stressed about this.",
-    "16": "\"Alright, thank you so much! I'll just paint you doing whatever you want to represent you—fishing, exploring, haggling with shopkeepers...\"",
-    "17": "\"Actually, do you have time {time+2}?\"",
+    "12": "\"Wait, but I didn't even ask you—\"",
+    "13": "You tell her you're up for pretty much whatever, as long as it helps out her art show.",
+    "14": "Judging by the sudden relief on her face, you guess she must have been pretty stressed about this.",
+    "15": "\"Alright, thank you so much! I'll just paint you doing whatever you want to represent you—fishing, exploring, haggling with shopkeepers...\"",
+    "16": "\"Actually, do you have time {time+2}?\"",
+    "17": "Painting-OfYou [Rein paints my portrait, 2]",
     "18": "You tell her you that even if you don't, you'll make time. ***Although, what could you really have scheduled at this point... visiting the docks? Drinks at the bar?",
     "19": "Either way, Rein seems happy as you trek down to the village, and the miserable drizzle even lets up to mirror her mood.** Nice!",
     "20": "",
@@ -64,16 +63,15 @@
     "23": "\"Ok, how about you do one of me?\"",
     "24": "\"Hmm... maybe 'Enry would be willing to let you paint him?\"",
     "25": "",
-    "26": "Painting-OfYou [2]",
-    "27": 16,
-    "28": "",
-    "29": 31,
-    "30": "",
-    "31": "Painting-Of'Enry [3]",
-    "32": "\"Oh, that is a good idea... people love him, don't they?\"",
-    "33": "You're not sure how much she <i>believes</i> what she's saying, but she's not wrong. People do love 'Enry, and you know a portrait of him will be a hit.",
-    "34": "So why can't you shake the feeling that things didn't go the way they were supposed to?",
-    "35": "\"Alright, see you {name}! Thanks for exploring with me, even if the weather was determined to make us regret it.\""
+    "26": 15,
+    "27": "",
+    "28": 30,
+    "29": "",
+    "30": "Painting-Of'Enry [3]",
+    "31": "\"Oh, that is a good idea... people love him, don't they?\"",
+    "32": "You're not sure how much she <i>believes</i> what she's saying, but she's not wrong. People do love 'Enry, and you know a portrait of him will be a hit.",
+    "33": "So why can't you shake the feeling that things didn't go the way they were supposed to?",
+    "34": "\"Alright, see you {name}! Thanks for exploring with me, even if the weather was determined to make us regret it.\""
   },
   "Sprite": {
     "0": "Rein",
@@ -110,8 +108,7 @@
     "31": "",
     "32": "",
     "33": "",
-    "34": "",
-    "35": ""
+    "34": ""
   },
   "Chars": {
     "0": "Rein",
@@ -148,8 +145,7 @@
     "31": "",
     "32": "",
     "33": "",
-    "34": "",
-    "35": ""
+    "34": ""
   },
   "Prereqs-Needed": {
     "0": "",
@@ -186,8 +182,7 @@
     "31": "",
     "32": "",
     "33": "",
-    "34": "",
-    "35": ""
+    "34": ""
   },
   "Removes": {
     "0": "this",
@@ -224,8 +219,7 @@
     "31": "",
     "32": "",
     "33": "",
-    "34": "",
-    "35": ""
+    "34": ""
   },
   "Priority": {
     "0": 1,
@@ -262,7 +256,6 @@
     "31": "",
     "32": "",
     "33": "",
-    "34": "",
-    "35": ""
+    "34": ""
   }
 }
