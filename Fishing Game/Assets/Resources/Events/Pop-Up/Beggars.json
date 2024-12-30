@@ -23,7 +23,8 @@
     "20": "Stats",
     "21": "Result 2",
     "22": "Narration",
-    "23": "Narration"
+    "23": "Narration",
+    "24": "Show Loc"
   },
   "Dialogue": {
     "0": "You pass a pair of beggars at the side of the road on your way to the {loc}.",
@@ -49,7 +50,8 @@
     "20": "Charm [-2]",
     "21": "",
     "22": "You hurry away from the two, an unsettling feeling creeping into your bones.",
-    "23": "When you look back moments later, they're both gone."
+    "23": "When you look back moments later, they're both gone.",
+    "24": ""
   },
   "Sprite": {
     "0": "",
@@ -75,7 +77,8 @@
     "20": "",
     "21": "",
     "22": "",
-    "23": ""
+    "23": "",
+    "24": ""
   },
   "Chars": {
     "0": "",
@@ -101,7 +104,8 @@
     "20": "",
     "21": "",
     "22": "",
-    "23": ""
+    "23": "",
+    "24": ""
   },
   "Prereqs-Needed": {
     "0": "",
@@ -127,7 +131,8 @@
     "20": "",
     "21": "",
     "22": "",
-    "23": ""
+    "23": "",
+    "24": ""
   },
   "Removes": {
     "0": "this",
@@ -153,7 +158,8 @@
     "20": "",
     "21": "",
     "22": "",
-    "23": ""
+    "23": "",
+    "24": ""
   },
   "Priority": {
     "0": 0,
@@ -179,6 +185,7 @@
     "20": "",
     "21": "",
     "22": "",
-    "23": ""
+    "23": "",
+    "24": ""
   }
 }

@@ -1,39 +1,45 @@
 {
   "Speaker": {
-    "0": "Narration",
-    "1": "Violet",
-    "2": "Erik",
+    "0": "Loc Intro",
+    "1": "Show Loc",
+    "2": "Narration",
     "3": "Violet",
-    "4": "Narration",
-    "5": "Narration",
-    "6": "Erik",
-    "7": "Violet",
-    "8": "Narration",
-    "9": "Violet"
+    "4": "Erik",
+    "5": "Violet",
+    "6": "Narration",
+    "7": "Narration",
+    "8": "Erik",
+    "9": "Violet",
+    "10": "Narration",
+    "11": "Violet"
   },
   "Dialogue": {
-    "0": "You see Violet leaned up against the bar, smiling a lazy grin at Erik the bartender.",
-    "1": "\"Hey, I can handle it; hit me with another!\"",
-    "2": "\"So that's how many now?\"",
-    "3": "\"Hmmm, I don't know!\"",
-    "4": "She seems... far too excited about that fact.",
-    "5": "But Erik just grabs another bottle from the shelf and pops the cap off, swirling the amber liquid before gracefully splashing it into Violet's waiting cup. ",
-    "6": "\"As long as you keep paying, whisky keeps flowing. The minute you stop—\"",
-    "7": "\"Yeah, I got it**... Boss. **You're the boss, Boss!\"",
-    "8": "Violet stumbles her way from the bar to a table on the side of the room, bumping into you as she passes.",
-    "9": "\"Oops! Sorry there, {name}!\""
+    "0": "",
+    "1": "",
+    "2": "You see Violet leaned up against the bar, smiling a lazy grin at Erik the bartender.",
+    "3": "\"Hey, I can handle it; hit me with another!\"",
+    "4": "\"So that's how many now?\"",
+    "5": "\"Hmmm, I don't know!\"",
+    "6": "She seems... far too excited about that fact.",
+    "7": "But Erik just grabs another bottle from the shelf and pops the cap off, swirling the amber liquid before gracefully splashing it into Violet's waiting cup. ",
+    "8": "\"As long as you keep paying, whisky keeps flowing. The minute you stop—\"",
+    "9": "\"Yeah, I got it**... Boss. **You're the boss, Boss!\"",
+    "10": "Violet stumbles her way from the bar to a table on the side of the room, bumping into you as she passes.",
+    "11": "\"Oops! Sorry there, {name}!\""
   },
   "Sprite": {
-    "0": "Violet, 'Enry",
+    "0": "",
     "1": "",
-    "2": "",
+    "2": "Violet, 'Enry",
     "3": "",
     "4": "",
     "5": "",
     "6": "",
     "7": "",
-    "8": "- 'Enry",
-    "9": ""
+    "8": "",
+    "9": "",
+    "10": "- 'Enry",
+    "11": ""
   },
   "Chars": {
     "0": "Violet",
@@ -45,7 +51,9 @@
     "6": "",
     "7": "",
     "8": "",
-    "9": ""
+    "9": "",
+    "10": "",
+    "11": ""
   },
   "Prereqs-Needed": {
     "0": "Violet-Intro",
@@ -57,7 +65,9 @@
     "6": "",
     "7": "",
     "8": "",
-    "9": ""
+    "9": "",
+    "10": "",
+    "11": ""
   },
   "Removes": {
     "0": "this",
@@ -69,7 +79,9 @@
     "6": "",
     "7": "",
     "8": "",
-    "9": ""
+    "9": "",
+    "10": "",
+    "11": ""
   },
   "Priority": {
     "0": 0,
@@ -81,6 +93,8 @@
     "6": "",
     "7": "",
     "8": "",
-    "9": ""
+    "9": "",
+    "10": "",
+    "11": ""
   }
 }

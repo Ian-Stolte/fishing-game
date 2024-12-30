@@ -1871,7 +1871,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -101.4, y: 25.200005}
+  m_AnchoredPosition: {x: -117, y: 7}
   m_SizeDelta: {x: 190.4131, y: 192.1982}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &125886379
@@ -5462,6 +5462,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music:
+  - name: Northern Drizzle
+    clip: {fileID: 8300000, guid: fb356909762731b4cac012cb304101ad, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
   - name: Uncharted Waters
     clip: {fileID: 8300000, guid: 2ff12a40bdc9949d4a8f6c39c5dcc7b6, type: 3}
     volume: 1
@@ -14884,7 +14890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1231598889
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15765,7 +15771,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 788de5b64576075489ce91a6fc075ab6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3db0261f4ac4573498480669e7c1cc12, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15790,17 +15796,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1274858131}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.0040038447, w: 0.999992}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1998145860}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.459}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 65, y: 28.9937}
-  m_SizeDelta: {x: 240.8255, y: 188.8094}
+  m_AnchoredPosition: {x: 59.470478, y: 25}
+  m_SizeDelta: {x: 227.4746, y: 188.8094}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1275290030
 GameObject:
@@ -18953,16 +18959,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1501667157}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.008726558, w: 0.999962}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 125886378}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 30, y: 17}
+  m_AnchoredPosition: {x: 15, y: 17}
   m_SizeDelta: {x: 190.4131, y: 192.1982}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1501667160
@@ -18985,7 +18991,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dda0fe4f81cf5bd4290fc2555f890284, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 795f59b3ccc917744b578adf56afba60, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21094,7 +21100,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1649324817}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -22232,6 +22238,7 @@ MonoBehaviour:
   mapManager: {fileID: 1734410937}
   fishingGame: {fileID: 1326190394}
   market: {fileID: 1998145859}
+  violetSprite: {fileID: 1274858131}
   clickToEnd: {fileID: 2092725183}
   spriteParent: {fileID: 2060433312}
   portraitParent: {fileID: 687225795}
@@ -25800,10 +25807,10 @@ RectTransform:
   m_Children:
   - {fileID: 1243857376}
   - {fileID: 102733661}
-  - {fileID: 1274858135}
   - {fileID: 1497666157}
   - {fileID: 617777694}
   - {fileID: 1126270589}
+  - {fileID: 1274858135}
   m_Father: {fileID: 1727903564}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

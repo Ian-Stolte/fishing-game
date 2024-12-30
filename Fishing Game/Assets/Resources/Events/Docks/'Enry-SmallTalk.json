@@ -1,37 +1,51 @@
 {
   "Speaker": {
-    "0": "Narration",
-    "1": "'Enry",
-    "2": "'Enry"
+    "0": "Loc Intro",
+    "1": "Show Loc",
+    "2": "Narration",
+    "3": "'Enry",
+    "4": "'Enry"
   },
   "Dialogue": {
-    "0": "You cast your line into the water, quickly drifting off into your own thoughts as you wait for a bite...",
-    "1": "\"Oh, you're fishing?\"",
-    "2": "\"Cool\""
+    "0": "",
+    "1": "",
+    "2": "You cast your line into the water, quickly drifting off into your own thoughts as you wait for a bite...",
+    "3": "\"Oh, you're fishing?\"",
+    "4": "\"Cool\""
   },
   "Sprite": {
     "0": "",
-    "1": "'Enry",
-    "2": ""
+    "1": "",
+    "2": "",
+    "3": "'Enry",
+    "4": ""
   },
   "Chars": {
     "0": "'Enry",
     "1": "",
-    "2": ""
+    "2": "",
+    "3": "",
+    "4": ""
   },
   "Prereqs-Needed": {
     "0": "'Enry-Intro",
     "1": "",
-    "2": ""
+    "2": "",
+    "3": "",
+    "4": ""
   },
   "Removes": {
     "0": "this",
     "1": "",
-    "2": ""
+    "2": "",
+    "3": "",
+    "4": ""
   },
   "Priority": {
     "0": 0,
     "1": "",
-    "2": ""
+    "2": "",
+    "3": "",
+    "4": ""
   }
 }

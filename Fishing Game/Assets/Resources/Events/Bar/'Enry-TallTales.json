@@ -1,39 +1,45 @@
 {
   "Speaker": {
-    "0": "'Enry",
-    "1": "Narration",
-    "2": "Narration",
+    "0": "Loc Intro",
+    "1": "Show Loc",
+    "2": "'Enry",
     "3": "Narration",
-    "4": "'Enry",
-    "5": "'Enry",
+    "4": "Narration",
+    "5": "Narration",
     "6": "'Enry",
-    "7": "Narration",
-    "8": "Narration",
-    "9": "Rein"
+    "7": "'Enry",
+    "8": "'Enry",
+    "9": "Narration",
+    "10": "Narration",
+    "11": "Rein"
   },
   "Dialogue": {
-    "0": "\"Aye, it be true! The beast were tall as the mast of my ship—no, taller still!\"",
-    "1": "You can't help but overhear the end of 'Enry's story as you walk in... although it seems like most of the bar is already listening in.",
-    "2": "You drag over a chair and slump down in it, not even bothering to walk over to the bar and order something.",
-    "3": "You don't know why you're so tired right now. I mean, the bar is pretty far away, all the way across the room... you'll do it later, you tell yourself.",
-    "4": "\"It rose up over the bow, and drew a great shadow cross the length of the horizon.\"",
-    "5": "\"Men around me quaked in fear. It felt like we had descended into the Abyss itself!\"",
-    "6": "\"But then...\"",
-    "7": "Everyone leans in. **Even you, despite how tired you are.",
-    "8": "'Enry looks around at each of you in turn.",
-    "9": "\"Alright, tell us what happened!\""
+    "0": "",
+    "1": "",
+    "2": "\"Aye, it be true! The beast were tall as the mast of my ship—no, taller still!\"",
+    "3": "You can't help but overhear the end of 'Enry's story as you walk in... although it seems like most of the bar is already listening in.",
+    "4": "You drag over a chair and slump down in it, not even bothering to walk over to the bar and order something.",
+    "5": "You don't know why you're so tired right now. I mean, the bar is pretty far away, all the way across the room... you'll do it later, you tell yourself.",
+    "6": "\"It rose up over the bow, and drew a great shadow cross the length of the horizon.\"",
+    "7": "\"Men around me quaked in fear. It felt like we had descended into the Abyss itself!\"",
+    "8": "\"But then...\"",
+    "9": "Everyone leans in. **Even you, despite how tired you are.",
+    "10": "'Enry looks around at each of you in turn.",
+    "11": "\"Alright, tell us what happened!\""
   },
   "Sprite": {
-    "0": "'Enry",
+    "0": "",
     "1": "",
-    "2": "",
+    "2": "'Enry",
     "3": "",
     "4": "",
     "5": "",
     "6": "",
     "7": "",
     "8": "",
-    "9": "Rein"
+    "9": "",
+    "10": "",
+    "11": "Rein"
   },
   "Chars": {
     "0": "'Enry",
@@ -45,7 +51,9 @@
     "6": "",
     "7": "",
     "8": "",
-    "9": ""
+    "9": "",
+    "10": "",
+    "11": ""
   },
   "Prereqs-Needed": {
     "0": "'Enry-Intro",
@@ -57,7 +65,9 @@
     "6": "",
     "7": "",
     "8": "",
-    "9": ""
+    "9": "",
+    "10": "",
+    "11": ""
   },
   "Removes": {
     "0": "this",
@@ -69,7 +79,9 @@
     "6": "",
     "7": "",
     "8": "",
-    "9": ""
+    "9": "",
+    "10": "",
+    "11": ""
   },
   "Priority": {
     "0": 0,
@@ -81,6 +93,8 @@
     "6": "",
     "7": "",
     "8": "",
-    "9": ""
+    "9": "",
+    "10": "",
+    "11": ""
   }
 }

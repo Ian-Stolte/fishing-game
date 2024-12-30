@@ -1,44 +1,58 @@
 {
   "Speaker": {
-    "0": "Narration",
-    "1": "Stats",
+    "0": "Loc Intro",
+    "1": "Show Loc",
     "2": "Narration",
-    "3": "Prereq"
+    "3": "Stats",
+    "4": "Narration",
+    "5": "Prereq"
   },
   "Dialogue": {
-    "0": "Rein paints your portrait in the market!",
-    "1": "Relationship-Rein [+1]",
-    "2": "She thanks you profusely and makes you promise to visit her art show next week!",
-    "3": "Art-Show [Art Show!, 12]"
+    "0": "",
+    "1": "",
+    "2": "Rein paints your portrait in the market!",
+    "3": "Relationship-Rein [+1]",
+    "4": "She thanks you profusely and makes you promise to visit her art show next week!",
+    "5": "Art-Show [Art Show!, 12]"
   },
   "Sprite": {
-    "0": "Rein",
+    "0": "",
     "1": "",
-    "2": "",
-    "3": ""
+    "2": "Rein",
+    "3": "",
+    "4": "",
+    "5": ""
   },
   "Chars": {
     "0": "Rein",
     "1": "",
     "2": "",
-    "3": ""
+    "3": "",
+    "4": "",
+    "5": ""
   },
   "Prereqs-Needed": {
     "0": "Painting-OfYou",
     "1": "",
     "2": "",
-    "3": ""
+    "3": "",
+    "4": "",
+    "5": ""
   },
   "Removes": {
     "0": "this",
     "1": "",
     "2": "",
-    "3": ""
+    "3": "",
+    "4": "",
+    "5": ""
   },
   "Priority": {
     "0": 100,
     "1": "",
     "2": "",
-    "3": ""
+    "3": "",
+    "4": "",
+    "5": ""
   }
 }

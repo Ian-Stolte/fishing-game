@@ -1,44 +1,58 @@
 {
   "Speaker": {
-    "0": "Narration",
-    "1": "Narration",
+    "0": "Loc Intro",
+    "1": "Show Loc",
     "2": "Narration",
-    "3": "Narration"
+    "3": "Narration",
+    "4": "Narration",
+    "5": "Narration"
   },
   "Dialogue": {
-    "0": "You drop your line into the water, quickly drifting off into your own thoughts as you wait for a bite...",
-    "1": "The water is quiet, as are the docks. You cast your mind back through the past few days, floating through memories of everything you've done.",
-    "2": "Everywhere you've been, everyone you've met.",
-    "3": "It's nice to have a moment to youself, you realize."
+    "0": "",
+    "1": "",
+    "2": "You drop your line into the water, quickly drifting off into your own thoughts as you wait for a bite...",
+    "3": "The water is quiet, as are the docks. You cast your mind back through the past few days, floating through memories of everything you've done.",
+    "4": "Everywhere you've been, everyone you've met.",
+    "5": "It's nice to have a moment to youself, you realize."
   },
   "Sprite": {
     "0": "",
     "1": "",
     "2": "",
-    "3": ""
+    "3": "",
+    "4": "",
+    "5": ""
   },
   "Chars": {
     "0": "",
     "1": "",
     "2": "",
-    "3": ""
+    "3": "",
+    "4": "",
+    "5": ""
   },
   "Prereqs-Needed": {
     "0": "'Enry-Intro",
     "1": "",
     "2": "",
-    "3": ""
+    "3": "",
+    "4": "",
+    "5": ""
   },
   "Removes": {
     "0": "",
     "1": "",
     "2": "",
-    "3": ""
+    "3": "",
+    "4": "",
+    "5": ""
   },
   "Priority": {
     "0": 0,
     "1": "",
     "2": "",
-    "3": ""
+    "3": "",
+    "4": "",
+    "5": ""
   }
 }

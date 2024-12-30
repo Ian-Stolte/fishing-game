@@ -1,23 +1,37 @@
 {
   "Speaker": {
-    "0": "'Enry"
+    "0": "Loc Intro",
+    "1": "Show Loc",
+    "2": "'Enry"
   },
   "Dialogue": {
-    "0": "\"Amazing weather we have, huh?\""
+    "0": "",
+    "1": "",
+    "2": "\"Amazing weather we have, huh?\""
   },
   "Sprite": {
-    "0": "'Enry"
+    "0": "",
+    "1": "",
+    "2": "'Enry"
   },
   "Chars": {
-    "0": "'Enry"
+    "0": "'Enry",
+    "1": "",
+    "2": ""
   },
   "Prereqs-Needed": {
-    "0": "'Enry-Intro"
+    "0": "'Enry-Intro",
+    "1": "",
+    "2": ""
   },
   "Removes": {
-    "0": "this"
+    "0": "this",
+    "1": "",
+    "2": ""
   },
   "Priority": {
-    "0": 0
+    "0": 0,
+    "1": "",
+    "2": ""
   }
 }

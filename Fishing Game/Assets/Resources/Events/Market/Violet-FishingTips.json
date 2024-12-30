@@ -1,23 +1,37 @@
 {
   "Speaker": {
-    "0": "Violet"
+    "0": "Loc Intro",
+    "1": "Show Loc",
+    "2": "Violet"
   },
   "Dialogue": {
-    "0": "\"Here's a little known secret about fishing...\""
+    "0": "",
+    "1": "",
+    "2": "\"Here's a little known secret about fishing...\""
   },
   "Sprite": {
-    "0": "Violet"
+    "0": "",
+    "1": "",
+    "2": "Violet"
   },
   "Chars": {
-    "0": "Violet"
+    "0": "Violet",
+    "1": "",
+    "2": ""
   },
   "Prereqs-Needed": {
-    "0": ""
+    "0": "",
+    "1": "",
+    "2": ""
   },
   "Removes": {
-    "0": "this"
+    "0": "this",
+    "1": "",
+    "2": ""
   },
   "Priority": {
-    "0": 0
+    "0": 0,
+    "1": "",
+    "2": ""
   }
 }

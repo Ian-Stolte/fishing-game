@@ -1,19 +1,23 @@
 {
   "Speaker": {
-    "0": "Narration",
-    "1": "Narration",
+    "0": "Loc Intro",
+    "1": "Show Loc",
     "2": "Narration",
     "3": "Narration",
     "4": "Narration",
-    "5": "Narration"
+    "5": "Narration",
+    "6": "Narration",
+    "7": "Narration"
   },
   "Dialogue": {
-    "0": "You grab a corner table and camp out in the bar for a couple of hours: eating, drinking, conversing with all manner of folk.",
-    "1": "It's an all-around pleasant time.",
-    "2": "In fact, it reminds you why you love this place so much, that you'd stay even as all the jobs leave.",
-    "3": "But then that thought makes you depressed.",
-    "4": "Aaaaand you remember that you actually need to make money, not just sit in a bar all day.",
-    "5": "...so much for a pleasant time."
+    "0": "",
+    "1": "",
+    "2": "You grab a corner table and camp out in the bar for a couple of hours: eating, drinking, conversing with all manner of folk.",
+    "3": "It's an all-around pleasant time.",
+    "4": "In fact, it reminds you why you love this place so much, that you'd stay even as all the jobs leave.",
+    "5": "But then that thought makes you depressed.",
+    "6": "Aaaaand you remember that you actually need to make money, not just sit in a bar all day.",
+    "7": "...so much for a pleasant time."
   },
   "Sprite": {
     "0": "",
@@ -21,7 +25,9 @@
     "2": "",
     "3": "",
     "4": "",
-    "5": ""
+    "5": "",
+    "6": "",
+    "7": ""
   },
   "Chars": {
     "0": "",
@@ -29,7 +35,9 @@
     "2": "",
     "3": "",
     "4": "",
-    "5": ""
+    "5": "",
+    "6": "",
+    "7": ""
   },
   "Prereqs-Needed": {
     "0": "",
@@ -37,7 +45,9 @@
     "2": "",
     "3": "",
     "4": "",
-    "5": ""
+    "5": "",
+    "6": "",
+    "7": ""
   },
   "Removes": {
     "0": "",
@@ -45,7 +55,9 @@
     "2": "",
     "3": "",
     "4": "",
-    "5": ""
+    "5": "",
+    "6": "",
+    "7": ""
   },
   "Priority": {
     "0": 0,
@@ -53,6 +65,8 @@
     "2": "",
     "3": "",
     "4": "",
-    "5": ""
+    "5": "",
+    "6": "",
+    "7": ""
   }
 }

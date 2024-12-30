@@ -9,7 +9,7 @@ public class EventPlayer : MonoBehaviour
 
     [SerializeField] private GameObject fishingGame;
     [SerializeField] private GameObject market;
-    //[SerializeField] private GameObject violetSprite;
+    [SerializeField] private GameObject violetSprite;
     [SerializeField] private GameObject clickToEnd;
     [SerializeField] private Transform spriteParent;
     [SerializeField] private Transform portraitParent;
@@ -66,81 +66,59 @@ public class EventPlayer : MonoBehaviour
 
     void Update()
     {
-        if (!returned)
+        if (!returned && !choosing)
         {
-            if (!eventStarted && Input.GetMouseButtonDown(0))
+            /*else if (choosing)
+            {
+                //arrow keys to mouse between options?
+            }*/
+
+            if (Input.GetMouseButtonDown(0) && readyToReturn)
             {
                 if (playingLine)
                     skip = true;
-                else
-                {
-                    eventStarted = true;
-                    fishingGame.SetActive(loc==0);
-                    market.SetActive(loc==1);
-                    /*if (loc == 1)
-                    {
-                        violetSprite.GetComponent<RectTransform>().anchoredPosition = new Vector2(80, 27.4f);
-                        violetSprite.SetActive(true);
-                    }*/
-                    StartCoroutine(PlayLine(dialogue[0]));
-                }
-            }
-
-            else if (choosing)
-            {
-                //arrow keys to mouse between options
-            }
-
-            else if (eventStarted)
-            {
-                if (Input.GetMouseButtonDown(0) && readyToReturn)
-                {
-                    if (playingLine)
-                        skip = true;
-                    else if (index < dialogue.Length-1)
-                    {
-                        index++;
-                        StartCoroutine(PlayLine(dialogue[index]));
-                    }
-                }
-                if (index >= dialogue.Length-1 && !playingLine && readyToReturn && loc != 1)
-                {
-                    clickToEnd.SetActive(true);
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        ReturnToMap();
-                    }
-                }
-
-                lineDelayTimer = Mathf.Max(0, lineDelayTimer-Time.deltaTime);
-                if (index < dialogue.Length-1 && !playingLine && lineDelayTimer <= 0)
+                else if (index < dialogue.Length-1)
                 {
                     index++;
                     StartCoroutine(PlayLine(dialogue[index]));
                 }
             }
+            if (index >= dialogue.Length-1 && !playingLine && readyToReturn && loc != 1)
+            {
+                clickToEnd.SetActive(true);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    ReturnToMap();
+                }
+            }
+
+            lineDelayTimer = Mathf.Max(0, lineDelayTimer-Time.deltaTime);
+            if (index < dialogue.Length-1 && !playingLine && lineDelayTimer <= 0)
+            {
+                index++;
+                StartCoroutine(PlayLine(dialogue[index]));
+            }
         }
     }
-
 
     public void SetupEvent(Event e, int newLoc, int time)
     {
         loc = newLoc;
         currentEvent = e;
         sprites = new List<GameObject>();
-        if (loc == 1)
+        /*if (loc == 1)
             dialogue = shopTxt[Random.Range(0, shopTxt.Length)];
-        else
+        else*/
             dialogue = e.dialogue;
         index = 0;
-        
-        readyToReturn = (loc != 0 && loc != 1);
-        StartCoroutine(PlayLine(locationTxt[loc, time]));
+
         returned = false;
+        readyToReturn = true;
         fishingGame.SetActive(false);
         market.SetActive(false);
         clickToEnd.SetActive(false);
         ShowPortrait("none");
+        StartCoroutine(PlayLine(dialogue[index]));
     }
 
 
@@ -213,11 +191,27 @@ public class EventPlayer : MonoBehaviour
     }
 
 
-    private IEnumerator PlayLine(string line)
+    private IEnumerator PlayLine(string line, bool locIntro=false)
     {
-        //Debug.Log("Now playing " + index + ": " + dialogue[index]);
+        //Debug.Log("Called with speaker=" + currentEvent.speakers[index] + " and line=" + line + " (locIntro=" + locIntro + ")");
         //player choice
-        if (currentEvent.speakers[index] == "Option 1")
+        if (currentEvent.speakers[index] == "Loc Intro" && !locIntro)
+        {
+            StartCoroutine(PlayLine(locationTxt[loc, mapManager.time], true));
+        }
+        else if (currentEvent.speakers[index] == "Show Loc")
+        {
+            fishingGame.SetActive(loc==0);
+            market.SetActive(loc==1);
+            readyToReturn = (loc != 0 && loc != 1);
+            txtBox.text = "";
+            if (index < dialogue.Length-1)
+            {
+                index++;
+                StartCoroutine(PlayLine(dialogue[index]));
+            }
+        }
+        else if (currentEvent.speakers[index] == "Option 1")
         {
             txtBox.transform.parent.gameObject.SetActive(false);
             int numOptions = 0;
@@ -379,7 +373,7 @@ public class EventPlayer : MonoBehaviour
             playingLine = true;
             txtBox.text = "";
             skip = false;
-            if (eventStarted && loc != 1)
+            if (loc != 1)
             {
                 if (currentEvent.sprites[index] != "")
                 {

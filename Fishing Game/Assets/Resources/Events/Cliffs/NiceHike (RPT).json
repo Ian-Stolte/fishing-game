@@ -1,37 +1,51 @@
 {
   "Speaker": {
-    "0": "Narration",
-    "1": "Narration",
-    "2": "Narration"
+    "0": "Loc Intro",
+    "1": "Show Loc",
+    "2": "Narration",
+    "3": "Narration",
+    "4": "Narration"
   },
   "Dialogue": {
-    "0": "You head out for a short walk, but you quickly decide you actually quite like walking.",
-    "1": "After two hours, you decide this was probably more of a hike than a walk.",
-    "2": "Nonetheless, you emerge from the wilderness refreshed and reinvigorated! Nothing like a good hike to take your mind off of things."
+    "0": "",
+    "1": "",
+    "2": "You head out for a short walk, but you quickly decide you actually quite like walking.",
+    "3": "After two hours, you decide this was probably more of a hike than a walk.",
+    "4": "Nonetheless, you emerge from the wilderness refreshed and reinvigorated! Nothing like a good hike to take your mind off of things."
   },
   "Sprite": {
     "0": "",
     "1": "",
-    "2": ""
+    "2": "",
+    "3": "",
+    "4": ""
   },
   "Chars": {
     "0": "",
     "1": "",
-    "2": ""
+    "2": "",
+    "3": "",
+    "4": ""
   },
   "Prereqs-Needed": {
     "0": "",
     "1": "",
-    "2": ""
+    "2": "",
+    "3": "",
+    "4": ""
   },
   "Removes": {
     "0": "",
     "1": "",
-    "2": ""
+    "2": "",
+    "3": "",
+    "4": ""
   },
   "Priority": {
     "0": 0,
     "1": "",
-    "2": ""
+    "2": "",
+    "3": "",
+    "4": ""
   }
 }
