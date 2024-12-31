@@ -289,6 +289,18 @@ public class EventPlayer : MonoBehaviour
             {
                 string floatStr = amountStr.Substring(1, amountStr.Length-1);
                 player.MultiplyStats(splitStr[0].Trim(), float.Parse(floatStr));
+                float percent = (float.Parse(floatStr)-1)*100;
+                if (percent > 0)
+                {
+                    abilityUpdate.text = "+" + percent + "% " + splitStr[0].Trim().ToUpper() + "!";
+                    abilityUpdate.color = player.StatColor(splitStr[0].Trim());
+                }
+                else
+                {
+                    abilityUpdate.text = percent + "% " + splitStr[0].Trim().ToUpper();
+                    abilityUpdate.color = failedColor;
+                }
+                abilityUpdate.GetComponent<Animator>().Play("AbilityUpdate");
             }
             else
             {
@@ -304,7 +316,6 @@ public class EventPlayer : MonoBehaviour
                     player.AddStats(splitStr[0].Trim(), amount);
                     if (amount > 0)
                     {
-                        Debug.Log("+" + amount + " " + splitStr[0].Trim().ToUpper() + "!");
                         abilityUpdate.text = "+" + amount + " " + splitStr[0].Trim().ToUpper() + "!";
                         abilityUpdate.color = player.StatColor(splitStr[0].Trim());
                     }
