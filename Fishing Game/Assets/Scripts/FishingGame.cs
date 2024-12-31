@@ -14,6 +14,15 @@ public class FishingGame : MonoBehaviour
 
     private int timesCast;
     [SerializeField] private TextMeshProUGUI castsLeft;
+    [SerializeField] private TextMeshProUGUI statusTxt;
+    private string ellipses;
+    private float ellpisesTimer;
+
+    private bool moving;
+    private int direction;
+    [SerializeField] private float sliderSpeed;
+    private float currentSpeed;
+    private float speedModTimer;
 
     [SerializeField] private float rarePct;
     [SerializeField] private Color[] qualityColors;
@@ -30,19 +39,45 @@ public class FishingGame : MonoBehaviour
     {
         fishPopup.SetActive(false);
         failPopup.SetActive(false);
-        slider.GetComponent<Animator>().Play("SlideUpDown");
-        slider.GetComponent<Animator>().speed = 1;
-        timesCast = 0;
+        StartCoroutine(DelayedCast(Random.Range(3f, 10f)));
+        timesCast = 1;
         castsLeft.text = "Casts Left:  <b>2";
     }
 
     void Update()
     {
+        if (moving)
+        {
+            slider.GetComponent<RectTransform>().anchoredPosition += new Vector2(0, direction*Time.deltaTime*currentSpeed);
+            if (slider.GetComponent<RectTransform>().anchoredPosition.y > 100)
+                direction = -1;
+
+            speedModTimer -= Time.deltaTime;
+            if (speedModTimer <= 0)
+            {
+                currentSpeed = Random.Range(sliderSpeed * 0.7f, sliderSpeed * 1.5f);
+                speedModTimer = Random.Range(0.2f, 0.5f);
+            }
+        }
+        else if (statusTxt.gameObject.activeSelf)
+        {
+            ellpisesTimer -= Time.deltaTime;
+            if (ellpisesTimer <= 0)
+            {
+                ellipses += '.';
+                if (ellipses.Length > 3)
+                    ellipses = "";
+                ellpisesTimer = 1;
+            }
+            statusTxt.text = "Waiting for a bite" + ellipses;
+
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
-            if (slider.GetComponent<Animator>().speed > 0)
+            if (moving)
             {
-                slider.GetComponent<Animator>().speed = 0;
+                moving = false;
 
                 float yVal = Mathf.Abs(slider.GetComponent<RectTransform>().anchoredPosition.y);
                 if (yVal < 15)
@@ -69,20 +104,35 @@ public class FishingGame : MonoBehaviour
                 }
                 fishPopup.SetActive(true);
             }
-            else
+            else if (fishPopup.activeSelf || failPopup.activeSelf)
             {
+                fishPopup.SetActive(false);
+                failPopup.SetActive(false);
                 timesCast++;
-                if (timesCast >= 3)
+                if (timesCast > 3)
                     GameObject.Find("Location BG").GetComponent<EventPlayer>().readyToReturn = true;
                 else
                 {
-                    castsLeft.text = "Casts Left:  <b>" + (2-timesCast);
-                    slider.GetComponent<Animator>().Play("SlideUpDown");
-                    slider.GetComponent<Animator>().speed = 1;
+                    castsLeft.text = "Casts Left:  <b>" + (3-timesCast);
+                    StartCoroutine(DelayedCast(Random.Range(3f, 10f)));
                 }
-                fishPopup.SetActive(false);
-                failPopup.SetActive(false);
             }
         }
+        else if (slider.GetComponent<RectTransform>().anchoredPosition.y < -100 && moving)
+        {
+            moving = false;
+            failPopup.SetActive(true);
+        }
+    }
+
+    private IEnumerator DelayedCast(float waitTime)
+    {
+        slider.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -100);
+        direction = 1;
+        ellipses = "";
+        statusTxt.gameObject.SetActive(true);
+        yield return new WaitForSeconds(waitTime);
+        statusTxt.gameObject.SetActive(false);
+        moving = true;
     }
 }
