@@ -9,6 +9,8 @@ public class EventPlayer : MonoBehaviour
 
     [SerializeField] private GameObject fishingGame;
     [SerializeField] private GameObject market;
+    [SerializeField] private GameObject cooking;
+
     [SerializeField] private GameObject violetSprite;
     [SerializeField] private GameObject clickToEnd;
     [SerializeField] private Transform spriteParent;
@@ -203,6 +205,7 @@ public class EventPlayer : MonoBehaviour
         {
             fishingGame.SetActive(loc==0);
             market.SetActive(loc==1);
+            cooking.SetActive(loc==2);
             readyToReturn = (loc != 0 && loc != 1);
             txtBox.text = "";
             if (index < dialogue.Length-1)

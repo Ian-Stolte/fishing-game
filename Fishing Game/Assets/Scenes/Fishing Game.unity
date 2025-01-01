@@ -787,6 +787,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1669278622}
     m_Modifications:
+    - target: {fileID: 1450892113654838509, guid: 02d25ffb58f23804a8af7d1b3e476518, type: 3}
+      propertyPath: m_Name
+      value: Alabaster Tuna Box
+      objectReference: {fileID: 0}
     - target: {fileID: 5388918263071892288, guid: 02d25ffb58f23804a8af7d1b3e476518, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -866,10 +870,6 @@ PrefabInstance:
     - target: {fileID: 5388918263071892288, guid: 02d25ffb58f23804a8af7d1b3e476518, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1450892113654838509, guid: 02d25ffb58f23804a8af7d1b3e476518, type: 3}
-      propertyPath: m_Name
-      value: Alabaster Tuna Box
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1493,7 +1493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &87148102
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2208,7 +2208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &125886378
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4619,6 +4619,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1669278622}
     m_Modifications:
+    - target: {fileID: 5446654545294852697, guid: 878bf4279e110a14e9c8c4df8df5660b, type: 3}
+      propertyPath: m_Name
+      value: Scaled Limer Box
+      objectReference: {fileID: 0}
     - target: {fileID: 5716428875741605630, guid: 878bf4279e110a14e9c8c4df8df5660b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4698,10 +4702,6 @@ PrefabInstance:
     - target: {fileID: 5716428875741605630, guid: 878bf4279e110a14e9c8c4df8df5660b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5446654545294852697, guid: 878bf4279e110a14e9c8c4df8df5660b, type: 3}
-      propertyPath: m_Name
-      value: Scaled Limer Box
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6739,9 +6739,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"What''ve you got for me today? You know, I love cooking sooo much I''m
-    going to spend a whole paragraph talking about it! I love cooking Red Macklers,
-    and sometimes..."'
+  m_text: '"What''ve you got for me today?'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 39295ec6c14604c2696f1ac223c1791b, type: 2}
   m_sharedMaterial: {fileID: 5196370764954731449, guid: 39295ec6c14604c2696f1ac223c1791b, type: 2}
@@ -9927,7 +9925,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &628007766
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9942,6 +9940,7 @@ RectTransform:
   m_Children:
   - {fileID: 1505579224}
   - {fileID: 1669278622}
+  - {fileID: 2092204700}
   - {fileID: 1865877781}
   m_Father: {fileID: 1727903564}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10355,7 +10354,7 @@ MonoBehaviour:
     currentTotal: {x: 0, y: 0, z: 0}
     dealPrice: 0
     price: 3
-    sprite: {fileID: 9058752099309549032, guid: e8a12c43c358d4c4ba3a163f8e928924, type: 3}
+    sprite: {fileID: 1094322669686393787, guid: e93ba50fa019e8642b1a6ad8a3b2a013, type: 3}
     boxSprite: {fileID: 7511158929567086440, guid: 6f99c5bb08f66d2479c395a6ed827e3a, type: 3}
   - name: Arpeggiated Bass
     spawnRate: []
@@ -10418,7 +10417,7 @@ MonoBehaviour:
     currentTotal: {x: 0, y: 0, z: 0}
     dealPrice: 0
     price: 15
-    sprite: {fileID: 6387167648341096522, guid: ce6eead8ff82b9746a475f0082d1d4ef, type: 3}
+    sprite: {fileID: 5000488120178951970, guid: 74147514541b3c144ae90aa585a0ed22, type: 3}
     boxSprite: {fileID: 1450892113654838509, guid: 02d25ffb58f23804a8af7d1b3e476518, type: 3}
   - name: Pearl-Catcher
     spawnRate: []
@@ -15344,6 +15343,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pearl-Catcher
       objectReference: {fileID: 0}
+    - target: {fileID: 1051206891285443027, guid: 9b2f7859d9d3a3641890ccfce1a8cc1f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1363238976029742543, guid: 9b2f7859d9d3a3641890ccfce1a8cc1f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -17119,7 +17122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8490566, g: 0.77742136, b: 0.6327874, a: 1}
+  m_Color: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19462,7 +19465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -40.64552, y: -1.1999947}
+  m_AnchoredPosition: {x: -37.7, y: -4.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1252926145
@@ -23848,7 +23851,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -320, y: -114.00003}
+  m_AnchoredPosition: {x: -353, y: -114.00003}
   m_SizeDelta: {x: 67.58902, y: 857.58905}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1511311202
@@ -27261,7 +27264,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 334.6, y: -77}
+  m_AnchoredPosition: {x: 372.3, y: -77}
   m_SizeDelta: {x: 67.58905, y: 857.58905}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1669660270
@@ -28290,7 +28293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1727903564
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28376,6 +28379,7 @@ MonoBehaviour:
   mapManager: {fileID: 1734410937}
   fishingGame: {fileID: 1326190394}
   market: {fileID: 1998145859}
+  cooking: {fileID: 628007765}
   violetSprite: {fileID: 1274858131}
   clickToEnd: {fileID: 2092725183}
   spriteParent: {fileID: 2060433312}
@@ -29046,7 +29050,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8490566, g: 0.77742136, b: 0.6327874, a: 1}
+  m_Color: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -31213,7 +31217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1865877781
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32839,7 +32843,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1, y: -3}
+  m_AnchoredPosition: {x: 1, y: 29}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1971977324
@@ -35171,6 +35175,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073739105}
+  m_CullTransparentMesh: 1
+--- !u!1 &2092204699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2092204700}
+  - component: {fileID: 2092204702}
+  - component: {fileID: 2092204701}
+  m_Layer: 5
+  m_Name: Pot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2092204700
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092204699}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 628007766}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -222.6}
+  m_SizeDelta: {x: 186.2559, y: 174.3319}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2092204701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092204699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: b1211d569868f10468dcd2c71199a4e0, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2092204702
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092204699}
   m_CullTransparentMesh: 1
 --- !u!1 &2092725183
 GameObject:
