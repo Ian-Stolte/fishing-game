@@ -9836,7 +9836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &628007766
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9873,6 +9873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emptyBox: {fileID: 5185702399886880380, guid: 1a0021533f14eab4795bba52a9696ab9, type: 3}
   fishParent: {fileID: 1600531639}
+  veggieParent: {fileID: 0}
 --- !u!1 &638205487
 GameObject:
   m_ObjectHideFlags: 0
@@ -10384,7 +10385,7 @@ MonoBehaviour:
     spawnRate: []
     rarity: 0
     totalCaught: 0
-    currentTotal: {x: 0, y: 0, z: 0}
+    currentTotal: {x: 0, y: 0, z: 2}
     dealPrice: 0
     price: 5
     sprite: {fileID: 1369830580134929210, guid: 764bae960f5a1d84793e2cbad18e9e0e, type: 3}
@@ -10402,9 +10403,9 @@ MonoBehaviour:
     spawnRate: []
     rarity: 0
     totalCaught: 0
-    currentTotal: {x: 0, y: 0, z: 0}
+    currentTotal: {x: 0, y: 0, z: 3}
     dealPrice: 0
-    price: 3
+    price: 4
     sprite: {fileID: 1094322669686393787, guid: e93ba50fa019e8642b1a6ad8a3b2a013, type: 3}
     boxSprite: {fileID: 7511158929567086440, guid: 6f99c5bb08f66d2479c395a6ed827e3a, type: 3}
   - name: Arpeggiated Bass
@@ -10429,9 +10430,9 @@ MonoBehaviour:
     spawnRate: []
     rarity: 0
     totalCaught: 0
-    currentTotal: {x: 0, y: 0, z: 0}
+    currentTotal: {x: 0, y: 0, z: 2}
     dealPrice: 0
-    price: 4
+    price: 3
     sprite: {fileID: 1063924608678349034, guid: 0a78e38ef86e3b44895a7e52dce9688f, type: 3}
     boxSprite: {fileID: 5446654545294852697, guid: 878bf4279e110a14e9c8c4df8df5660b, type: 3}
   - name: Tenderfin
@@ -10447,7 +10448,7 @@ MonoBehaviour:
     spawnRate: []
     rarity: 1
     totalCaught: 0
-    currentTotal: {x: 0, y: 0, z: 0}
+    currentTotal: {x: 0, y: 0, z: 1}
     dealPrice: 0
     price: 15
     sprite: {fileID: 5000488120178951970, guid: 74147514541b3c144ae90aa585a0ed22, type: 3}
@@ -10456,7 +10457,7 @@ MonoBehaviour:
     spawnRate: []
     rarity: 1
     totalCaught: 0
-    currentTotal: {x: 0, y: 0, z: 0}
+    currentTotal: {x: 0, y: 0, z: 1}
     dealPrice: 0
     price: 20
     sprite: {fileID: 1051206891285443027, guid: 9b2f7859d9d3a3641890ccfce1a8cc1f, type: 3}
@@ -28736,7 +28737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1727903564
 RectTransform:
   m_ObjectHideFlags: 0

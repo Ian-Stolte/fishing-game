@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class Cooking : MonoBehaviour
@@ -11,11 +12,50 @@ public class Cooking : MonoBehaviour
 
     private FishTracker fishTracker;
 
+
     private void Awake()
     {
         fishTracker = GameObject.Find("Fish Tracker").GetComponent<FishTracker>();
     }
 
+
+    private void Update()
+    {
+        /*if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Raycast!");
+            RaycastHit2D[] hits = Physics2D.RaycastAll(Input.mousePosition, Vector2.zero);
+            foreach (RaycastHit2D hit in hits)
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                if (hit.collider.gameObject.name.Contains("Box(Clone)"))
+                    AddToPot(hit.collider.gameObject);
+            }
+        }*/
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerEventData, results);
+
+            foreach (RaycastResult result in results)
+            {
+                Debug.Log(result.gameObject.name);
+                if (result.gameObject.name.Contains("Box(Clone)"))
+                    AddToPot(result.gameObject);
+            }
+        }
+    }
+
+    private void AddToPot(GameObject box)
+    {
+        Debug.Log(box.name.Substring(0, box.name.Length-12));
+    }
 
     private void OnEnable()
     {
