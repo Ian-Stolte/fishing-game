@@ -1,7 +1,3 @@
-//Author: Ian Stolte
-//Date: 7/13/23
-//Desc: Manages the game audio (sound effects are called from other scripts, level music is called here)
-
 using System;
 using System.Linq;
 using System.Collections;
@@ -15,6 +11,7 @@ public class AudioManager : MonoBehaviour
 {
     [Header("Editable")]
     public Sound[] music;
+    public List<Sound> randomMusic;
     public Sound[] sfx;
 
     [Header("Don't edit")]
@@ -54,7 +51,20 @@ public class AudioManager : MonoBehaviour
             s.volume = storedVol;
         }
 
-        Play(music[UnityEngine.Random.Range(0, music.Length)].name);
+        NewSong(false);
+    }
+
+    public void NewSong(bool fadeIn = true)
+    {
+        if (randomMusic.Count == 0)
+            randomMusic = new List<Sound>(music.ToList());
+        
+        string newSong = randomMusic[UnityEngine.Random.Range(0, randomMusic.Count)].name;
+        Sound s = Array.Find(music, sound => sound.name == newSong);
+        Play(newSong);
+        s.source.volume = 1;
+        //StartCoroutine(StartFade(newSong, 1f, 2f));
+        randomMusic.RemoveAll(sound => sound.name == newSong);
     }
     
     public IEnumerator FadeOutAll(float duration)
@@ -106,8 +116,8 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Sound: " + name + " not found!");
             return;
         }
-        if (s.source.volume == 0)
-            s.source.volume = 0.6f;
+        //if (s.source.volume == 0)
+        //    s.source.volume = 0.6f;
         s.source.Play();
     }
 

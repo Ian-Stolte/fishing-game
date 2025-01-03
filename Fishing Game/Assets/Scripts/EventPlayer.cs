@@ -118,6 +118,7 @@ public class EventPlayer : MonoBehaviour
         readyToReturn = true;
         fishingGame.SetActive(false);
         market.SetActive(false);
+        cooking.SetActive(false);
         clickToEnd.SetActive(false);
         ShowPortrait("none");
         StartCoroutine(PlayLine(dialogue[index]));

@@ -219,6 +219,7 @@ public class MapManager : MonoBehaviour
         fader.GetChild(0).GetComponent<TextMeshProUGUI>().text = timeStrings[time];
         if (time == 0)
         {
+            StartCoroutine(GameObject.Find("Audio Manager").GetComponent<AudioManager>().FadeOutAll(2f));
             calendarOpen = true;
             StartCoroutine("OpenCalendar");
             yield return new WaitForSeconds(1.8f);
@@ -240,6 +241,7 @@ public class MapManager : MonoBehaviour
             calendarOpen = false;
             StartCoroutine("OpenCalendar");
             yield return new WaitForSeconds(0.5f);
+            GameObject.Find("Audio Manager").GetComponent<AudioManager>().NewSong();
         }
         else
         {
