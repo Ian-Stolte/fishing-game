@@ -206,7 +206,7 @@ public class EventPlayer : MonoBehaviour
             fishingGame.SetActive(loc==0);
             market.SetActive(loc==1);
             cooking.SetActive(loc==2);
-            readyToReturn = (loc != 0 && loc != 1);
+            readyToReturn = (loc == 3);
             txtBox.text = "";
             if (index < dialogue.Length-1)
             {
