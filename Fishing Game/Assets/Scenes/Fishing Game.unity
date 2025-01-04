@@ -7616,7 +7616,13 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
   randomMusic: []
-  sfx: []
+  sfx:
+  - name: Sweet Dreams
+    clip: {fileID: 8300000, guid: b496a0f5c92294b50807043c2a2b4c86, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
   audios: []
   currentSong:
     name: 

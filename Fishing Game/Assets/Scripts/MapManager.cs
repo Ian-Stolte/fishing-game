@@ -39,6 +39,7 @@ public class MapManager : MonoBehaviour
     private CharacterManager charManager;
     private EventManager eventManager;
     private PlayerManager player;
+    private AudioManager audioManager;
 
 
     void Start()
@@ -47,6 +48,7 @@ public class MapManager : MonoBehaviour
         eventManager = GameObject.Find("Event Manager").GetComponent<EventManager>();
         player = GameObject.Find("Player Manager").GetComponent<PlayerManager>();
         fishTracker = GameObject.Find("Fish Tracker").GetComponent<FishTracker>();
+        audioManager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
         UpdateInfo();
     }
 
@@ -213,13 +215,14 @@ public class MapManager : MonoBehaviour
         timeTransition = true;
         fader.GetChild(0).gameObject.SetActive(time != 2);
         fader.GetComponent<Animator>().Play("FadeToDark");
+        if (time == 2)
+            audioManager.CalendarMusic();
         yield return new WaitForSeconds(0.5f);
         locBG.GetComponent<EventPlayer>().eventStarted = false;
         UpdateInfo();
         fader.GetChild(0).GetComponent<TextMeshProUGUI>().text = timeStrings[time];
         if (time == 0)
         {
-            StartCoroutine(GameObject.Find("Audio Manager").GetComponent<AudioManager>().FadeOutAll(2f));
             calendarOpen = true;
             StartCoroutine("OpenCalendar");
             yield return new WaitForSeconds(1.8f);
@@ -240,8 +243,9 @@ public class MapManager : MonoBehaviour
             calendarArrow.SetActive(false);
             calendarOpen = false;
             StartCoroutine("OpenCalendar");
+            StartCoroutine(audioManager.StartFade("Sweet Dreams", 1, 0));
             yield return new WaitForSeconds(0.5f);
-            GameObject.Find("Audio Manager").GetComponent<AudioManager>().NewSong();
+            audioManager.NewSong();
         }
         else
         {

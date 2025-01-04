@@ -54,6 +54,15 @@ public class AudioManager : MonoBehaviour
         NewSong(false);
     }
 
+    public void CalendarMusic()
+    {
+        StartCoroutine(audioManager.FadeOutAll(1f));
+        Play("Sweet Dreams");
+        Sound s = Array.Find(sfx, sound => sound.name == "Sweet Dreams");
+        s.source.volume = 0;
+        StartCoroutine(StartFade("Sweet Dreams", 2, 0.8f));
+    }
+
     public void NewSong(bool fadeIn = true)
     {
         if (randomMusic.Count == 0)
@@ -63,7 +72,7 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(music, sound => sound.name == newSong);
         Play(newSong);
         s.source.volume = 1;
-        //StartCoroutine(StartFade(newSong, 1f, 2f));
+        //StartCoroutine(StartFade(newSong, 2f, 1));
         randomMusic.RemoveAll(sound => sound.name == newSong);
     }
     
@@ -147,11 +156,13 @@ public class AudioManager : MonoBehaviour
 
         float currentTime = 0;
         float start = s.source.volume;
+        Debug.Log("Fading " + name + " from " + start + " -> " + end);
 
         while (currentTime < duration)
         {
             currentTime += Time.deltaTime;
             s.source.volume = Mathf.Lerp(start, end, currentTime / duration);
+            Debug.Log(s.source.volume);
             yield return null;
         }
 
