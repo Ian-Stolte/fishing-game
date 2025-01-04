@@ -157,7 +157,12 @@ public class Cooking : MonoBehaviour
             else
             {
                 chosenRecipe = possibleRecipes[0];
-                Debug.Log(possibleRecipes[0].name);
+                foreach (Recipe rec in possibleRecipes)
+                {
+                    Recipe recipe = recipes.FirstOrDefault(r => r.name == rec.name);
+                    if (recipe.necessaryIngs.Count > chosenRecipe.necessaryIngs.Count)
+                        chosenRecipe = recipe;
+                }
             }
         }
         recipePopup.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = chosenRecipe.name;
