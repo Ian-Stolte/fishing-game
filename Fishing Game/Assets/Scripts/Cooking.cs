@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
@@ -12,9 +13,14 @@ public class Cooking : MonoBehaviour
     [SerializeField] private Transform foodParent;
 
     [SerializeField] private GameObject cookButton;
+    [SerializeField] private RectTransform potBounds;
     [SerializeField] private GameObject recipePopup;
+    private GameObject dragSprite;
+    bool flyingBack;
 
     [SerializeField] private List<string> activeIngredients;
+    private GameObject box;
+    private int quality;
     [SerializeField] private List<Recipe> recipes;
 
     private FishTracker fishTracker;
@@ -46,29 +52,114 @@ public class Cooking : MonoBehaviour
             foreach (RaycastResult result in results)
             {
                 if (result.gameObject.name.Contains("Box(Clone)"))
-                    AddToPot(result.gameObject);
+                {
+                    box = result.gameObject;
+                    DragOffShelf();
+                }
             }
+        }
+
+        if (Input.GetMouseButtonUp(0) && dragSprite != null)
+        {
+            Vector2 localPos = potBounds.InverseTransformPoint(dragSprite.GetComponent<RectTransform>().position);
+            if (potBounds.rect.Contains(localPos))
+            {
+                AddToPot(dragSprite.name.Substring(0, dragSprite.name.Length-7));
+                Destroy(dragSprite);
+            }
+            else
+            {
+                int quantity = int.Parse(box.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text);
+                box.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + (quantity+1);
+                box.transform.GetChild(3).gameObject.SetActive(false);
+                StartCoroutine(FlyBack());
+            }
+            foodParent.parent.parent.GetComponent<ScrollRect>().enabled = true;
+            fishParent.parent.parent.GetComponent<ScrollRect>().enabled = true;
+        }
+
+        if (dragSprite != null && !flyingBack)
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(GetComponent<RectTransform>(), Input.mousePosition, null, out Vector2 localPoint);
+            dragSprite.GetComponent<RectTransform>().localPosition = localPoint;
         }
     }
 
-    private void AddToPot(GameObject box)
+
+    private IEnumerator FlyBack()
+    {
+        flyingBack = true;
+        Vector2 target = box.GetComponent<RectTransform>().position;
+        Vector2 start = dragSprite.GetComponent<RectTransform>().position;
+        for (float i = 0; i < 1; i += 0.08f)
+        {
+            dragSprite.GetComponent<RectTransform>().position = Vector2.Lerp(start, target, i);
+            if (dragSprite.GetComponent<Image>() != null)
+                dragSprite.GetComponent<Image>().color = new Color(1, 1, 1, 1-(i/2));
+            yield return new WaitForSeconds(0.01f);
+        }
+        Destroy(dragSprite);
+        flyingBack = false;
+    }
+
+
+    private void AddToPot(string ing)
+    {
+        activeIngredients.Add(ing);
+        if (fishTracker.fish.Any(f => f.name == ing))
+            cookButton.SetActive(true);
+        
+        //change quantity in inventory
+        Fish fish = fishTracker.fish.FirstOrDefault(f => f.name == ing);
+        if (fish != null)
+        {
+            if (fish.currentTotal.z > 0)
+            {
+                quality = 2;
+                fish.currentTotal.z--;
+            }
+            else if (fish.currentTotal.y > 0)
+            {
+                quality = Mathf.Max(quality, 1);
+                fish.currentTotal.y--;
+            }
+            else
+            {
+                fish.currentTotal.x--;
+            }
+        }
+        else
+        {
+            Food food = foodTracker.food.FirstOrDefault(f => f.name == ing);
+            food.quantity--;
+        }
+        //show a little bubble animation, maybe drag sprite falls until it hits pot
+    }
+
+
+    private void DragOffShelf()
     {
         int quantity = int.Parse(box.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text);
         if (quantity > 0)
         {
+            string ing = box.name.Substring(0, box.name.Length-11);
             box.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + (quantity-1);
-            //remove 1 quantity from fishTracker / foodTracker --- take highest-quality fish
             if (quantity-1 == 0)
                 box.transform.GetChild(3).gameObject.SetActive(true);
-            string ing = box.name.Substring(0, box.name.Length-11);
-            activeIngredients.Add(ing);
-            if (fishTracker.fish.Any(f => f.name == ing))
-                cookButton.SetActive(true);
+            
+            dragSprite = Instantiate(box.transform.GetChild(0).gameObject, Vector2.zero, box.transform.GetChild(0).rotation, transform);
         }
+        fishParent.parent.parent.GetComponent<ScrollRect>().enabled = false;
+        foodParent.parent.parent.GetComponent<ScrollRect>().enabled = false;
     }
+
 
     private void OnEnable()
     {
+        foreach (Transform child in fishParent)
+            Destroy(child.gameObject);
+        foreach (Transform child in foodParent)
+            Destroy(child.gameObject);
         for (int i = 0; i < 12; i++)
         {
             GameObject box = null;
@@ -168,7 +259,9 @@ public class Cooking : MonoBehaviour
         recipePopup.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = chosenRecipe.name;
         recipePopup.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = chosenRecipe.description;
         //instantiate recipe sprite
+        //show quality of recipe
         recipePopup.SetActive(true);
+        quality = 0;
     }
 }
 
