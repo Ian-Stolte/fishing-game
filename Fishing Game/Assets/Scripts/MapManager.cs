@@ -209,6 +209,12 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    
+    public string TimeString()
+    {
+        return timeStrings[time].ToLower();
+    }
+
 
     public IEnumerator ShowTimeTransition()
     {

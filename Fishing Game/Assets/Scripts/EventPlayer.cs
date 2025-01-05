@@ -398,10 +398,17 @@ public class EventPlayer : MonoBehaviour
                 {
                     startIndex = line.IndexOf("{time", startIndex);
                     int endIndex = line.IndexOf('}', startIndex);
-                    int n = int.Parse(line.Substring(endIndex-1, 1));
-                    string moddedTime = mapManager.ReturnModdedTime(n);
-                    line = line.Replace(line.Substring(startIndex, endIndex-startIndex+1), moddedTime);
-                    startIndex += moddedTime.Length;
+                    if (endIndex - startIndex == 5)
+                    {
+                        line = line.Replace(line.Substring(startIndex, endIndex-startIndex+1), mapManager.TimeString());
+                    }
+                    else
+                    {
+                        int n = int.Parse(line.Substring(endIndex-1, 1));
+                        string moddedTime = mapManager.ReturnModdedTime(n);
+                        line = line.Replace(line.Substring(startIndex, endIndex-startIndex+1), moddedTime);
+                        startIndex += moddedTime.Length;
+                    }
                 }
             }
             playingLine = true;

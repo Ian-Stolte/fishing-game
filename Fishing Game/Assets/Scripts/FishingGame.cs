@@ -17,6 +17,7 @@ public class FishingGame : MonoBehaviour
     private int timesCast;
     [SerializeField] private TextMeshProUGUI castsLeft;
     [SerializeField] private TextMeshProUGUI statusTxt;
+    [SerializeField] private Animator biteTxt;
     private string ellipses;
     private float ellpisesTimer;
 
@@ -41,7 +42,7 @@ public class FishingGame : MonoBehaviour
     {
         fishPopup.SetActive(false);
         failPopup.SetActive(false);
-        StartCoroutine(DelayedCast(Random.Range(3f, 10f)));
+        StartCoroutine(DelayedCast(Random.Range(7f, 15f)));
         timesCast = 1;
         castsLeft.text = "Casts Left:  <b>2";
     }
@@ -119,7 +120,7 @@ public class FishingGame : MonoBehaviour
                 else
                 {
                     castsLeft.text = "Casts Left:  <b>" + (3-timesCast);
-                    StartCoroutine(DelayedCast(Random.Range(3f, 10f)));
+                    StartCoroutine(DelayedCast(Random.Range(7f, 15f)));
                 }
             }
         }
@@ -137,8 +138,10 @@ public class FishingGame : MonoBehaviour
         direction = 1;
         ellipses = "";
         statusTxt.gameObject.SetActive(true);
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(waitTime-1);
         statusTxt.gameObject.SetActive(false);
+        biteTxt.Play("Bite!FadeOut");
+        yield return new WaitForSeconds(1);
         clickButton.SetActive(false);
         moving = true;
     }
