@@ -18,6 +18,11 @@ public class Cooking : MonoBehaviour
     private GameObject dragSprite;
     bool flyingBack;
 
+    [SerializeField] private GameObject clickButton;
+
+    [SerializeField] private GameObject openButton;
+    [SerializeField] private GameObject closeButton;
+
     [SerializeField] private List<string> activeIngredients;
     private GameObject box;
     private int quality;
@@ -39,7 +44,10 @@ public class Cooking : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (recipePopup.activeSelf)
+            {
                 recipePopup.SetActive(false);
+                clickButton.SetActive(true);
+            }
 
             PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
             {
@@ -83,6 +91,62 @@ public class Cooking : MonoBehaviour
             RectTransformUtility.ScreenPointToLocalPointInRectangle(GetComponent<RectTransform>(), Input.mousePosition, null, out Vector2 localPoint);
             dragSprite.GetComponent<RectTransform>().localPosition = localPoint;
         }
+    }
+
+
+    public void Setup()
+    {
+        foreach (Transform child in fishParent)
+            Destroy(child.gameObject);
+        foreach (Transform child in foodParent)
+            Destroy(child.gameObject);
+        for (int i = 0; i < 12; i++)
+        {
+            GameObject box = null;
+            if (fishTracker.fish[i].boxSprite == null)
+            {
+                box = Instantiate(emptyBox, Vector2.zero, Quaternion.identity, fishParent);
+            }
+            else
+            {
+                box = Instantiate(fishTracker.fish[i].boxSprite, Vector2.zero, Quaternion.identity, fishParent);
+                box.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + fishTracker.fish[i].Quantity();
+                if (fishTracker.fish[i].Quantity() == 0)
+                    box.transform.GetChild(3).gameObject.SetActive(true);
+            }
+            box.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 385-70*i);
+        }
+        for (int i = 0; i < 6; i++)
+        {
+            GameObject box = null;
+            if (foodTracker.food[i].boxSprite == null)
+            {
+                box = Instantiate(emptyBox, Vector2.zero, Quaternion.identity, foodParent);
+            }
+            else
+            {
+                box = Instantiate(foodTracker.food[i].boxSprite, Vector2.zero, Quaternion.identity, foodParent);
+                box.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + foodTracker.food[i].quantity;
+                if (foodTracker.food[i].quantity == 0)
+                    box.transform.GetChild(3).gameObject.SetActive(true);
+            }
+            box.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 175-70*i);
+        }
+        StartCoroutine(OpenPanels());
+    }
+
+
+    private IEnumerator OpenPanels()
+    {
+        openButton.SetActive(false);
+        for (float i = 0; i < 0.5f; i += 0.01f)
+        {
+            fishParent.parent.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(-453, -353, i/0.5f), -77);
+            foodParent.parent.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(509, 409, i/0.5f), -77);
+            potBounds.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, Mathf.Lerp(-353, -223, i/0.5f));
+            yield return new WaitForSeconds(0.01f);
+        }
+        closeButton.SetActive(true);
     }
 
 
@@ -153,47 +217,6 @@ public class Cooking : MonoBehaviour
         foodParent.parent.parent.GetComponent<ScrollRect>().enabled = false;
     }
 
-
-    private void OnEnable()
-    {
-        foreach (Transform child in fishParent)
-            Destroy(child.gameObject);
-        foreach (Transform child in foodParent)
-            Destroy(child.gameObject);
-        for (int i = 0; i < 12; i++)
-        {
-            GameObject box = null;
-            if (fishTracker.fish[i].boxSprite == null)
-            {
-                box = Instantiate(emptyBox, Vector2.zero, Quaternion.identity, fishParent);
-            }
-            else
-            {
-                box = Instantiate(fishTracker.fish[i].boxSprite, Vector2.zero, Quaternion.identity, fishParent);
-                box.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + fishTracker.fish[i].Quantity();
-                if (fishTracker.fish[i].Quantity() == 0)
-                    box.transform.GetChild(3).gameObject.SetActive(true);
-            }
-            box.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 385-70*i);
-        }
-        for (int i = 0; i < 6; i++)
-        {
-            GameObject box = null;
-            if (foodTracker.food[i].boxSprite == null)
-            {
-                box = Instantiate(emptyBox, Vector2.zero, Quaternion.identity, foodParent);
-            }
-            else
-            {
-                box = Instantiate(foodTracker.food[i].boxSprite, Vector2.zero, Quaternion.identity, foodParent);
-                box.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + foodTracker.food[i].quantity;
-                if (foodTracker.food[i].quantity == 0)
-                    box.transform.GetChild(3).gameObject.SetActive(true);
-            }
-            box.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 175-70*i);
-        }
-    }
-
     
     public void Cook()
     {
@@ -233,7 +256,6 @@ public class Cooking : MonoBehaviour
         if (possibleRecipes.Count == 0)
         {
             chosenRecipe = recipes[1];
-            Debug.Log("Dubious Fish Slurry");
         }
         else
         {
@@ -243,7 +265,6 @@ public class Cooking : MonoBehaviour
             if (possibleRecipes.Count == 0)
             {
                 chosenRecipe = recipes[0];
-                Debug.Log("Simple Boiled Fish");
             }
             else
             {
@@ -261,7 +282,28 @@ public class Cooking : MonoBehaviour
         //instantiate recipe sprite
         //show quality of recipe
         recipePopup.SetActive(true);
+        clickButton.SetActive(false);
         quality = 0;
+    }
+
+
+    public void Close()
+    {
+        StartCoroutine(ClosePanels());
+    }
+
+
+    private IEnumerator ClosePanels()
+    {
+        closeButton.SetActive(false);
+        for (float i = 0; i < 0.5f; i += 0.01f)
+        {
+            fishParent.parent.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(-353, -453, i/0.5f), -77);
+            foodParent.parent.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(409, 509, i/0.5f), -77);
+            potBounds.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, Mathf.Lerp(-223, -353, i/0.5f));
+            yield return new WaitForSeconds(0.01f);
+        }
+        openButton.SetActive(true);
     }
 }
 

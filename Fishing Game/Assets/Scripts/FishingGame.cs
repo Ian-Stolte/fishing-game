@@ -12,6 +12,8 @@ public class FishingGame : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fishType;
     [SerializeField] private TextMeshProUGUI fishPrice;
 
+    [SerializeField] private GameObject clickButton;
+
     private int timesCast;
     [SerializeField] private TextMeshProUGUI castsLeft;
     [SerializeField] private TextMeshProUGUI statusTxt;
@@ -66,7 +68,7 @@ public class FishingGame : MonoBehaviour
             {
                 ellipses += '.';
                 if (ellipses.Length > 3)
-                    ellipses = "";
+                    ellipses = ".";
                 ellpisesTimer = 1;
             }
             statusTxt.text = "Waiting for a bite" + ellipses;
@@ -110,7 +112,10 @@ public class FishingGame : MonoBehaviour
                 failPopup.SetActive(false);
                 timesCast++;
                 if (timesCast > 3)
+                {
                     GameObject.Find("Location BG").GetComponent<EventPlayer>().readyToReturn = true;
+                    clickButton.SetActive(true);
+                }
                 else
                 {
                     castsLeft.text = "Casts Left:  <b>" + (3-timesCast);
@@ -127,12 +132,14 @@ public class FishingGame : MonoBehaviour
 
     private IEnumerator DelayedCast(float waitTime)
     {
+        clickButton.SetActive(true);
         slider.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -100);
         direction = 1;
         ellipses = "";
         statusTxt.gameObject.SetActive(true);
         yield return new WaitForSeconds(waitTime);
         statusTxt.gameObject.SetActive(false);
+        clickButton.SetActive(false);
         moving = true;
     }
 }
