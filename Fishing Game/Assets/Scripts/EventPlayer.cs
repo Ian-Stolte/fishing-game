@@ -145,6 +145,8 @@ public class EventPlayer : MonoBehaviour
 
     private void ShowSprites(string spriteName, bool add=true)
     {
+        if (spriteName == "Violet" && loc == 1)
+            spriteName = "Violet (Market)";
         foreach (Transform child in spriteParent)
         {
             if (child.name == spriteName)
@@ -180,7 +182,10 @@ public class EventPlayer : MonoBehaviour
                 else if (sprites.Count == 3)
                     sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-80*(sprites.Count-1) + 160*i, 6.5f);
             }
-            sprites[i].SetActive(true);
+            if (sprites[i].name == "Violet (Market)" && market.activeSelf)
+                sprites[i].SetActive(false);
+            else
+                sprites[i].SetActive(true);
         }
     }
 
@@ -223,7 +228,13 @@ public class EventPlayer : MonoBehaviour
         else if (currentEvent.speakers[index] == "Show Loc")
         {
             fishingGame.SetActive(loc==0);
-            market.SetActive(loc==1);
+            if (loc == 1)
+            {
+                market.SetActive(true);
+                foreach (Transform child in spriteParent)
+                    if (child.name == "Violet (Market)")
+                        child.gameObject.SetActive(false);
+            }
             cooking.SetActive(loc==2);
             foraging.SetActive(loc==3);
             readyToReturn = (loc==3);
@@ -379,12 +390,13 @@ public class EventPlayer : MonoBehaviour
                 else
                 {
                     //StartCoroutine(StatPopup(splitStr[0].Trim(), true));  // <--- maybe not? Like for money < 3 don't want to see a popup... (maybe have a different code for hidden check)
-                    while (currentEvent.speakers[index] != "Merge" && currentEvent.speakers[index] != "Jump")
+                    while (currentEvent.speakers[index] != "Merge" && currentEvent.speakers[index] != "Jump" && index < currentEvent.speakers.Length-1)
                         index++;
                 }
             }
             index++;
-            StartCoroutine(PlayLine(dialogue[index]));
+            if (index < dialogue.Length)
+                StartCoroutine(PlayLine(dialogue[index]));
         }
         else
         {
@@ -417,23 +429,20 @@ public class EventPlayer : MonoBehaviour
             playingLine = true;
             txtBox.text = "";
             skip = false;
-            if (loc != 1)
+            if (currentEvent.sprites[index] != "")
             {
-                if (currentEvent.sprites[index] != "")
+                string[] spritesToMod = currentEvent.sprites[index].Split(new string[] { ", " }, System.StringSplitOptions.None);
+                foreach (string str in spritesToMod)
                 {
-                    string[] spritesToMod = currentEvent.sprites[index].Split(new string[] { ", " }, System.StringSplitOptions.None);
-                    foreach (string str in spritesToMod)
+                    if (str.Contains("- "))
                     {
-                        if (str.Contains("- "))
-                        {
-                            ShowSprites(str.Substring(2), false);
-                        }
-                        else
-                            ShowSprites(str);
+                        ShowSprites(str.Substring(2), false);
                     }
+                    else
+                        ShowSprites(str);
                 }
-                ShowPortrait(currentEvent.speakers[index]);
             }
+            ShowPortrait(currentEvent.speakers[index]);
             
             bool addingHTML = false;
             string HTMLtag = "";
@@ -505,6 +514,8 @@ public class EventPlayer : MonoBehaviour
         {
             child.gameObject.SetActive(child.name == name);
         }
+        if (name == "Violet" && loc == 1)
+            name = "Violet (Market)";
         foreach (GameObject g in sprites)
         {
             if (g.name == name)

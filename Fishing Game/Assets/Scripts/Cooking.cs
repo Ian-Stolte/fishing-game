@@ -27,6 +27,7 @@ public class Cooking : MonoBehaviour
     [SerializeField] private List<string> activeIngredients;
     private GameObject box;
     private int quality;
+    private int numFish;
     [SerializeField] private List<Recipe> recipes;
 
     private FishTracker fishTracker;
@@ -237,6 +238,7 @@ public class Cooking : MonoBehaviour
             if (fishTracker.fish.Any(f => f.name == str))
             {
                 ingName = "Fish";
+                numFish++;
                 //replace with logic for different types of fish, different quality levels...
             }
             if (!checkedIngs.Contains(ingName))
@@ -285,7 +287,12 @@ public class Cooking : MonoBehaviour
                 }
             }
         }
-        recipePopup.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = chosenRecipe.name;
+        if (numFish > 2)
+            recipePopup.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Extra Hearty " + chosenRecipe.name;
+        else if (numFish > 1)
+            recipePopup.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Hearty " + chosenRecipe.name;
+        else
+            recipePopup.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = chosenRecipe.name;
         recipePopup.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = chosenRecipe.description;
         //instantiate recipe sprite
         //show quality of recipe

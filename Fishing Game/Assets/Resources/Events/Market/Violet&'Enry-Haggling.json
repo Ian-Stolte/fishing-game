@@ -31,9 +31,10 @@
     "28": "Stat Check",
     "29": "Violet",
     "30": "Violet",
-    "31": "Stat Check",
-    "32": "Violet",
-    "33": "Violet"
+    "31": "Merge",
+    "32": "Stat Check",
+    "33": "Violet",
+    "34": "Violet"
   },
   "Dialogue": {
     "0": "",
@@ -41,39 +42,40 @@
     "2": "\"10 serpents was the price yesterday, and it's the price today! You gone hard of hearing in your old age, 'Enry?\"",
     "3": "\"Ah, but that's the price for a real bottom-feeder! This here's a genuine specimen.\"",
     "4": "\"Bastard fought me for five whole minutes 'fore I could get him right an' proper off the hook!\"",
-    "5": "\"You know, I bet I could take 'im to the honest 'mongers down the road and get 20—no, 30 serpents, easy!\"",
+    "5": "\"You know, I bet I could take 'im to the honest 'mongers down the road and get 20???no, 30 serpents, easy!\"",
     "6": "\"Can't fool me that easy, friend; I can smell the rot from here! Bet that fish is so old you'd have to pay me to take it off your hands.\"",
-    "7": "The two of them don't even notice you approach—you bet they'd be up to this all day if you don't intervene...",
+    "7": "The two of them don't even notice you approach???you bet they'd be up to this all day if you don't intervene...",
     "8": "\"It's true! I watched him haul in the fish this morning. Fresh as can be, and strong too!\"",
     "9": "Cover your nose and pretend to gag: \"Ahhckhh, the smell! I can't breathe!\"",
     "10": "",
     "11": "Relationship-'Enry [+1]",
     "12": "\"Aye, at least a 30-serpent fish, clearly!\"",
     "13": "You suggest that it might even be worth 40, and Violet scowls at both of you.",
-    "14": "\"Fine, fine—take your pay, 'Enry. And I suppose you've got 'rare specimens' for me, too, {name}?\"",
+    "14": "\"Fine, fine???take your pay, 'Enry. And I suppose you've got 'rare specimens' for me, too, {name}?\"",
     "15": "",
     "16": "'Enry winks at you as you step forward to the stall and gives you a hearty pat on the back.",
     "17": "\"You know, I was right there when {they} caught this latest one... rare doesn't even begin to describe it!\"",
     "18": "You may have irritated Violet, but you decide the delight on 'Enry's face is well worth it.",
     "19": "In fact, you spend the rest of the {time} coming up with progressively more elaborate ways to mess with Violet, including the ultra-rare Striped Bass!",
-    "20": "'Legend says there's only one of them in the world,' you tell her (although you conveniently leave out the empty paint bucket behind you...)",
+    "20": "Legend says there's only one of them in the world, you tell her (although you conveniently leave out the empty paint bucket behind you...)",
     "21": "",
     "22": "Relationship-Violet [+1]",
     "23": "\"Hah, I knew it! Good luck taking that rotting lump to another fishmonger; bet they'd throw you out of the market for the smell alone!\"",
-    "24": "\"Betrayed by a fellow sailor—oh, it stings just like old times!\"",
+    "24": "\"Betrayed by a fellow sailor???oh, it stings just like old times!\"",
     "25": "He dramatically walks off, monologuing about the pain of betrayal, which leaves you alone with Violet for the moment!",
     "26": "",
-    "27": "\"Thanks, {name}. Can't resist a bit of haggling with 'Enry—else he'd single-handedly run me out of business with all the rare fish he finds!\"",
+    "27": "\"Thanks, {name}. Can't resist a bit of haggling with 'Enry???else he'd single-handedly run me out of business with all the rare fish he finds.\"",
     "28": "Charm > 4",
     "29": "\"That was incredible acting, though; it's almost like you've been practicing for this or something!",
     "30": "...that was acting, right?",
-    "31": "Charm < 5",
-    "32": "\"If I could make one comment, though... you might want to go a <i>bit</i> more subtle next time.\"",
-    "33": "\"Maybe skip the whole 'arm-flailing and screaming about your nose falling off' part?\""
+    "31": "",
+    "32": "Charm < 5",
+    "33": "\"If I could make one comment, though... you might want to go a <i>bit</i> more subtle next time.\"",
+    "34": "\"Maybe skip the whole 'arm-flailing and screaming about your nose falling off' part?\""
   },
   "Sprite": {
     "0": "",
-    "1": "Violet, 'Enry",
+    "1": "'Enry, Violet",
     "2": "",
     "3": "",
     "4": "",
@@ -97,7 +99,7 @@
     "22": "",
     "23": "",
     "24": "",
-    "25": "",
+    "25": "- 'Enry",
     "26": "",
     "27": "",
     "28": "",
@@ -105,7 +107,8 @@
     "30": "",
     "31": "",
     "32": "",
-    "33": ""
+    "33": "",
+    "34": ""
   },
   "Chars": {
     "0": "Violet",
@@ -141,7 +144,8 @@
     "30": "",
     "31": "",
     "32": "",
-    "33": ""
+    "33": "",
+    "34": ""
   },
   "Prereqs-Needed": {
     "0": "'Enry-Intro",
@@ -177,7 +181,8 @@
     "30": "",
     "31": "",
     "32": "",
-    "33": ""
+    "33": "",
+    "34": ""
   },
   "Removes": {
     "0": "this",
@@ -213,7 +218,8 @@
     "30": "",
     "31": "",
     "32": "",
-    "33": ""
+    "33": "",
+    "34": ""
   },
   "Priority": {
     "0": 0,
@@ -249,6 +255,7 @@
     "30": "",
     "31": "",
     "32": "",
-    "33": ""
+    "33": "",
+    "34": ""
   }
 }
