@@ -167,10 +167,10 @@ public class EventPlayer : MonoBehaviour
                     spriteX[0] = -140;
                 sprites[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(spriteX[i], 6.5f);
             }
-            else if (loc == 1)
+            /*else if (loc == 1)
             {
                 //idk, place them outside the stall?
-            }
+            }*/
             else
             {
                 if (sprites.Count == 1)
@@ -365,7 +365,7 @@ public class EventPlayer : MonoBehaviour
                 else
                 {
                     StartCoroutine(StatPopup(splitStr[0].Trim(), false));
-                    while (currentEvent.speakers[index] != "Merge" && currentEvent.speakers[index] != "Jump")
+                    while (currentEvent.speakers[index] != "Merge" && currentEvent.speakers[index] != "Jump" && index < currentEvent.speakers.Length-1)
                         index++;
                 }
             }
@@ -391,6 +391,9 @@ public class EventPlayer : MonoBehaviour
             line = line.Replace("{name}", player.name);
             line = line.Replace("{loc}", mapManager.locations[loc].name.ToLower());
             line = line.Replace("{fish}", fishTracker.fish[Random.Range(0, fishTracker.fish.Length)].name);
+            line = line.Replace("{they}", player.pronouns[0]);
+            line = line.Replace("{them}", player.pronouns[1]);
+            line = line.Replace("{their}", player.pronouns[2]);
             if (line.Contains("{time"))
             {
                 int startIndex = 0;

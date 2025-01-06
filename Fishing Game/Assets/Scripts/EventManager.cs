@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 
 public class EventManager : MonoBehaviour
 {
-    public Event[] events;
     public List<Event> dockEvents;
     public List<Event> marketEvents;
     public List<Event> barEvents;
@@ -94,11 +93,7 @@ public class EventManager : MonoBehaviour
         foreach (Event e in popupEvents)
             if (ValidEvent(e, loc, charsHere, time, day))
                 candidates.Add(e);
-
-        if (candidates.Count == 0)
-        {
-            return events[0];
-        }
+                
         int highestPriority = 0;
         foreach (Event e in candidates)
             if (e.priority > highestPriority)

@@ -11,6 +11,7 @@ public class Cooking : MonoBehaviour
     [SerializeField] private GameObject emptyBox;
     [SerializeField] private Transform fishParent;
     [SerializeField] private Transform foodParent;
+    [SerializeField] private GameObject bubbles;
 
     [SerializeField] private GameObject cookButton;
     [SerializeField] private RectTransform potBounds;
@@ -197,7 +198,14 @@ public class Cooking : MonoBehaviour
             Food food = foodTracker.food.FirstOrDefault(f => f.name == ing);
             food.quantity--;
         }
-        //show a little bubble animation, maybe drag sprite falls until it hits pot
+        StartCoroutine(Bubbles());
+    }
+
+    private IEnumerator Bubbles()
+    {
+        bubbles.SetActive(true);
+        yield return new WaitForSeconds(0.7f);
+        bubbles.SetActive(false);
     }
 
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public string name;
+    public string[] pronouns;
     public List<string> prereqs;
     public Dictionary<string, int> delayedPrereqs = new Dictionary<string, int>();
     
