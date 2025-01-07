@@ -131,34 +131,7 @@ public class MapManager : MonoBehaviour
         mapBG.GetComponent<Image>().color = mapColors[time];
         locBG.GetComponent<Image>().color = mapColors[time];
         eveningOverlay.SetActive(time==2);
-
-        //move character icons
-        foreach (Location l in locations)
-        {
-            l.charsHere.Clear();
-        }
-        foreach (Character c in charManager.characters)
-        {
-            Vector3 loop = c.schedule[(day-1)%c.schedule.Length];
-            int loc = 0;
-            if (time == 0)
-                loc = (int)loop.x;
-            else if (time == 1)
-                loc = (int)loop.y;
-            else if (time == 2)
-                loc = (int)loop.z;
-
-            if (loc != 0)
-            {
-                locations[loc-1].charsHere.Add(c.name);
-                c.icon.GetComponent<RectTransform>().anchoredPosition = locations[loc-1].iconPos.anchoredPosition - new Vector2(0, 50*(locations[loc-1].charsHere.Count-1));
-                c.icon.SetActive(true);
-            }
-            else
-            {
-                c.icon.SetActive(false);
-            }
-        }
+        
 
         //Quests
         moneyQuest.text = "Earn 100 sp. <b>(" + player.money + "/100)";

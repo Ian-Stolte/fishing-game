@@ -288,17 +288,28 @@ public class Cooking : MonoBehaviour
             }
         }
         if (numFish > 2)
+        {
             recipePopup.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Extra Hearty " + chosenRecipe.name;
+            chosenRecipe.quantity.z++;
+        }
         else if (numFish > 1)
+        {
             recipePopup.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Hearty " + chosenRecipe.name;
+            chosenRecipe.quantity.y++;
+        }
         else
+        {
             recipePopup.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = chosenRecipe.name;
+            chosenRecipe.quantity.x++;
+        }
         recipePopup.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = chosenRecipe.description;
+        
         //instantiate recipe sprite
         //show quality of recipe
         recipePopup.SetActive(true);
         clickButton.SetActive(false);
         quality = 0;
+        numFish = 0;
     }
 
 
@@ -331,6 +342,8 @@ public class Recipe
     public List<string> necessaryIngs;
     public List<string> disallowedIngs;
     public string description;
+
+    public Vector3 quantity; //change to separate object w/ quality and heartiness included, ingredients omitted??
 
     //public GameObject sprite
     //add additional effects

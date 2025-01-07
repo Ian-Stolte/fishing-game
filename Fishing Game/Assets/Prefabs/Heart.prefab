@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3959099554967880465}
   - component: {fileID: 5890023771464088773}
   - component: {fileID: 7102936134015445391}
+  - component: {fileID: 240478371234841822}
   m_Layer: 5
   m_Name: Heart 1 Sparkle ALT
   m_TagString: Untagged
@@ -75,6 +76,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &240478371234841822
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2439715092415685297}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &3299623299262169427
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ public class EventPlayer : MonoBehaviour
     [SerializeField] private Transform spriteParent;
     [SerializeField] private Transform portraitParent;
     [SerializeField] private GameObject clickButton;
+    
 
     [HideInInspector] public bool eventStarted;
     public bool readyToReturn;
@@ -343,7 +344,7 @@ public class EventPlayer : MonoBehaviour
                 if (splitStr[0].Contains("Relationship")) //e.g Relationship-Rein [+1]
                 {
                     string character = splitStr[0].Substring(13, splitStr[0].Length-14);
-                    GameObject.Find("Character Manager").GetComponent<CharacterManager>().ChangeRelationship(character, amount);
+                    StartCoroutine(GameObject.Find("Character Manager").GetComponent<CharacterManager>().ChangeRelationship(character, amount));
                 }
                 else //e.g Arts [-2]
                 {

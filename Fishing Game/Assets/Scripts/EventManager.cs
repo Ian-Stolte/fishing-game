@@ -120,30 +120,14 @@ public class EventManager : MonoBehaviour
             }
         }
         //filter by chars at loc
-        foreach (string c in charsHere)
+        /*foreach (string c in charsHere)
         {
             if (!e.chars.Contains(c))
             {
                 //Debug.Log("DOESN'T INCLUDE CHARACTER PRESENT (" + c + ")");
                 return false;
             }
-        }
-        //filter by chars in event
-        foreach (string character in e.chars)
-        {
-            foreach (Character c in charManager.characters)
-            {
-                if (c.name == character)
-                {
-                    int currentLoc = GetVec3(c.schedule, time, day);
-                    if (currentLoc != loc && currentLoc != 0)
-                    {
-                        //Debug.Log("NECESSARY CHARACTER IS SOMEWHERE ELSE (" + c.name + ")");
-                        return false;
-                    }
-                }
-            }
-        }
+        }*/
         return true;
     }
 
