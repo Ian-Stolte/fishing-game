@@ -10,7 +10,7 @@ public class EventPlayer : MonoBehaviour
     [SerializeField] private GameObject fishingGame;
     [SerializeField] private GameObject market;
     [SerializeField] private GameObject cooking;
-    [SerializeField] private GameObject foraging;
+    [SerializeField] private GameObject garden;
 
     [SerializeField] private GameObject violetSprite;
     [SerializeField] private GameObject clickToEnd;
@@ -136,7 +136,7 @@ public class EventPlayer : MonoBehaviour
         fishingGame.SetActive(false);
         market.SetActive(false);
         cooking.SetActive(false);
-        foraging.SetActive(false);
+        garden.SetActive(false);
         clickToEnd.SetActive(false);
         ShowPortrait("none");
         clickButton.SetActive(true);
@@ -237,7 +237,7 @@ public class EventPlayer : MonoBehaviour
                         child.gameObject.SetActive(false);
             }
             cooking.SetActive(loc==2);
-            foraging.SetActive(loc==3);
+            garden.SetActive(loc==3);
             readyToReturn = (loc==3);
             txtBox.text = "";
             if (index < dialogue.Length-1)
