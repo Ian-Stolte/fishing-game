@@ -26,6 +26,7 @@ public class MapManager : MonoBehaviour
     public int day = 1;
     private string[] timeStrings = new string[]{"Morning", "Afternoon", "Evening"};
 
+    public Transform gardenPlants;
     [SerializeField] private GameObject eveningOverlay;
     [SerializeField] private GameObject mapBG;
     [SerializeField] private GameObject locBG;
@@ -131,6 +132,16 @@ public class MapManager : MonoBehaviour
         locBG.GetComponent<Image>().color = mapColors[time];
         eveningOverlay.SetActive(time==2);
         
+        //Garden
+        foreach (Transform child in gardenPlants)
+        {
+            Plant p = child.GetComponent<Plant>();
+            if (p != null) //if not an empty box
+            {
+                p.time += 1;
+                child.GetChild(2).GetChild(1).GetComponent<Image>().fillAmount = (p.time*1.0f)/p.totalTime;
+            }
+        }
 
         //Quests
         moneyQuest.text = "Earn 100 sp. <b>(" + player.money + "/100)";

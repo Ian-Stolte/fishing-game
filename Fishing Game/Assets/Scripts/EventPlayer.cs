@@ -237,8 +237,23 @@ public class EventPlayer : MonoBehaviour
                         child.gameObject.SetActive(false);
             }
             cooking.SetActive(loc==2);
-            garden.SetActive(loc==3);
-            readyToReturn = (loc==3);
+            if (loc == 3)
+            {
+                garden.SetActive(true);
+                foreach (Transform child in mapManager.gardenPlants)
+                {
+                    Plant p = child.GetComponent<Plant>();
+                    if (p != null)
+                    {
+                        if (p.time >= p.totalTime)
+                        {
+                            child.GetChild(2).gameObject.SetActive(false);
+                            child.GetChild(3).gameObject.SetActive(true);
+                        }
+                    }
+                }
+            }
+            readyToReturn = false;
             txtBox.text = "";
             if (index < dialogue.Length-1)
             {
