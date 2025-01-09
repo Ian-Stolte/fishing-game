@@ -12,12 +12,12 @@
   "Dialogue": {
     "0": "",
     "1": "",
-    "2": "'Enry is out by the dock when you get there, hand resting lightly on the crank for his fishing arm. He's focused, you can tell—so much so that he doesn't notice you approach.",
-    "3": "\"Mmhm, that's it. Just come a little closer now…\"",
-    "4": "You don't <i>see</i> any fish, but you know by now not to doubt 'Enry's senses—as nonsensical as they may seem.",
+    "2": "'Enry is out by the dock when you get there, hand resting lightly on the crank for his fishing arm. He's focused, you can tell???so much so that he doesn't notice you approach.",
+    "3": "\"Mmhm, that's it. Just come a little closer now???\"",
+    "4": "You don't <i>see</i> any fish, but you know by now not to doubt 'Enry's senses???as nonsensical as they may seem.",
     "5": "As you settle down next to him, 'Enry leaps up and grasps tight to his fishing arm, grinning as he reels in a massive {fish}.",
-    "6": "\"Could feel him waiting down there. Patient bastard… But they all bite sooner or later!\"",
-    "7": "Well, that doesn't necessarily seem to be true for you… but you settle for casting out your line and hoping you get lucky!"
+    "6": "\"Could feel him waiting down there. Patient bastard??? But they all bite sooner or later!\"",
+    "7": "Well, that doesn't necessarily seem to be true for you??? but you settle for casting out your line and hoping you get lucky!"
   },
   "Sprite": {
     "0": "",

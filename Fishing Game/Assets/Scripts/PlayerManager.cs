@@ -57,9 +57,9 @@ public class PlayerManager : MonoBehaviour
             charm += amount;
         else if (stat == "Money")
         {
-            if (money - amount < 0)
+            if (money + amount < 0)
                 Debug.LogError("Not enough money to pay!");
-            money += amount;
+            money = Mathf.Max(0, money + amount);
         }
         else
             Debug.LogError("Stat " + stat + " not found!");

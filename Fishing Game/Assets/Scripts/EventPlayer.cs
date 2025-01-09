@@ -297,12 +297,12 @@ public class EventPlayer : MonoBehaviour
             index = int.Parse(line);
             StartCoroutine(PlayLine(dialogue[index]));
         }
-        else if (currentEvent.speakers[index].Contains("Result"))
+        else if (currentEvent.speakers[index].Contains("Result") || currentEvent.speakers[index] == "Failure")
         {
             while (index < currentEvent.speakers.Length-1)
             {
                 index++;
-                if (currentEvent.speakers[index] == "Merge")
+                if (currentEvent.speakers[index] == "Merge" || currentEvent.speakers[index] == "Jump")
                 {
                     index++;
                     if (index < dialogue.Length)
@@ -339,6 +339,8 @@ public class EventPlayer : MonoBehaviour
             }
             else
             {
+                if (amountStr.Contains("+"))
+                    amountStr = amountStr.Substring(1, amountStr.Length-1);
                 int amount = int.Parse(amountStr);
 
                 if (splitStr[0].Contains("Relationship")) //e.g Relationship-Rein [+1]
@@ -367,35 +369,36 @@ public class EventPlayer : MonoBehaviour
         }
         else if (currentEvent.speakers[index] == "Stat Check")
         {
-            if (dialogue[index].Contains(">"))
+            string[] splitStr = dialogue[index].Split('>');
+            int num = 0;
+            if (splitStr[0].Contains("Random"))
             {
-                string[] splitStr = dialogue[index].Split('>');
-                if (player.StrToStat(splitStr[0].Trim()) > int.Parse(splitStr[1].Trim()))
-                {
-                    StartCoroutine(StatPopup(splitStr[0].Trim(), true));
-                }
-                else
-                {
-                    StartCoroutine(StatPopup(splitStr[0].Trim(), false));
-                    while (currentEvent.speakers[index] != "Merge" && currentEvent.speakers[index] != "Jump" && index < currentEvent.speakers.Length-1)
-                        index++;
-                }
+                string rangeStr = splitStr[0].Substring(8); //Random [0-1]  -->  [0-1]
+                string[] range = rangeStr.Split('-'); //[0-1]  --> ['0', '1]']
+                num = Random.Range(int.Parse(range[0]), (int.Parse(range[1].Split(']')[0])+1));
             }
-            else if (dialogue[index].Contains("<"))
+            else
+                num = player.StrToStat(splitStr[0].Trim());
+
+            if (num > int.Parse(splitStr[1].Trim()))
             {
-                string[] splitStr = dialogue[index].Split('<');
-                if (player.StrToStat(splitStr[0].Trim()) < int.Parse(splitStr[1].Trim()))
-                {
-                    //StartCoroutine(StatPopup(splitStr[0].Trim(), false));
-                }
-                else
-                {
-                    //StartCoroutine(StatPopup(splitStr[0].Trim(), true));  // <--- maybe not? Like for money < 3 don't want to see a popup... (maybe have a different code for hidden check)
-                    while (currentEvent.speakers[index] != "Merge" && currentEvent.speakers[index] != "Jump" && index < currentEvent.speakers.Length-1)
-                        index++;
-                }
+                if (!splitStr[0].Contains("Random"))
+                    StartCoroutine(StatPopup(splitStr[0].Trim(), true));
+                //move until success or merge/jump (no success so skip through failure)
+                while (currentEvent.speakers[index] != "Success" && currentEvent.speakers[index] != "Merge" && currentEvent.speakers[index] != "Jump" && index < currentEvent.speakers.Length-1)
+                    index++;
+            }
+            else
+            {
+                if (!splitStr[0].Contains("Random"))
+                    StartCoroutine(StatPopup(splitStr[0].Trim(), false));
+                //move until failure or merge/jump
+                while (currentEvent.speakers[index] != "Failure" && currentEvent.speakers[index] != "Merge" && currentEvent.speakers[index] != "Jump" && index < currentEvent.speakers.Length-1)
+                    index++;
             }
             index++;
+            if (currentEvent.speakers[index] == "Failure")
+                index++;
             if (index < dialogue.Length)
                 StartCoroutine(PlayLine(dialogue[index]));
         }
