@@ -92,7 +92,6 @@ public class MapManager : MonoBehaviour
         Event e = eventManager.SelectEvent(n+1, locations[n].charsHere, time, day);
         
         locBG.SetActive(true);
-        locBG.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = locations[n].name;
         foreach (Transform child in eventSprites)
             child.gameObject.SetActive(false);
         locBG.GetComponent<EventPlayer>().SetupEvent(e, n, time);
