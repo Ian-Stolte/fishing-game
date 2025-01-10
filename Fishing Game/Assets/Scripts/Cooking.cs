@@ -143,8 +143,8 @@ public class Cooking : MonoBehaviour
         openButton.SetActive(false);
         for (float i = 0; i < 0.5f; i += 0.01f)
         {
-            fishParent.parent.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(-453, -353, i/0.5f), -77);
-            foodParent.parent.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(509, 409, i/0.5f), -77);
+            fishParent.parent.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(-459, -359, i/0.5f), -77);
+            foodParent.parent.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(498, 398, i/0.5f), -77);
             potBounds.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, Mathf.Lerp(-353, -223, i/0.5f));
             yield return new WaitForSeconds(0.01f);
         }
@@ -324,8 +324,8 @@ public class Cooking : MonoBehaviour
         closeButton.SetActive(false);
         for (float i = 0; i < 0.5f; i += 0.01f)
         {
-            fishParent.parent.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(-353, -453, i/0.5f), -77);
-            foodParent.parent.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(409, 509, i/0.5f), -77);
+            fishParent.parent.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(-359, -459, i/0.5f), -77);
+            foodParent.parent.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(398, 498, i/0.5f), -77);
             potBounds.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, Mathf.Lerp(-223, -353, i/0.5f));
             yield return new WaitForSeconds(0.01f);
         }
