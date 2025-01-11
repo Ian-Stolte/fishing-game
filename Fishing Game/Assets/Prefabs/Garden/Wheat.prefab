@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 1
   totalTime: 5
+  seedDropPct: 0.7
   emptyPrefab: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
 --- !u!1 &1266952258729780708
 GameObject:

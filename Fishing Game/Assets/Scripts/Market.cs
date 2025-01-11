@@ -22,9 +22,14 @@ public class Market : MonoBehaviour
     private Fish hoveredFish;
     private Transform hoveredBox;
 
+    [SerializeField] private GameObject[] stalls;
+    private int index;
+    private IEnumerator rotateCor;
+
     [SerializeField] private int numDeals;
     
     [SerializeField] private PlayerManager player;
+    [SerializeField] private Garden garden;
     [SerializeField] private FishTracker fishTracker;
 
 
@@ -33,6 +38,7 @@ public class Market : MonoBehaviour
         if (!visitedToday)
         {
             visitedToday = true;
+            
             //set daily deals
             foreach (Fish f in fishTracker.fish)
                 f.dealPrice = 0;
@@ -48,6 +54,25 @@ public class Market : MonoBehaviour
                 dealFish.dealPrice = dealPrice;
                 deals.GetChild(i).gameObject.SetActive(true);
             }
+
+            //set seeds for sale
+            foreach (Transform child in stalls[1].transform.GetChild(0))
+                Destroy(child.gameObject);
+
+            int firstSeed = Random.Range(0, garden.seeds.Length);
+            GameObject seedBox = Instantiate(garden.seeds[firstSeed].marketBox, Vector2.zero, Quaternion.identity, stalls[1].transform);
+            seedBox.GetComponent<RectTransform>().anchoredPosition = new Vector2(-250, 115);
+            stalls[1].transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = garden.seeds[firstSeed].price + " sp.";
+            //TODO: randomly set quantity?
+
+            int secondSeed = Random.Range(0, garden.seeds.Length-1);
+            if (secondSeed >= firstSeed)
+                secondSeed++;
+            seedBox = Instantiate(garden.seeds[secondSeed].marketBox, Vector2.zero, Quaternion.identity, stalls[1].transform);
+            seedBox.GetComponent<RectTransform>().anchoredPosition = new Vector2(-150, 115);
+            stalls[1].transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = garden.seeds[secondSeed].price + " sp.";
+            //TODO: randomly set quantity?
+
         }   
 
         foreach (Transform child in inventoryParent)
@@ -138,6 +163,7 @@ public class Market : MonoBehaviour
         }
     }
 
+
     private void SetSellQuantities()
     {
         sellPopup.transform.GetChild(3).GetChild(2).GetComponent<Button>().interactable = (hoveredFish.currentTotal.z > 0);
@@ -147,5 +173,28 @@ public class Market : MonoBehaviour
         sellPopup.transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + hoveredFish.currentTotal.z; //high
         sellPopup.transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + hoveredFish.currentTotal.y; //medium
         sellPopup.transform.GetChild(5).GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + hoveredFish.currentTotal.x; //low
+    }
+
+
+    public void SwapStall(int direction)
+    {
+        if (rotateCor != null)
+            StopCoroutine(rotateCor);
+        rotateCor = RotateMarket(direction);
+        StartCoroutine(rotateCor);
+    }
+
+    private IEnumerator RotateMarket(int direction) // -1: left,  1: right
+    {
+        index = (index + direction + stalls.Length) % stalls.Length;
+        stalls[(index - direction + stalls.Length) % stalls.Length].GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        stalls[index].GetComponent<RectTransform>().anchoredPosition = new Vector2(850*direction, 0);
+        for (float i = 0; i < 1; i += 0.02f)
+        {
+            stalls[(index - direction + stalls.Length) % stalls.Length].GetComponent<RectTransform>().anchoredPosition += new Vector2(30*direction*-1, 0);
+            stalls[index].GetComponent<RectTransform>().anchoredPosition += new Vector2(17f*direction*-1, 0);
+            yield return new WaitForSeconds(0.005f);
+        }
+        
     }
 }

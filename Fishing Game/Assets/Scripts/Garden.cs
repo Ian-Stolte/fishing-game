@@ -19,14 +19,17 @@ public class Garden : MonoBehaviour
 
     private void OnEnable()
     {
+        UpdateCounts();
+    }
+
+
+    public void UpdateCounts()
+    {
         foreach (Transform child in seedBoxes)
         {
             Seed s = seeds.FirstOrDefault(s => s.name == child.name);
             child.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + s.quantity;
-            if (s.quantity == 0)
-            {
-                child.GetChild(2).gameObject.SetActive(true);
-            }
+            child.GetChild(2).gameObject.SetActive(s.quantity == 0);
         }
     }
 
@@ -144,4 +147,5 @@ public class Seed
     public int quantity;
     public int price;
     public GameObject plantSquare;
+    public GameObject marketBox;
 }
