@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 1187974482328360853}
   - component: {fileID: 1971067447984716606}
   m_Layer: 5
-  m_Name: Flour Box
+  m_Name: Wheat Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
