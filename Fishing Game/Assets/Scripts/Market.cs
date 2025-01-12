@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,8 @@ public class Market : MonoBehaviour
     [SerializeField] private GameObject[] stalls;
     private int index;
     private IEnumerator rotateCor;
+    [SerializeField] private Transform sellBoxes;
+    [SerializeField] private Transform sellPrices;
 
     [SerializeField] private int numDeals;
     
@@ -56,24 +59,17 @@ public class Market : MonoBehaviour
             }
 
             //set seeds for sale
-            foreach (Transform child in stalls[1].transform.GetChild(0))
+            foreach (Transform child in sellBoxes)
                 Destroy(child.gameObject);
 
             int firstSeed = Random.Range(0, garden.seeds.Length);
-            GameObject seedBox = Instantiate(garden.seeds[firstSeed].marketBox, Vector2.zero, Quaternion.identity, stalls[1].transform);
-            seedBox.GetComponent<RectTransform>().anchoredPosition = new Vector2(-250, 115);
-            stalls[1].transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = garden.seeds[firstSeed].price + " sp.";
-            //TODO: randomly set quantity?
+            SpawnSeed(firstSeed, -250, 0);
 
             int secondSeed = Random.Range(0, garden.seeds.Length-1);
             if (secondSeed >= firstSeed)
                 secondSeed++;
-            seedBox = Instantiate(garden.seeds[secondSeed].marketBox, Vector2.zero, Quaternion.identity, stalls[1].transform);
-            seedBox.GetComponent<RectTransform>().anchoredPosition = new Vector2(-150, 115);
-            stalls[1].transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = garden.seeds[secondSeed].price + " sp.";
-            //TODO: randomly set quantity?
-
-        }   
+            SpawnSeed(secondSeed, -150, 1);
+        }
 
         foreach (Transform child in inventoryParent)
         {
@@ -108,6 +104,17 @@ public class Market : MonoBehaviour
         sellPopup.SetActive(false);
         moneyTxt.text = "Money: <b>" + player.money;
     }
+
+    private void SpawnSeed(int n, int xPos, int priceNum)
+    {
+        GameObject seedBox = Instantiate(garden.seeds[n].marketBox, Vector2.zero, Quaternion.identity, sellBoxes);
+        seedBox.GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, 115);
+        sellPrices.GetChild(priceNum).GetComponent<TextMeshProUGUI>().text = garden.seeds[n].price + " sp.";
+        seedBox.transform.GetChild(1).gameObject.SetActive(false);
+        seedBox.GetComponent<Button>().onClick.AddListener(() => BuyItem(garden.seeds[n].name + " Seeds"));
+        //randomly set quantity?
+    }
+
 
     public void ShowSellPopup(int n)
     {
@@ -196,5 +203,34 @@ public class Market : MonoBehaviour
             yield return new WaitForSeconds(0.005f);
         }
         
+    }
+
+
+    private void BuyItem(string itemName)
+    {
+        if (itemName.Contains("Seeds"))
+        {
+            string seedType = itemName.Substring(0, itemName.Length-6);
+            Seed s = garden.seeds.FirstOrDefault(s => s.name == seedType);
+            if (player.money >= s.price)
+            {
+                s.quantity++;
+                player.money -= s.price;
+            }
+        }
+        UpdateSell();
+    }
+
+    private void UpdateSell()
+    {
+        moneyTxt.text = "Money: <b>" + player.money;
+        for (int i = 0; i < sellBoxes.childCount; i++)
+        {
+            string price = sellPrices.GetChild(i).GetComponent<TextMeshProUGUI>().text;
+            if (int.Parse(price.Substring(0, price.Length-3)) > player.money)
+            {
+                sellBoxes.GetChild(i).GetChild(2).gameObject.SetActive(true);
+            }
+        }
     }
 }

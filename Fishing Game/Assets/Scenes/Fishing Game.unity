@@ -33423,6 +33423,8 @@ MonoBehaviour:
   stalls:
   - {fileID: 981771353}
   - {fileID: 1781551701}
+  sellBoxes: {fileID: 663769117}
+  sellPrices: {fileID: 2018470873}
   numDeals: 2
   player: {fileID: 532558954}
   garden: {fileID: 1202582713}
