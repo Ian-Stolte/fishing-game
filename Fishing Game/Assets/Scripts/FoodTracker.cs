@@ -16,6 +16,7 @@ public class Food
     public int totalFound;
     public int quantity;
     public int price;
+    public string description;
 
     public GameObject boxSprite;
 }

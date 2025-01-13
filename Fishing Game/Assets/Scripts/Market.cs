@@ -143,25 +143,37 @@ public class Market : MonoBehaviour
             bool itemFound = false;
             foreach (RaycastResult result in results)
             {
-                if (result.gameObject.transform.parent == sellBoxes && result.gameObject.GetComponent<Button>().interactable)
+                if (result.gameObject.transform.parent == sellBoxes)
                 {
                     ShowInfo(result.gameObject);
                     itemFound = true;
                 }
             }
 
-            if (!itemFound)
+            /*if (!itemFound)
             {
-                itemInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
-                itemInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = "";
-            }
+                itemInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Welcome In!";
+                itemInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = "<i>Hover over an item for more information...</i>";
+            }*/
         }
     }
 
     private void ShowInfo(GameObject item)
     {
-        itemInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name.Substring(0, item.name.Length-7);
-        //TODO: remove 'box' from name
+        if (item.name.Contains("Box"))
+        {
+            string title = item.name.Substring(0, item.name.Length-11);
+            itemInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = title;
+            Food f = foodTracker.food.FirstOrDefault(f => f.name == title);
+            itemInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = f.description;
+        }
+        else 
+        {
+            string title = item.name.Substring(0, item.name.Length-7);
+            itemInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = title;
+            Seed s = garden.seeds.FirstOrDefault(s => s.name == title.Substring(0, title.Length-6));
+            itemInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = s.description;
+        }        
     }
 
 

@@ -14,6 +14,7 @@ public class Cooking : MonoBehaviour
     [SerializeField] private GameObject bubbles;
 
     [SerializeField] private GameObject cookButton;
+    [SerializeField]private bool canCook;
     [SerializeField] private RectTransform potBounds;
     [SerializeField] private GameObject recipePopup;
     private GameObject dragSprite;
@@ -40,6 +41,10 @@ public class Cooking : MonoBehaviour
         foodTracker = GameObject.Find("Food Tracker").GetComponent<FoodTracker>();
     }
 
+    private void OnEnable()
+    {
+        canCook = false;
+    }
 
     private void Update()
     {
@@ -81,7 +86,10 @@ public class Cooking : MonoBehaviour
             {
                 int quantity = int.Parse(box.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text);
                 box.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + (quantity+1);
-                box.transform.GetChild(3).gameObject.SetActive(false);
+                if (box.transform.parent == fishParent)
+                    box.transform.GetChild(3).gameObject.SetActive(false);
+                else
+                    box.transform.GetChild(2).gameObject.SetActive(false);
                 StartCoroutine(FlyBack());
             }
             foodParent.parent.parent.GetComponent<ScrollRect>().enabled = true;
@@ -130,7 +138,7 @@ public class Cooking : MonoBehaviour
                 box = Instantiate(foodTracker.food[i].boxSprite, Vector2.zero, Quaternion.identity, foodParent);
                 box.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + foodTracker.food[i].quantity;
                 if (foodTracker.food[i].quantity == 0)
-                    box.transform.GetChild(3).gameObject.SetActive(true);
+                    box.transform.GetChild(2).gameObject.SetActive(true);
             }
             box.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 175-70*i);
         }
@@ -149,6 +157,7 @@ public class Cooking : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         closeButton.SetActive(true);
+        cookButton.SetActive(canCook);
     }
 
 
@@ -175,30 +184,6 @@ public class Cooking : MonoBehaviour
         if (fishTracker.fish.Any(f => f.name == ing))
             cookButton.SetActive(true);
         
-        //change quantity in inventory
-        Fish fish = fishTracker.fish.FirstOrDefault(f => f.name == ing);
-        if (fish != null)
-        {
-            if (fish.currentTotal.z > 0)
-            {
-                quality = 2;
-                fish.currentTotal.z--;
-            }
-            else if (fish.currentTotal.y > 0)
-            {
-                quality = Mathf.Max(quality, 1);
-                fish.currentTotal.y--;
-            }
-            else
-            {
-                fish.currentTotal.x--;
-            }
-        }
-        else
-        {
-            Food food = foodTracker.food.FirstOrDefault(f => f.name == ing);
-            food.quantity--;
-        }
         StartCoroutine(Bubbles());
     }
 
@@ -218,8 +203,12 @@ public class Cooking : MonoBehaviour
             string ing = box.name.Substring(0, box.name.Length-11);
             box.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + (quantity-1);
             if (quantity-1 == 0)
-                box.transform.GetChild(3).gameObject.SetActive(true);
-            
+            {
+                if (box.transform.parent == fishParent)
+                    box.transform.GetChild(3).gameObject.SetActive(true);
+                else
+                    box.transform.GetChild(2).gameObject.SetActive(true);
+            }
             dragSprite = Instantiate(box.transform.GetChild(0).gameObject, Vector2.zero, box.transform.GetChild(0).rotation, transform);
         }
         fishParent.parent.parent.GetComponent<ScrollRect>().enabled = false;
@@ -240,6 +229,26 @@ public class Cooking : MonoBehaviour
                 ingName = "Fish";
                 numFish++;
                 //replace with logic for different types of fish, different quality levels...
+                Fish fish = fishTracker.fish.FirstOrDefault(f => f.name == str);
+                if (fish.currentTotal.z > 0)
+                {
+                    quality = 2;
+                    fish.currentTotal.z--;
+                }
+                else if (fish.currentTotal.y > 0)
+                {
+                    quality = Mathf.Max(quality, 1);
+                    fish.currentTotal.y--;
+                }
+                else
+                {
+                    fish.currentTotal.x--;
+                }
+            }
+            else
+            {
+                Food food = foodTracker.food.FirstOrDefault(f => f.name == str);
+                food.quantity--;
             }
             if (!checkedIngs.Contains(ingName))
             {
@@ -322,6 +331,8 @@ public class Cooking : MonoBehaviour
     private IEnumerator ClosePanels()
     {
         closeButton.SetActive(false);
+        canCook = cookButton.activeSelf;
+        cookButton.SetActive(false);
         for (float i = 0; i < 0.5f; i += 0.01f)
         {
             fishParent.parent.parent.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(-359, -459, i/0.5f), -77);

@@ -146,6 +146,8 @@ public class Seed
     public string name;
     public int quantity;
     public int price;
+    public string description;
+
     public GameObject plantSquare;
     public GameObject marketBox;
 }
