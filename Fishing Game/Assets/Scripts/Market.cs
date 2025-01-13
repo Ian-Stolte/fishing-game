@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class Market : MonoBehaviour
@@ -14,6 +15,7 @@ public class Market : MonoBehaviour
     [SerializeField] private GameObject moneyPopup;
 
     [SerializeField] private Transform deals;
+    [SerializeField] private Transform itemInfo;
     [SerializeField] private GameObject sellPopup;
     [SerializeField] private Color dealColor;
     [SerializeField] private Color priceColor;
@@ -33,6 +35,7 @@ public class Market : MonoBehaviour
     
     [SerializeField] private PlayerManager player;
     [SerializeField] private Garden garden;
+    [SerializeField] private FoodTracker foodTracker;
     [SerializeField] private FishTracker fishTracker;
 
 
@@ -69,6 +72,14 @@ public class Market : MonoBehaviour
             if (secondSeed >= firstSeed)
                 secondSeed++;
             SpawnSeed(secondSeed, -150, 1);
+
+            int foodN = Random.Range(0, foodTracker.food.Length);
+            GameObject foodBox = Instantiate(foodTracker.food[foodN].boxSprite, Vector2.zero, Quaternion.identity, sellBoxes);
+            foodBox.GetComponent<RectTransform>().anchoredPosition = new Vector2(-50, 115);
+            sellPrices.GetChild(2).GetComponent<TextMeshProUGUI>().text = foodTracker.food[foodN].price + " sp.";
+            foodBox.transform.GetChild(1).gameObject.SetActive(false);
+            foodBox.GetComponent<Button>().onClick.AddListener(() => BuyItem(foodTracker.food[foodN].name));
+            foodBox.GetComponent<Image>().color = new Color32(195, 181, 154, 255);
         }
 
         foreach (Transform child in inventoryParent)
@@ -112,7 +123,45 @@ public class Market : MonoBehaviour
         sellPrices.GetChild(priceNum).GetComponent<TextMeshProUGUI>().text = garden.seeds[n].price + " sp.";
         seedBox.transform.GetChild(1).gameObject.SetActive(false);
         seedBox.GetComponent<Button>().onClick.AddListener(() => BuyItem(garden.seeds[n].name + " Seeds"));
-        //randomly set quantity?
+        seedBox.GetComponent<Image>().color = new Color32(195, 181, 154, 255);
+        seedBox.transform.GetChild(2).GetComponent<Image>().color = new Color32(255, 255, 255, 50);
+   }
+
+
+    void Update()
+    {
+        if (index == 1)
+        {
+            PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerEventData, results);
+
+            bool itemFound = false;
+            foreach (RaycastResult result in results)
+            {
+                if (result.gameObject.transform.parent == sellBoxes && result.gameObject.GetComponent<Button>().interactable)
+                {
+                    ShowInfo(result.gameObject);
+                    itemFound = true;
+                }
+            }
+
+            if (!itemFound)
+            {
+                itemInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+                itemInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = "";
+            }
+        }
+    }
+
+    private void ShowInfo(GameObject item)
+    {
+        itemInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = item.name.Substring(0, item.name.Length-7);
+        //TODO: remove 'box' from name
     }
 
 
@@ -194,6 +243,8 @@ public class Market : MonoBehaviour
     private IEnumerator RotateMarket(int direction) // -1: left,  1: right
     {
         index = (index + direction + stalls.Length) % stalls.Length;
+        if (index == 1)
+            UpdateSell();
         stalls[(index - direction + stalls.Length) % stalls.Length].GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         stalls[index].GetComponent<RectTransform>().anchoredPosition = new Vector2(850*direction, 0);
         for (float i = 0; i < 1; i += 0.02f)
@@ -218,6 +269,15 @@ public class Market : MonoBehaviour
                 player.money -= s.price;
             }
         }
+        else
+        {
+            Food f = foodTracker.food.FirstOrDefault(f => f.name == itemName);
+            if (player.money >= f.price)
+            {
+                f.quantity++;
+                player.money -= f.price;
+            }
+        }
         UpdateSell();
     }
 
@@ -227,10 +287,9 @@ public class Market : MonoBehaviour
         for (int i = 0; i < sellBoxes.childCount; i++)
         {
             string price = sellPrices.GetChild(i).GetComponent<TextMeshProUGUI>().text;
-            if (int.Parse(price.Substring(0, price.Length-3)) > player.money)
-            {
-                sellBoxes.GetChild(i).GetChild(2).gameObject.SetActive(true);
-            }
+            bool tooExpensive = int.Parse(price.Substring(0, price.Length-3)) > player.money;
+            sellBoxes.GetChild(i).GetChild(2).gameObject.SetActive(tooExpensive);
+            sellBoxes.GetChild(i).GetComponent<Button>().interactable = !tooExpensive;
         }
     }
 }
