@@ -34046,6 +34046,7 @@ MonoBehaviour:
   - {r: 0.5803922, g: 0.7058824, b: 0.8313726, a: 1}
   - {r: 0.27450982, g: 0.28235295, b: 0.33333334, a: 1}
   inventory: {fileID: 766539258}
+  inventoryBox: {fileID: 5185702399886880380, guid: 1a0021533f14eab4795bba52a9696ab9, type: 3}
   timeTxt: {fileID: 260403386}
   time: -1
   day: 1

@@ -22,7 +22,8 @@ public class MapManager : MonoBehaviour
     private bool timeTransition;
     [SerializeField] private Color[] calendarColors;
 
-     [SerializeField] private GameObject inventory;
+    [SerializeField] private GameObject inventory;
+    [SerializeField] private GameObject inventoryBox;
     
     [SerializeField] private GameObject timeTxt;
     public int time = -1;
@@ -103,7 +104,36 @@ public class MapManager : MonoBehaviour
 
     private void ShowInventory()
     {
-        //set up fish
+        foreach (Transform child in inventory.transform.GetChild(0)) //food
+            Destroy(child.gameObject);
+        for (int i = 0; i < fishTracker.fish.Length; i++)
+        {
+            GameObject box = null;
+            if (fishTracker.fish[i].boxSprite != null)
+            {
+                box = Instantiate(fishTracker.fish[i].boxSprite, Vector3.zero, Quaternion.identity, inventory.transform.GetChild(0));
+                box.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = "" + fishTracker.fish[i].Quantity();
+                
+                box.transform.GetChild(4).gameObject.SetActive(fishTracker.fish[i].totalCaught == 0);
+                box.transform.GetChild(1).gameObject.SetActive(fishTracker.fish[i].totalCaught != 0);
+                if (fishTracker.fish[i].totalCaught == 0)
+                {
+                    box.transform.GetChild(0).GetComponent<Image>().color = new Color(0, 0, 0, 1);
+                }
+                else if (fishTracker.fish[i].Quantity() == 0)
+                {
+                    box.transform.GetChild(3).gameObject.SetActive(true); //show disable filter
+                }
+                //int index = i;
+                //box.GetComponent<Button>().onClick.AddListener(() => ShowSellPopup(index));
+            }
+            else
+            {
+                box = Instantiate(inventoryBox, Vector3.zero, Quaternion.identity, inventory.transform.GetChild(0));
+            }
+            box.transform.localScale = new Vector3(1.29f, 1.29f, 1.29f);
+            box.GetComponent<RectTransform>().anchoredPosition = new Vector2(-388 + 150*(i%4), 152 - 150*(i/4));
+        }
         foreach (Transform child in inventory.transform.GetChild(1)) //food
         {
             Food f = foodTracker.food.FirstOrDefault(f => f.name == child.name);
