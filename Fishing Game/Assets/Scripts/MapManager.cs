@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,8 @@ public class MapManager : MonoBehaviour
     private bool calendarOpen;
     private bool timeTransition;
     [SerializeField] private Color[] calendarColors;
+
+     [SerializeField] private GameObject inventory;
     
     [SerializeField] private GameObject timeTxt;
     public int time = -1;
@@ -36,7 +39,9 @@ public class MapManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fishQuest;
 
     [SerializeField] private Market market;
+    [SerializeField] private Garden garden;
     private FishTracker fishTracker;
+    private FoodTracker foodTracker;
     private CharacterManager charManager;
     private EventManager eventManager;
     private PlayerManager player;
@@ -49,6 +54,7 @@ public class MapManager : MonoBehaviour
         eventManager = GameObject.Find("Event Manager").GetComponent<EventManager>();
         player = GameObject.Find("Player Manager").GetComponent<PlayerManager>();
         fishTracker = GameObject.Find("Fish Tracker").GetComponent<FishTracker>();
+        foodTracker = GameObject.Find("Food Tracker").GetComponent<FoodTracker>();
         audioManager = GameObject.Find("Audio Manager").GetComponent<AudioManager>();
         UpdateInfo();
     }
@@ -61,6 +67,14 @@ public class MapManager : MonoBehaviour
             calendarOpen = !calendarOpen;
             StopCoroutine("OpenCalendar");
             StartCoroutine("OpenCalendar");
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (inventory.activeSelf)
+                inventory.SetActive(false);
+            else
+                ShowInventory();   
         }
     }
 
@@ -85,6 +99,30 @@ public class MapManager : MonoBehaviour
             }
             calendar.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         }
+    }
+
+    private void ShowInventory()
+    {
+        //set up fish
+        foreach (Transform child in inventory.transform.GetChild(1)) //food
+        {
+            Food f = foodTracker.food.FirstOrDefault(f => f.name == child.name);
+            if (f != null)
+            {
+                child.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + f.quantity;
+                child.GetChild(2).gameObject.SetActive(f.quantity == 0);
+            }
+        }
+        foreach (Transform child in inventory.transform.GetChild(2)) //seeds
+        {
+            Seed s = garden.seeds.FirstOrDefault(s => s.name == child.name.Substring(0, child.name.Length-6));
+            if (s != null)
+            {
+                child.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + s.quantity;
+                child.GetChild(2).gameObject.SetActive(s.quantity == 0);
+            }
+        }
+        inventory.SetActive(true);
     }
 
 

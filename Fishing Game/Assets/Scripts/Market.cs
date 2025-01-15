@@ -114,6 +114,8 @@ public class Market : MonoBehaviour
         }
         sellPopup.SetActive(false);
         moneyTxt.text = "Money: <b>" + player.money;
+        itemInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Welcome In!";
+        itemInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = "<i>Hover over an item for more information...</i>";
     }
 
     private void SpawnSeed(int n, int xPos, int priceNum)
@@ -149,12 +151,6 @@ public class Market : MonoBehaviour
                     itemFound = true;
                 }
             }
-
-            /*if (!itemFound)
-            {
-                itemInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Welcome In!";
-                itemInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = "<i>Hover over an item for more information...</i>";
-            }*/
         }
     }
 
@@ -287,6 +283,7 @@ public class Market : MonoBehaviour
             if (player.money >= f.price)
             {
                 f.quantity++;
+                f.totalFound++;
                 player.money -= f.price;
             }
         }

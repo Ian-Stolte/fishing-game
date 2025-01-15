@@ -14,7 +14,6 @@ public class Cooking : MonoBehaviour
     [SerializeField] private GameObject bubbles;
 
     [SerializeField] private GameObject cookButton;
-    [SerializeField]private bool canCook;
     [SerializeField] private RectTransform potBounds;
     [SerializeField] private GameObject recipePopup;
     private GameObject dragSprite;
@@ -43,7 +42,7 @@ public class Cooking : MonoBehaviour
 
     private void OnEnable()
     {
-        canCook = false;
+        Setup(false);
     }
 
     private void Update()
@@ -104,8 +103,9 @@ public class Cooking : MonoBehaviour
     }
 
 
-    public void Setup()
+    public void Setup(bool openPanels)
     {
+        activeIngredients.Clear();
         foreach (Transform child in fishParent)
             Destroy(child.gameObject);
         foreach (Transform child in foodParent)
@@ -142,7 +142,8 @@ public class Cooking : MonoBehaviour
             }
             box.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 175-70*i);
         }
-        StartCoroutine(OpenPanels());
+        if (openPanels)
+            StartCoroutine(OpenPanels());
     }
 
 
@@ -157,7 +158,6 @@ public class Cooking : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         closeButton.SetActive(true);
-        cookButton.SetActive(canCook);
     }
 
 
@@ -331,7 +331,6 @@ public class Cooking : MonoBehaviour
     private IEnumerator ClosePanels()
     {
         closeButton.SetActive(false);
-        canCook = cookButton.activeSelf;
         cookButton.SetActive(false);
         for (float i = 0; i < 0.5f; i += 0.01f)
         {
