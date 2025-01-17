@@ -11,19 +11,19 @@ public class GardenNew : MonoBehaviour
     public Seed[] seeds;
     [SerializeField] private Transform plants;
     [SerializeField] private Transform seedBoxes;
+    [SerializeField] private GameObject currentHover;
 
     private GameObject box;
     private GameObject dragSprite;
     private bool flyingBack;
-
-    [SerializeField] private GameObject currentHover;
+    
+    [SerializeField] private PlayerManager player;
 
 
     private void OnEnable()
     {
         UpdateCounts();
     }
-
 
     public void UpdateCounts()
     {
@@ -38,26 +38,6 @@ public class GardenNew : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
-            {
-                position = Input.mousePosition
-            };
-
-            List<RaycastResult> results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(pointerEventData, results);
-
-            foreach (RaycastResult result in results)
-            {
-                if (result.gameObject.transform.parent == seedBoxes)
-                {
-                    box = result.gameObject;
-                    DragOffShelf();
-                }
-            }
-        }
-
         if (Input.GetMouseButtonUp(0) && dragSprite != null)
         {
             bool boxFound = false;
@@ -84,23 +64,58 @@ public class GardenNew : MonoBehaviour
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(GetComponent<RectTransform>(), Input.mousePosition, null, out Vector2 localPoint);
             dragSprite.GetComponent<RectTransform>().localPosition = localPoint;
-            PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
-            {
-                position = Input.mousePosition
-            };
+        }
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
 
-            List<RaycastResult> results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(pointerEventData, results);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, results);
 
-            foreach (RaycastResult result in results)
+        if (currentHover != null)
+            currentHover.SetActive(false);
+        foreach (RaycastResult result in results)
+        {
+            if (result.gameObject.transform.parent == plants && result.gameObject.name.Contains("Empty Square"))
             {
-                if (result.gameObject.transform.parent == plants && result.gameObject.name.Contains("Empty Square") && result.gameObject.GetComponent<CanvasGroup>().alpha == 1)
+                if (result.gameObject.GetComponent<CanvasGroup>().alpha == 1 && dragSprite != null && !flyingBack) //filter
                 {
-                    if (currentHover != null)
-                        currentHover.SetActive(false);
                     currentHover = result.gameObject.transform.GetChild(1).gameObject;
                     currentHover.SetActive(true);
                 }
+                else if (result.gameObject.GetComponent<CanvasGroup>().alpha < 1 && (dragSprite == null || flyingBack)) //hover price
+                {
+                    currentHover = result.gameObject.transform.GetChild(2).gameObject;
+                    currentHover.SetActive(true);
+                    TextMeshProUGUI txt = currentHover.GetComponent<TextMeshProUGUI>(); 
+                    int cost = int.Parse(txt.text.Substring(0, txt.text.Length-4));
+                    if (player.money >= cost)
+                    {
+                        txt.color = new Color(1, 1, 1);
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            player.money -= cost;
+                            result.gameObject.GetComponent<CanvasGroup>().alpha = 1;
+                            if (result.gameObject.transform.childCount > 3)
+                            {
+                                foreach (Transform child in result.gameObject.transform)
+                                {
+                                    if (child.GetSiblingIndex() > 2)
+                                        child.gameObject.SetActive(false);
+                                }
+                            }
+                            currentHover.SetActive(false);
+                        }
+                    }
+                    else
+                        txt.color = new Color32(238, 133, 133, 255);
+                }
+            }
+            if (result.gameObject.transform.parent == seedBoxes && Input.GetMouseButtonDown(0)) //drag out seeds
+            {
+                box = result.gameObject;
+                DragOffShelf();
             }
         }
     }
