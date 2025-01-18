@@ -25,11 +25,13 @@ public class Plant : MonoBehaviour
             s.quantity++;
             GameObject.Find("Garden").GetComponent<Garden>().UpdateCounts();
             GameObject seedPopup = Instantiate(seedPopupPrefab, transform.position, Quaternion.identity, transform.parent.parent);
-            seedPopup.GetComponent<RectTransform>().anchoredPosition = (myPos.x > 0) ? myPos + new Vector2(-57, -15) : myPos + new Vector2(80, -15);
+            //seedPopup.GetComponent<RectTransform>().anchoredPosition = (myPos.x > 0) ? myPos + new Vector2(-57, -15) : myPos + new Vector2(80, -15);
+            seedPopup.GetComponent<RectTransform>().anchoredPosition = myPos + new Vector2(10, -15);
             seedPopup.SetActive(true);
         }
         GameObject foodPopup = Instantiate(foodPopupPrefab, transform.position, Quaternion.identity, transform.parent.parent);
-        foodPopup.GetComponent<RectTransform>().anchoredPosition = (myPos.x > 0) ? myPos + new Vector2(-49, 20) : myPos + new Vector2(86, 20);
+        //foodPopup.GetComponent<RectTransform>().anchoredPosition = (myPos.x > 0) ? myPos + new Vector2(-49, 20) : myPos + new Vector2(86, 20);
+        foodPopup.GetComponent<RectTransform>().anchoredPosition = myPos + new Vector2(10, 20);
         foodPopup.SetActive(true);
         GameObject emptyBox = Instantiate(emptyPrefab, transform.position, Quaternion.identity, transform.parent);
         emptyBox.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;

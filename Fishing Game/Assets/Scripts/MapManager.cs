@@ -10,7 +10,7 @@ public class MapManager : MonoBehaviour
     public Location[] locations;
 
     [SerializeField] private Transform eventSprites;
-    [SerializeField] private TextMeshProUGUI eventTxt;
+    [SerializeField] private TextMeshProUGUI moneyTxt;
 
     [SerializeField] private Transform fader;
     [SerializeField] private GameObject calendar;
@@ -77,6 +77,8 @@ public class MapManager : MonoBehaviour
             else
                 ShowInventory();   
         }
+
+        moneyTxt.text = "Money:  <b>" + player.money + " sp.</b>";
     }
 
     private IEnumerator OpenCalendar()
@@ -233,6 +235,8 @@ public class MapManager : MonoBehaviour
             fishQuest.color = new Color(200, 200, 200);
             //give player reward if 1st time
         }
+
+        player.money += 5;
     }
 
 
@@ -336,7 +340,7 @@ public class MapManager : MonoBehaviour
         
         calEvent.GetComponent<Image>().color = calendarColors[newTime];
         calendarUpdate.GetComponent<Animator>().Play("CalendarUpdate");
-        Debug.Log("Adding " + name + " to calendar at day=" + newDay + ", time=" + newTime);
+        //Debug.Log("Adding " + name + " to calendar at day=" + newDay + ", time=" + newTime);
         currentTime.transform.SetSiblingIndex(currentTime.transform.parent.childCount-1);
     }
 }
