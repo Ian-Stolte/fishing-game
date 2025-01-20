@@ -28,7 +28,7 @@ public class Cooking : MonoBehaviour
     private GameObject box;
     private int quality;
     private int numFish;
-    [SerializeField] private List<Recipe> recipes;
+    public List<Recipe> recipes;
 
     private FishTracker fishTracker;
     private FoodTracker foodTracker;
@@ -355,7 +355,7 @@ public class Recipe
 
     public Vector3 quantity; //change to separate object w/ quality and heartiness included, ingredients omitted??
 
-    //public GameObject sprite
+    public GameObject inventoryBox;
     //add additional effects
 
     public Recipe DeepCopy()

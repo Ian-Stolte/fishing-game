@@ -38,7 +38,9 @@ public class MapManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI moneyQuest;
     [SerializeField] private TextMeshProUGUI fishQuest;
+    [SerializeField] private TextMeshProUGUI stewQuest;
 
+    [SerializeField] private Cooking cooking;
     [SerializeField] private Market market;
     [SerializeField] private Garden garden;
     private FishTracker fishTracker;
@@ -108,6 +110,8 @@ public class MapManager : MonoBehaviour
     {
         foreach (Transform child in inventory.transform.GetChild(0)) //food
             Destroy(child.gameObject);
+        foreach (Transform child in inventory.transform.GetChild(3)) //dishes
+            Destroy(child.gameObject);
         for (int i = 0; i < fishTracker.fish.Length; i++)
         {
             GameObject box = null;
@@ -154,7 +158,42 @@ public class MapManager : MonoBehaviour
                 child.GetChild(2).gameObject.SetActive(s.quantity == 0);
             }
         }
+        int dishNum = 0;
+        for (int i = 0; i < cooking.recipes.Count; i++)
+        {
+            if (cooking.recipes[i].quantity.x > 0)
+            {
+                SpawnDishBox(cooking.recipes[i].inventoryBox, (int)cooking.recipes[i].quantity.x, dishNum);
+                dishNum++;
+            }
+            if (cooking.recipes[i].quantity.y > 0)
+            {
+                GameObject dishBox = SpawnDishBox(cooking.recipes[i].inventoryBox, (int)cooking.recipes[i].quantity.y, dishNum);
+                dishBox.transform.GetChild(1).gameObject.SetActive(true);
+                dishNum++;
+            }
+            if (cooking.recipes[i].quantity.z > 0)
+            {
+                GameObject dishBox = SpawnDishBox(cooking.recipes[i].inventoryBox, (int)cooking.recipes[i].quantity.z, dishNum);
+                dishBox.transform.GetChild(1).gameObject.SetActive(true);
+                dishBox.transform.GetChild(2).gameObject.SetActive(true);
+                dishNum++;
+            }
+        }
+        inventory.transform.GetChild(7).gameObject.SetActive(dishNum > 0);
         inventory.SetActive(true);
+    }
+
+    private GameObject SpawnDishBox(GameObject g, int count, int n)
+    {
+        GameObject dishBox = Instantiate(g, Vector3.zero, Quaternion.identity, inventory.transform.GetChild(3));
+        if (count == 1)
+            dishBox.transform.GetChild(3).gameObject.SetActive(false);
+        else
+            dishBox.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = "" + count;
+        dishBox.transform.localScale = new Vector3(1.74f, 1.74f, 1.74f);
+        dishBox.GetComponent<RectTransform>().anchoredPosition = new Vector2(212 + 200*(n%4), 330 - 200*(n/4));
+        return dishBox;
     }
 
 
@@ -217,8 +256,15 @@ public class MapManager : MonoBehaviour
         moneyQuest.text = "Earn 100 sp. <b>(" + player.money + "/100)";
         if (player.money > 100)
         {
-            moneyQuest.transform.GetChild(1).gameObject.SetActive(true);
+            moneyQuest.transform.GetChild(0).gameObject.SetActive(true);
             moneyQuest.color = new Color(200, 200, 200);
+            //give player reward if first time
+        }
+        Recipe r = cooking.recipes.FirstOrDefault(r => r.name == "Fish Stew");
+        if (r.quantity.x > 0 || r.quantity.y > 0 || r.quantity.z > 0)
+        {
+            stewQuest.transform.GetChild(0).gameObject.SetActive(true);
+            stewQuest.color = new Color(200, 200, 200);
             //give player reward if first time
         }
 
@@ -231,7 +277,7 @@ public class MapManager : MonoBehaviour
         fishQuest.text = "Catch all 6 fish <b>(" + caughtFish + "/6)";
         if (caughtFish >= 6)
         {
-            fishQuest.transform.GetChild(1).gameObject.SetActive(true);
+            fishQuest.transform.GetChild(0).gameObject.SetActive(true);
             fishQuest.color = new Color(200, 200, 200);
             //give player reward if 1st time
         }
