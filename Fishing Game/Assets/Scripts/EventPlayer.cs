@@ -20,7 +20,6 @@ public class EventPlayer : MonoBehaviour
     
 
     [HideInInspector] public bool eventStarted;
-    public bool readyToReturn;
     private bool returned;
 
     public Event currentEvent;
@@ -74,24 +73,10 @@ public class EventPlayer : MonoBehaviour
     {
         if (!returned && !choosing)
         {
-            /*else if (choosing)
-            {
-                //arrow keys to mouse between options?
-            }*/
-
-            /*if (Input.GetMouseButtonDown(0) && readyToReturn)
-            {
-                if (playingLine)
-                    skip = true;
-                else if (index < dialogue.Length-1)
-                {
-                    index++;
-                    StartCoroutine(PlayLine(dialogue[index]));
-                }
-            }*/
-            if (index >= dialogue.Length-1 && !playingLine && (readyToReturn || loc != 0))
+            if (index >= dialogue.Length-1 && !playingLine)
             {
                 clickToEnd.SetActive(true);
+                clickButton.SetActive(false);
             }
 
             lineDelayTimer = Mathf.Max(0, lineDelayTimer-Time.deltaTime);
@@ -101,6 +86,10 @@ public class EventPlayer : MonoBehaviour
                 StartCoroutine(PlayLine(dialogue[index]));
             }
         }
+        /*else if (choosing)
+        {
+            //arrow keys to mouse between options?
+        }*/
     }
 
 
@@ -113,7 +102,7 @@ public class EventPlayer : MonoBehaviour
             index++;
             StartCoroutine(PlayLine(dialogue[index]));
         }
-        else if (index >= dialogue.Length-1 && !playingLine && (readyToReturn || loc != 0))
+        else if (index >= dialogue.Length-1 && !playingLine)
         {
             ReturnToMap();
         }
@@ -132,7 +121,6 @@ public class EventPlayer : MonoBehaviour
         index = 0;
 
         returned = false;
-        readyToReturn = true;
         fishingGame.SetActive(false);
         market.SetActive(false);
         cooking.SetActive(false);
@@ -253,7 +241,6 @@ public class EventPlayer : MonoBehaviour
                     }
                 }
             }
-            readyToReturn = false;
             txtBox.text = "";
             if (index < dialogue.Length-1)
             {

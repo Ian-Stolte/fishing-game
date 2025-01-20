@@ -38,7 +38,6 @@ public class FishingGame : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fishPrice;
 
     [SerializeField] private GameObject clickButton;
-    [SerializeField] private GameObject arrowBack;
 
     [SerializeField] private TextMeshProUGUI statusTxt;
     [SerializeField] private Animator biteTxt;
@@ -73,7 +72,6 @@ public class FishingGame : MonoBehaviour
         baitText.text = "" + bait;
         cheapBaitText.text = "" + cheapBait;
         activeBait = BaitType.NONE;
-        arrowBack.SetActive(false);
     }
 
     void Update()
@@ -144,7 +142,6 @@ public class FishingGame : MonoBehaviour
                 fishPopup.SetActive(false);
                 failPopup.SetActive(false);
                 castButton.SetActive(true);
-                arrowBack.SetActive(true);
                 //GameObject.Find("Location BG").GetComponent<EventPlayer>().readyToReturn = true;
                 clickButton.SetActive(true);
             }
