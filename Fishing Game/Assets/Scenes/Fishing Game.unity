@@ -5930,7 +5930,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &242885054
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5969,31 +5969,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seeds:
   - name: Carrot
-    quantity: 0
+    quantity: 5
     price: 3
     description: Plant these in the ground and wait a few days... who knew gardening
       could be so easy?
+    comboColor: {r: 0.8930817, g: 0.5765391, b: 0.33982027, a: 1}
     plantSquare: {fileID: 113656214277970546, guid: d9e7e0104ede74484bc55935d63c77b4, type: 3}
     marketBox: {fileID: 4707453210664977122, guid: cb835ac4c3dc7473da645c0734c98125, type: 3}
   - name: Potato
-    quantity: 0
+    quantity: 5
     price: 4
     description: Plant these in the ground and wait a few days... who knew gardening
       could be so easy?
+    comboColor: {r: 0.8039216, g: 0.72156864, b: 0.6, a: 1}
     plantSquare: {fileID: 113656214277970546, guid: 5ccbd144e6e084ab095c07c1cd34ddaf, type: 3}
     marketBox: {fileID: 8840752533820926075, guid: e6611868691e5424c8ff998000e78fd7, type: 3}
   - name: Wheat
-    quantity: 0
+    quantity: 4
     price: 7
     description: Plant these in the ground and wait a few days... who knew gardening
       could be so easy?
+    comboColor: {r: 1, g: 1, b: 1, a: 1}
     plantSquare: {fileID: 113656214277970546, guid: 827768c63b8d64468adf0b613ce955b4, type: 3}
     marketBox: {fileID: 6131270926810384497, guid: 0b8d948a1ee694230be72f81c09b0f33, type: 3}
   - name: Onion
-    quantity: 0
+    quantity: 3
     price: 10
     description: Plant these in the ground and wait a few days... who knew gardening
       could be so easy?
+    comboColor: {r: 0.06666667, g: 0.06666667, b: 0.06666667, a: 1}
     plantSquare: {fileID: 113656214277970546, guid: f17640a2153fe43c6a3f2c97dcb7280d, type: 3}
     marketBox: {fileID: 2190353759354397299, guid: e29b7e0b871d7439e81f417606d49774, type: 3}
   plants: {fileID: 1379496534}
@@ -7887,7 +7891,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Name
-      value: Empty Square (11)
+      value: Empty Square (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384788707906820042, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: index
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
@@ -8563,6 +8571,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8898,6 +8910,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 6384788707906820042, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: index
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9104,7 +9120,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &373319627
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11706,7 +11722,7 @@ MonoBehaviour:
   smarts: 4
   heart: 4
   charm: 4
-  money: 15
+  money: 200
   statColors:
   - {r: 1, g: 0.7126707, b: 0.34905648, a: 1}
   - {r: 0.45490193, g: 1, b: 0.8706271, a: 1}
@@ -11814,6 +11830,10 @@ PrefabInstance:
     - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Name
       value: Empty Square (27)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
@@ -13308,6 +13328,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 6384788707906820042, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: index
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -14293,6 +14317,10 @@ PrefabInstance:
     - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Name
       value: Empty Square (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
@@ -17595,6 +17623,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6384788707906820042, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: index
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -18597,6 +18629,10 @@ PrefabInstance:
     - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Name
       value: Empty Square (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384788707906820042, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: index
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
@@ -21470,6 +21506,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6384788707906820042, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: index
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -23872,6 +23912,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6384788707906820042, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: index
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -24376,6 +24420,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -24652,6 +24700,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -24826,6 +24878,10 @@ PrefabInstance:
     - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Name
       value: Empty Square (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
@@ -27608,6 +27664,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6384788707906820042, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: index
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -27733,6 +27793,10 @@ PrefabInstance:
     - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Name
       value: Empty Square (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384788707906820042, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: index
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
@@ -28665,6 +28729,10 @@ PrefabInstance:
     - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Name
       value: Empty Square (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
@@ -30260,6 +30328,10 @@ PrefabInstance:
     - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Name
       value: Empty Square (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384788707906820042, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: index
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
@@ -32175,6 +32247,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -33556,18 +33632,18 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1822466305}
-  - {fileID: 830856760}
   - {fileID: 1056183354}
-  - {fileID: 966585180}
   - {fileID: 1189479959}
-  - {fileID: 2011479108}
   - {fileID: 785721159}
-  - {fileID: 1279682674}
   - {fileID: 2027574448}
   - {fileID: 1636562195}
+  - {fileID: 606584314}
+  - {fileID: 830856760}
+  - {fileID: 966585180}
+  - {fileID: 2011479108}
+  - {fileID: 1279682674}
   - {fileID: 317626163}
   - {fileID: 358663411}
-  - {fileID: 606584314}
   - {fileID: 1189527068}
   - {fileID: 1086912565}
   - {fileID: 1076771605}
@@ -36433,6 +36509,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (28)
       objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -39166,7 +39246,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Name
-      value: Empty Square (10)
+      value: Empty Square (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384788707906820042, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: index
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
@@ -41716,7 +41800,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1727903564
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42594,6 +42678,10 @@ PrefabInstance:
     - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Name
       value: Empty Square (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
@@ -46790,6 +46878,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -48863,6 +48955,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -49403,6 +49499,10 @@ PrefabInstance:
     - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Name
       value: Empty Square (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384788707906820042, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: index
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
@@ -50120,6 +50220,10 @@ PrefabInstance:
     - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Name
       value: Empty Square (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384788707906820042, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: index
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
@@ -51842,6 +51946,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty Square (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -52050,7 +52158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2092725184
 RectTransform:
   m_ObjectHideFlags: 0
@@ -52939,6 +53047,10 @@ PrefabInstance:
     - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Name
       value: Empty Square (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7389491440131474405, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
       propertyPath: m_Pivot.x

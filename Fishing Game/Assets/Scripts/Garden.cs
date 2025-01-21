@@ -9,6 +9,7 @@ using TMPro;
 public class Garden : MonoBehaviour
 {
     public Seed[] seeds;
+    public SeedData[,] seedData = new SeedData[2, 12];
     [SerializeField] private Transform plants;
     [SerializeField] private Transform seedBoxes;
     [SerializeField] private GameObject currentHover;
@@ -19,6 +20,16 @@ public class Garden : MonoBehaviour
     
     [SerializeField] private PlayerManager player;
 
+
+    private void Awake()
+    {
+        foreach (Transform child in plants)
+        {
+            Plant p = child.GetComponent<Plant>();
+            SeedData s = new SeedData(child.gameObject, "Empty");
+            seedData[p.index/7, p.index%7] = s;
+        }
+    }
 
     private void OnEnable()
     {
@@ -38,6 +49,15 @@ public class Garden : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            //print seedData to debug
+            for (int i = 0; i < 14; i++)
+            {
+                Debug.Log(i + ": " + seedData[i/7, i%7].kind);
+            }
+        }
+
         if (Input.GetMouseButtonUp(0) && dragSprite != null)
         {
             bool boxFound = false;
@@ -161,6 +181,27 @@ public class Garden : MonoBehaviour
         GameObject plant = Instantiate(s.plantSquare, emptySquare.position, Quaternion.identity, emptySquare.parent);
         plant.GetComponent<RectTransform>().anchoredPosition = emptySquare.GetComponent<RectTransform>().anchoredPosition;
         plant.transform.localScale = new Vector3(0.68f, 0.68f, 0.68f);
+
+        int index = emptySquare.GetComponent<Plant>().index;
+        plant.GetComponent<Plant>().index = index;
+        seedData[index/7, index%7] = new SeedData(plant, type);
+
+        //Wheat: if index%7 != 0, check (col, index-1)
+        //       if index%7 != 6, check (col, index+1)
+
+        //Carrot: if index%7 != 0, check (col+1%2, index-1)
+        //        if index%7 != 6, check (col+1%2, index+1)
+
+        //Onion: if index%7 != 0, check (col, index-1) and (col+1%2, index-1)
+        //       if index%7 != 6, check (col, index+1) and (col+1%2, index+1)
+        //       always check (col+1%2, index)
+        //       --only combo if NO successful checks (inverse)
+
+        //Potato: if index%7 != 0, check (col, index-1) and (col+1%2, index-1)
+        //        if index%7 != 6, check (col, index+1) and (col+1%2, index+1)
+        //        always check (col+1%2, index)
+        //        --need either adjacent square or BOTH above/below cols (if adjacent square, highlight any above/below; if not, just highlight doubles)
+
         Destroy(emptySquare.gameObject);
         StartCoroutine(StartTimer(plant));
     }
@@ -186,6 +227,21 @@ public class Seed
     public int price;
     public string description;
 
+    public Color comboColor;
     public GameObject plantSquare;
     public GameObject marketBox;
+}
+
+
+[System.Serializable]
+public class SeedData
+{
+    public SeedData(GameObject square_, string kind_)
+    {
+        square = square_;
+        kind = kind_;
+    }
+
+    public string kind;
+    public GameObject square;
 }

@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 5786869643970988892}
   - component: {fileID: 8184338494974588163}
   - component: {fileID: 8072191713483545304}
+  - component: {fileID: 6384788707906820042}
   m_Layer: 5
   m_Name: Empty Square
   m_TagString: Untagged
@@ -300,6 +301,26 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &6384788707906820042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4068421514802367192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f89b9d4e41c9b4a7cb8f433b5ec794a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  empty: 1
+  time: 0
+  totalTime: 0
+  seedDropPct: 0
+  emptyPrefab: {fileID: 0}
+  foodPopupPrefab: {fileID: 0}
+  seedPopupPrefab: {fileID: 0}
+  index: 0
 --- !u!1 &4864427212212904386
 GameObject:
   m_ObjectHideFlags: 0

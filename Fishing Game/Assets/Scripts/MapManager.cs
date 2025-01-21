@@ -245,7 +245,7 @@ public class MapManager : MonoBehaviour
         foreach (Transform child in gardenPlants)
         {
             Plant p = child.GetComponent<Plant>();
-            if (p != null) //if not an empty box
+            if (!p.empty)
             {
                 p.time += 1;
                 child.GetChild(2).GetChild(1).GetComponent<Image>().fillAmount = (p.time*1.0f)/p.totalTime;

@@ -231,7 +231,7 @@ public class EventPlayer : MonoBehaviour
                 foreach (Transform child in mapManager.gardenPlants)
                 {
                     Plant p = child.GetComponent<Plant>();
-                    if (p != null)
+                    if (!p.empty)
                     {
                         if (p.time >= p.totalTime)
                         {
