@@ -193,57 +193,110 @@ public class Garden : MonoBehaviour
         plant.GetComponent<Plant>().index = index;
         seedData[col, index%7] = new SeedData(plant, type);
 
+        bool adjCarrot = AdjCarrot(col, index%7, plant);
         if (index % 7 != 0)
         {
             if (type == "Wheat")
-                WheatCheck(col, (index-1)%7, plant);
-            else if (type == "Carrot")
-                CarrotCheck(col, (index-1)%7, plant);
+                WheatCheck(col, index%7, (index-1)%7, plant);
+            else if (type == "Carrot" && !adjCarrot)
+                CarrotCheck(col, index%7, (index-1)%7, plant);
+            else if (type == "Potato")
+                PotatoCheck(col, index%7, (index-1)%7, plant);
+            else if (type == "Onion")
+                OnionCheck(col, index%7, (index-1)%7, plant);
         }
         if (index % 7 != 6)
         {
             if (type == "Wheat")
-                WheatCheck(col, (index+1)%7, plant);
-            else if (type == "Carrot")
-                CarrotCheck(col, (index+1)%7, plant);
+                WheatCheck(col, index%7, (index+1)%7, plant);
+            else if (type == "Carrot" && !adjCarrot)
+                CarrotCheck(col, index%7, (index+1)%7, plant);
+            else if (type == "Potato")
+                PotatoCheck(col, index%7, (index+1)%7, plant);
+            else if (type == "Onion")
+                OnionCheck(col, index%7, (index+1)%7, plant);
         }
-
-        //Onion: if index%7 != 0, check (col, index-1) and (col+1%2, index-1)
-        //       if index%7 != 6, check (col, index+1) and (col+1%2, index+1)
-        //       always check (col+1%2, index)
-        //       --only combo if NO successful checks (inverse)
-
-        //Potato: if index%7 != 0, check (col, index-1) and (col+1%2, index-1)
-        //        if index%7 != 6, check (col, index+1) and (col+1%2, index+1)
-        //        always check (col+1%2, index)
-        //        --need either adjacent square or BOTH above/below cols (if adjacent square, highlight any above/below; if not, just highlight doubles)
-
         Destroy(emptySquare.gameObject);
         StartCoroutine(StartTimer(plant));
     }
 
-    private void WheatCheck(int col, int adjIndex, GameObject plant)
+    private void WheatCheck(int col, int index, int adjIndex, GameObject plant)
     {
-        if (seedData[col, adjIndex].kind == "Wheat" && !seedData[col, adjIndex].old)
+        if (seedData[col, adjIndex].kind == "Wheat" && !seedData[col, adjIndex].old && !(seedData[(col+1)%2, index].kind == "Wheat"))
         {
             plant.GetComponent<Image>().color = comboColors[0];
             seedData[col, adjIndex].square.GetComponent<Image>().color = comboColors[0];
         }
-        //could add req for no horizontally adjacent wheat
     }
 
-    private void CarrotCheck(int col, int adjIndex, GameObject plant)
+    private bool AdjCarrot(int col, int index, GameObject plant)
     {
-        Debug.Log("Carrot check (" + adjIndex + ")  --> " + seedData[(col+1)%2, adjIndex].kind);
+        if (seedData[(col+1)%2, index].kind == "Carrot")
+            return true;
+        
+        if (index != 0)
+        {
+            if (seedData[col, index-1].kind == "Carrot")
+                return true;
+        }
+        if (index != 6)
+        {
+            if (seedData[col, index+1].kind == "Carrot")
+                return true;
+        }
+        return false;
+    }
+
+    private void CarrotCheck(int col, int index, int adjIndex, GameObject plant)
+    {
         if (seedData[(col+1)%2, adjIndex].kind == "Carrot" && !seedData[(col+1)%2, adjIndex].old)
         {
             plant.GetComponent<Image>().color = comboColors[1];
             seedData[(col+1)%2, adjIndex].square.GetComponent<Image>().color = comboColors[1];
         }
-        //could add req for no adjacent carrots (only diagonal)
     }
 
-    
+    private void PotatoCheck(int col, int index, int adjIndex, GameObject plant)
+    {
+        bool sameCol = seedData[col, adjIndex].kind == "Potato" && !seedData[col, adjIndex].old;
+        bool adjCol = seedData[(col+1)%2, adjIndex].kind == "Potato" && !seedData[(col+1)%2, adjIndex].old;
+
+        if (seedData[(col+1)%2, index].kind == "Potato" && !seedData[(col+1)%2, index].old)
+        {
+            plant.GetComponent<Image>().color = comboColors[2];
+            seedData[(col+1)%2, index].square.GetComponent<Image>().color = comboColors[2];
+            if (sameCol)
+                seedData[col, adjIndex].square.GetComponent<Image>().color = comboColors[2];
+            if (adjCol)
+                seedData[(col+1)%2, adjIndex].square.GetComponent<Image>().color = comboColors[2];
+        }
+        else if (sameCol && adjCol)
+        {
+            plant.GetComponent<Image>().color = comboColors[2];
+        }
+    }
+
+    private void OnionCheck(int col, int index, int adjIndex, GameObject plant)
+    {
+        bool sameCol = seedData[col, adjIndex].kind == "Onion";
+        bool adjCol = seedData[(col+1)%2, adjIndex].kind == "Onion";
+        bool sameRow = seedData[(col+1)%2, index].kind == "Onion";
+        
+        if (!sameCol && !adjCol && !sameRow)
+        {
+            plant.GetComponent<Image>().color = comboColors[3];
+        }
+        else
+        {
+            plant.GetComponent<Image>().color = comboColors[4];
+            if (sameCol)
+                seedData[col, adjIndex].square.GetComponent<Image>().color = comboColors[4];
+            if (adjCol)
+                seedData[(col+1)%2, adjIndex].square.GetComponent<Image>().color = comboColors[4];
+            if (sameRow)
+                seedData[(col+1)%2, index].square.GetComponent<Image>().color = comboColors[4];
+        }
+    }
 
 
     private IEnumerator StartTimer(GameObject plant)
