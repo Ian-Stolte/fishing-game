@@ -6,14 +6,15 @@ using UnityEngine;
 public class Plant : MonoBehaviour
 {
     public bool empty;
+    public int index;
 
     public int time;
     public int totalTime;
     public float seedDropPct;
+
     [SerializeField] private GameObject emptyPrefab;
     [SerializeField] private GameObject foodPopupPrefab;
     [SerializeField] private GameObject seedPopupPrefab;
-    public int index;
 
 
     public void CollectPlant(string type)

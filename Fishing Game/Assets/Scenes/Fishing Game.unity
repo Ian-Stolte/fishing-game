@@ -5973,7 +5973,6 @@ MonoBehaviour:
     price: 3
     description: Plant these in the ground and wait a few days... who knew gardening
       could be so easy?
-    comboColor: {r: 0.8930817, g: 0.5765391, b: 0.33982027, a: 1}
     plantSquare: {fileID: 113656214277970546, guid: d9e7e0104ede74484bc55935d63c77b4, type: 3}
     marketBox: {fileID: 4707453210664977122, guid: cb835ac4c3dc7473da645c0734c98125, type: 3}
   - name: Potato
@@ -5981,7 +5980,6 @@ MonoBehaviour:
     price: 4
     description: Plant these in the ground and wait a few days... who knew gardening
       could be so easy?
-    comboColor: {r: 0.8039216, g: 0.72156864, b: 0.6, a: 1}
     plantSquare: {fileID: 113656214277970546, guid: 5ccbd144e6e084ab095c07c1cd34ddaf, type: 3}
     marketBox: {fileID: 8840752533820926075, guid: e6611868691e5424c8ff998000e78fd7, type: 3}
   - name: Wheat
@@ -5989,7 +5987,6 @@ MonoBehaviour:
     price: 7
     description: Plant these in the ground and wait a few days... who knew gardening
       could be so easy?
-    comboColor: {r: 1, g: 1, b: 1, a: 1}
     plantSquare: {fileID: 113656214277970546, guid: 827768c63b8d64468adf0b613ce955b4, type: 3}
     marketBox: {fileID: 6131270926810384497, guid: 0b8d948a1ee694230be72f81c09b0f33, type: 3}
   - name: Onion
@@ -5997,9 +5994,13 @@ MonoBehaviour:
     price: 10
     description: Plant these in the ground and wait a few days... who knew gardening
       could be so easy?
-    comboColor: {r: 0.06666667, g: 0.06666667, b: 0.06666667, a: 1}
     plantSquare: {fileID: 113656214277970546, guid: f17640a2153fe43c6a3f2c97dcb7280d, type: 3}
     marketBox: {fileID: 2190353759354397299, guid: e29b7e0b871d7439e81f417606d49774, type: 3}
+  comboColors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0.89411765, g: 0.5764706, b: 0.34117648, a: 1}
+  - {r: 0.8039216, g: 0.72156864, b: 0.6, a: 1}
+  - {r: 0.06666667, g: 0.06666667, b: 0.06666667, a: 1}
   plants: {fileID: 1379496534}
   seedBoxes: {fileID: 1305639359}
   currentHover: {fileID: 0}
