@@ -1,2 +1,2 @@
 # fishing-game
- If a visual novel, farming sim, and strategy board game had a baby...
+A combination visual novel, farming sim, and resource-management strategy game. Fish, trade, cook, or farm — all while seamlessly chatting with vibrant NPCs!
