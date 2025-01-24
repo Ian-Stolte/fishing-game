@@ -9,7 +9,7 @@ using TMPro;
 public class Garden : MonoBehaviour
 {
     public Seed[] seeds;
-    public SeedData[,] seedData = new SeedData[2, 12];
+    public SeedData[,] seedData = new SeedData[4, 12];
     public Color[] comboColors;
 
     [SerializeField] private Transform plants;
@@ -46,7 +46,7 @@ public class Garden : MonoBehaviour
             child.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + s.quantity;
             child.GetChild(2).gameObject.SetActive(s.quantity == 0);
         }
-        for (int i = 0; i < 14; i++)
+        for (int i = 0; i < 28; i++)
         {
             seedData[i/7, i%7].old = true;
         }
@@ -181,49 +181,50 @@ public class Garden : MonoBehaviour
 
         int index = emptySquare.GetComponent<Plant>().index;
         int col = index/7;
+        int adjCol = (col > 1) ? 5-col : 1-col; //0 <-> 1,  2 <-> 3
         plant.GetComponent<Plant>().index = index;
         seedData[col, index%7] = new SeedData(plant, type);
 
-        bool adjCarrot = AdjCarrot(col, index%7, plant);
+        bool adjCarrot = AdjCarrot(col, adjCol, index%7, plant);
         bool alreadyBad = false;
         if (index % 7 != 0)
         {
             if (type == "Wheat")
-                WheatCheck(col, index%7, (index-1)%7, plant);
+                WheatCheck(col, adjCol, index%7, (index-1)%7, plant);
             else if (type == "Carrot" && !adjCarrot)
-                CarrotCheck(col, index%7, (index-1)%7, plant);
+                CarrotCheck(col, adjCol, index%7, (index-1)%7, plant);
             else if (type == "Potato")
-                PotatoCheck(col, index%7, (index-1)%7, plant);
+                PotatoCheck(col, adjCol, index%7, (index-1)%7, plant);
             else if (type == "Onion")
-                alreadyBad = OnionCheck(col, index%7, (index-1)%7, plant, false);
+                alreadyBad = OnionCheck(col, adjCol, index%7, (index-1)%7, plant, false);
         }
         if (index % 7 != 6)
         {
             if (type == "Wheat")
-                WheatCheck(col, index%7, (index+1)%7, plant);
+                WheatCheck(col, adjCol, index%7, (index+1)%7, plant);
             else if (type == "Carrot" && !adjCarrot)
-                CarrotCheck(col, index%7, (index+1)%7, plant);
+                CarrotCheck(col, adjCol, index%7, (index+1)%7, plant);
             else if (type == "Potato")
-                PotatoCheck(col, index%7, (index+1)%7, plant);
+                PotatoCheck(col, adjCol, index%7, (index+1)%7, plant);
             else if (type == "Onion")
-                OnionCheck(col, index%7, (index+1)%7, plant, alreadyBad);
+                OnionCheck(col, adjCol, index%7, (index+1)%7, plant, alreadyBad);
         }
         Destroy(emptySquare.gameObject);
         StartCoroutine(StartTimer(plant));
     }
 
-    private void WheatCheck(int col, int index, int adjIndex, GameObject plant)
+    private void WheatCheck(int col, int adjCol, int index, int adjIndex, GameObject plant)
     {
-        if (seedData[col, adjIndex].kind == "Wheat" && !seedData[col, adjIndex].old && !(seedData[(col+1)%2, index].kind == "Wheat"))
+        if (seedData[col, adjIndex].kind == "Wheat" && !seedData[col, adjIndex].old && !(seedData[adjCol, index].kind == "Wheat"))
         {
             plant.GetComponent<Image>().color = comboColors[0];
             seedData[col, adjIndex].square.GetComponent<Image>().color = comboColors[0];
         }
     }
 
-    private bool AdjCarrot(int col, int index, GameObject plant)
+    private bool AdjCarrot(int col, int adjCol, int index, GameObject plant)
     {
-        if (seedData[(col+1)%2, index].kind == "Carrot")
+        if (seedData[adjCol, index].kind == "Carrot")
             return true;
         
         if (index != 0)
@@ -239,42 +240,42 @@ public class Garden : MonoBehaviour
         return false;
     }
 
-    private void CarrotCheck(int col, int index, int adjIndex, GameObject plant)
+    private void CarrotCheck(int col, int adjCol, int index, int adjIndex, GameObject plant)
     {
-        if (seedData[(col+1)%2, adjIndex].kind == "Carrot" && !seedData[(col+1)%2, adjIndex].old)
+        if (seedData[adjCol, adjIndex].kind == "Carrot" && !seedData[adjCol, adjIndex].old)
         {
             plant.GetComponent<Image>().color = comboColors[1];
-            seedData[(col+1)%2, adjIndex].square.GetComponent<Image>().color = comboColors[1];
+            seedData[adjCol, adjIndex].square.GetComponent<Image>().color = comboColors[1];
         }
     }
 
-    private void PotatoCheck(int col, int index, int adjIndex, GameObject plant)
+    private void PotatoCheck(int col, int adjCol, int index, int adjIndex, GameObject plant)
     {
         bool sameCol = seedData[col, adjIndex].kind == "Potato" && !seedData[col, adjIndex].old;
-        bool adjCol = seedData[(col+1)%2, adjIndex].kind == "Potato" && !seedData[(col+1)%2, adjIndex].old;
+        bool diffCol = seedData[adjCol, adjIndex].kind == "Potato" && !seedData[adjCol, adjIndex].old;
 
-        if (seedData[(col+1)%2, index].kind == "Potato" && !seedData[(col+1)%2, index].old)
+        if (seedData[adjCol, index].kind == "Potato" && !seedData[adjCol, index].old)
         {
             plant.GetComponent<Image>().color = comboColors[2];
-            seedData[(col+1)%2, index].square.GetComponent<Image>().color = comboColors[2];
+            seedData[adjCol, index].square.GetComponent<Image>().color = comboColors[2];
             if (sameCol)
                 seedData[col, adjIndex].square.GetComponent<Image>().color = comboColors[2];
-            if (adjCol)
-                seedData[(col+1)%2, adjIndex].square.GetComponent<Image>().color = comboColors[2];
+            if (diffCol)
+                seedData[adjCol, adjIndex].square.GetComponent<Image>().color = comboColors[2];
         }
-        else if (sameCol && adjCol)
+        else if (sameCol && diffCol)
         {
             plant.GetComponent<Image>().color = comboColors[2];
         }
     }
 
-    private bool OnionCheck(int col, int index, int adjIndex, GameObject plant, bool alreadyBad)
+    private bool OnionCheck(int col, int adjCol, int index, int adjIndex, GameObject plant, bool alreadyBad)
     {
         bool sameCol = seedData[col, adjIndex].kind == "Onion";
-        bool adjCol = seedData[(col+1)%2, adjIndex].kind == "Onion";
-        bool sameRow = seedData[(col+1)%2, index].kind == "Onion";
+        bool diffCol = seedData[adjCol, adjIndex].kind == "Onion";
+        bool sameRow = seedData[adjCol, index].kind == "Onion";
         
-        if (!sameCol && !adjCol && !sameRow && !alreadyBad)
+        if (!sameCol && !diffCol && !sameRow && !alreadyBad)
         {
             plant.GetComponent<Image>().color = comboColors[3];
             return false;
@@ -284,10 +285,10 @@ public class Garden : MonoBehaviour
             plant.GetComponent<Image>().color = comboColors[4];
             if (sameCol)
                 seedData[col, adjIndex].square.GetComponent<Image>().color = comboColors[4];
-            if (adjCol)
-                seedData[(col+1)%2, adjIndex].square.GetComponent<Image>().color = comboColors[4];
+            if (diffCol)
+                seedData[adjCol, adjIndex].square.GetComponent<Image>().color = comboColors[4];
             if (sameRow)
-                seedData[(col+1)%2, index].square.GetComponent<Image>().color = comboColors[4];
+                seedData[adjCol, index].square.GetComponent<Image>().color = comboColors[4];
             return true;
         }
     }
