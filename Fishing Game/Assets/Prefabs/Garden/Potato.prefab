@@ -94,6 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89b9d4e41c9b4a7cb8f433b5ec794a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  empty: 0
+  index: 0
   time: 1
   totalTime: 8
   seedDropPct: 0.4
@@ -716,8 +718,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -9091587652010623918}
         m_TargetAssemblyTypeName: Plant, Assembly-CSharp
-        m_MethodName: CollectPlant
-        m_Mode: 5
+        m_MethodName: CollectSet
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

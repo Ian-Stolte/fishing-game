@@ -94,12 +94,117 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89b9d4e41c9b4a7cb8f433b5ec794a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  empty: 0
+  index: 0
   time: 1
   totalTime: 7
   seedDropPct: 0.3
   emptyPrefab: {fileID: 4068421514802367192, guid: 7644c1f2700ae478a9ff342ee61083fd, type: 3}
   foodPopupPrefab: {fileID: 5608173455910231966}
   seedPopupPrefab: {fileID: 1359017510675669942}
+--- !u!1 &693783391782587262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1253258627134125240}
+  - component: {fileID: 6712779008842345361}
+  - component: {fileID: 7469604717026661779}
+  - component: {fileID: 279862131391534446}
+  - component: {fileID: 163919025630502634}
+  m_Layer: 5
+  m_Name: Second Onion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1253258627134125240
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693783391782587262}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6123508616076731601}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5.083}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 47.977997, y: 1.6711235}
+  m_SizeDelta: {x: 79.727, y: 86.6494}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6712779008842345361
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693783391782587262}
+  m_CullTransparentMesh: 1
+--- !u!114 &7469604717026661779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693783391782587262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 96f9d744af61aad4499566a8d0b94ae2, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &279862131391534446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693783391782587262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3cbc68ed17fe41478a60d1ba15c177d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 1
+  fade: 1
+--- !u!225 &163919025630502634
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693783391782587262}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1266952258729780708
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,8 +658,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3980746377819374675}
         m_TargetAssemblyTypeName: Plant, Assembly-CSharp
-        m_MethodName: CollectPlant
-        m_Mode: 5
+        m_MethodName: CollectSet
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -596,6 +701,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4759039973895779759}
+  - {fileID: 1253258627134125240}
   m_Father: {fileID: 63829454043222424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5.083}
   m_AnchorMin: {x: 0.5, y: 0.5}
